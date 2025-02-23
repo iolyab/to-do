@@ -1,0 +1,15 @@
+.main {
+    background-color: aqua;
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-rows: 50px 100px 1fr;
+}
+
+.input-container {
+    background-color: rgb(255, 217, 79);
+}
+
+.tasks-container {
+    background-color: rgb(202, 253, 151);
+}
