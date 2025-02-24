@@ -8,3 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  display: grid;
+  grid-template-columns: minmax(100px,300px) 1fr;
+  grid-template-rows: 50px 1fr 80px;
+  height: 100vh;
+}
+
+

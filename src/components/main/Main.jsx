@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import '../styles/Main.css';
+import  classes from './Main.module.css';
 
-function Main() {
+const Main = () => {
 
     const[inputValue, setInputValue] = useState("");
     const[displayValue, setDisplayValue] = useState([]);
@@ -17,15 +17,15 @@ function Main() {
     }
 
     return(
-        <div className='main'>
+        <div className={classes.main}>
             <div className='head-title'>
                 <p>Today</p>
             </div>
-            <div className='input-container'>
+            <div className={classes.inputContainer}>
                 <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange}></input>
                 <button onClick={handleClick}>Add</button>
             </div>
-            <div className='tasks-container'>
+            <div className={classes.tasksContainer}>
                 <div className='tasks-to-do'>
                     <p>Tasks</p>
                     <ul>

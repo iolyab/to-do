@@ -6,10 +6,10 @@
     grid-template-rows: 50px 100px 1fr;
 }
 
-.input-container {
+.inputContainer {
     background-color: rgb(255, 217, 79);
 }
 
-.tasks-container {
+.tasksContainer {
     background-color: rgb(202, 253, 151);
 }

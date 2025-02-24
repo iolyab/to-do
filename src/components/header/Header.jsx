@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/Header.css';
+import classes from './Header.module.css';
 
-function Header() {
+const Header = () => {
     return(
-        <div className='header'>
+        <div className={classes.header}>
             <p>Header</p>
         </div>
     )
