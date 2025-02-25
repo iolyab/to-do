@@ -5,7 +5,7 @@
     grid-template-columns: 200px 1fr;
 }
 
-.logo {
+.logo img {
     width: 95px;
     height: 25px;
     object-fit: cover;
