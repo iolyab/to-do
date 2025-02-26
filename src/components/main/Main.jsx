@@ -18,16 +18,15 @@ const Main = () => {
 
     return(
         <div className={classes.main}>
-            <div className='head-title'>
-                <p>Today</p>
+            <div className={classes.headTitle}>
+                <p className={classes.dayTitle}>Today</p>
             </div>
             <div className={classes.inputContainer}>
-                <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange}></input>
-                <button onClick={handleClick}>Add</button>
+                <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange} className={classes.input}></input>
+                <button onClick={handleClick} className={classes.addBtn}>Add</button>
             </div>
             <div className={classes.tasksContainer}>
                 <div className='tasks-to-do'>
-                    <p>Tasks</p>
                     <ul>
                         {displayValue.map((value, index) => (
                             <li key={index}>{value}</li>
