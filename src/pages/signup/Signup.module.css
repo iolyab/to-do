@@ -8,7 +8,7 @@
 
 
 .container {
-    width: 400px;
+    width: 450px;
     background-color: white;
     padding: 10px 10px 30px 15px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
@@ -24,7 +24,7 @@
 .email {
     display: flex;
     align-items: center;
-    column-gap: 42px;
+    column-gap: 120px;
 }
 
 .input {
@@ -42,12 +42,18 @@
 .password {
     display: flex;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 86px;
+}
+
+.confirmPassword {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
 }
 
 .btn {
     margin-top: 10px;
-    margin-left: 120px;
+    margin-left: 140px;
     padding: 10px 10px 10px 10px;
     width: 150px;
     background-color: #48293D;
