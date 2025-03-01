@@ -21,10 +21,12 @@ const Nav = () => {
                         </a>
                     </li>
                     <li>
-                        <button className={classes.btn}>
-                            <img className={classes.icon} src="/assets/dashboard.png" alt="Dashboard"/>
-                            Dashboard
-                        </button>
+                        <a href="dashboard">
+                            <button className={classes.btn}>
+                                <img className={classes.icon} src="/assets/dashboard.png" alt="Dashboard"/>
+                                Dashboard
+                            </button>
+                        </a>
                     </li>
                     <li>
                         <button className={classes.btn}>
