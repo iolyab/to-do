@@ -5,31 +5,48 @@ const Nav = () => {
     return(
         <nav className={classes.navbar}>
             <div className={classes.navContainer}>
-                    <button className={classes.btn}>
-                        <img className={classes.icon} src="/assets/search.png" alt="Search"/>
-                        Search
-                    </button>
-                <a href="/">
-                    <button className={classes.btn}>
-                        <img className={classes.icon} src="/assets/home.png" alt="Home"/>
-                        Home
-                    </button>
-                </a>
-                <button className={classes.btn}>
-                    <img className={classes.icon} src="/assets/dashboard.png" alt="Dashboard"/>
-                    Dashboard
-                </button>
-                <button className={classes.btn}>
-                    <img className={classes.icon} src="/assets/upcoming.png" alt="Upcoming"/>
-                    Upcoming
-                </button>
-                <button className={classes.btn}>
-                    <img className={classes.icon} src="/assets/calendar.png" alt="Calendar"/>
-                    Calendar
-                </button>
+                <ul className={classes.list}>
+                    <li>
+                        <button className={classes.btn}>
+                            <img className={classes.icon} src="/assets/search.png" alt="Search"/>
+                            Search
+                        </button>
+                    </li>
+                    <li>
+                        <a href="/">
+                            <button className={classes.btn}>
+                                <img className={classes.icon} src="/assets/home.png" alt="Home"/>
+                                Home
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <button className={classes.btn}>
+                            <img className={classes.icon} src="/assets/dashboard.png" alt="Dashboard"/>
+                            Dashboard
+                        </button>
+                    </li>
+                    <li>
+                        <button className={classes.btn}>
+                            <img className={classes.icon} src="/assets/upcoming.png" alt="Upcoming"/>
+                            Upcoming
+                        </button>
+                    </li>
+                    <li>
+                        <button className={classes.btn}>
+                            <img className={classes.icon} src="/assets/calendar.png" alt="Calendar"/>
+                            Calendar
+                        </button>
+                    </li>
+                </ul>
             </div>
         </nav>
     )
 }
 export default Nav;
+
+
+
+
+
 

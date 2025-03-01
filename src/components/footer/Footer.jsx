@@ -4,7 +4,7 @@ import classes from './Footer.module.css';
 const Footer = () => {
     return (
         <div className={classes.footer}>
-            <q>Motivational quote</q>
+            <q className={classes.quote}>Small steps every day lead to big achievements.</q>
         </div>
     )
 }
