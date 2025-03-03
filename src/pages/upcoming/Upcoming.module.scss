@@ -9,15 +9,17 @@
   padding: 0px 10px 0px 10px;
 }
 
-.headTitle {
-  grid-column: 1 / 4;
-  grid-row: 1;
-  font-weight: bold;
-  font-size: 25px;
-}
+.title {
+  &Head {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    font-weight: bold;
+    font-size: 25px;
+  }
 
-.dayTitle {
-  margin: 20px 0px 0px 0px;
+  &Day {
+    margin: 20px 0px 0px 0px;
+  }
 }
 
 .priority {

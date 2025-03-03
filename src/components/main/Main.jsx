@@ -19,8 +19,8 @@ const Main = () => {
 
     return(
         <div className={classes.main}>
-            <div className={classes.headTitle}>
-                <p className={classes.dayTitle}>Today</p>
+            <div className={classes.titleHead}>
+                <p className={classes.titleDay}>Today</p>
             </div>
             <div className={classes.inputContainer}>
                 <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange} className={classes.input}></input>

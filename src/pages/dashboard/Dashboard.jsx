@@ -4,8 +4,8 @@ import classes from './Dashboard.module.scss';
 const Dashboard = () => {
     return (
         <div className={classes.container}>
-            <div className={classes.headTitle}>
-                <p className={classes.dayTitle}>Today</p>
+            <div className={classes.titleHead}>
+                <p className={classes.titleDay}>Today</p>
             </div>
             <div className={classes.tasks}>
                 <p className={classes.tasksTitle}>In progress</p>
