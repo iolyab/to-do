@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import  classes from './Main.module.scss';
 import { Button } from '../shared/button/Button';
-import { Title } from '../shared/title/Title';
 
 const Main = () => {
 
@@ -20,7 +19,9 @@ const Main = () => {
 
     return(
         <div className={classes.main}>
-            <Title />
+            <div className={classes.headTitle}>
+                <p className={classes.dayTitle}>Today</p>
+            </div>
             <div className={classes.inputContainer}>
                 <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange} className={classes.input}></input>
                 <Button />
