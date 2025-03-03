@@ -1,5 +1,5 @@
 import React from "react";
-import classes from './Upcoming.module.css';
+import classes from './Upcoming.module.scss';
 
 const Upcoming = () => {
     return (

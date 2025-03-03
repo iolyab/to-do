@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import  classes from './Main.module.css';
+import  classes from './Main.module.scss';
+import { Button } from '../shared/button/Button';
+import { Title } from '../shared/title/Title';
 
 const Main = () => {
 
@@ -18,12 +20,10 @@ const Main = () => {
 
     return(
         <div className={classes.main}>
-            <div className={classes.headTitle}>
-                <p className={classes.dayTitle}>Today</p>
-            </div>
+            <Title />
             <div className={classes.inputContainer}>
                 <input type="text" placeholder='To-do...' value={inputValue} onChange={handleChange} className={classes.input}></input>
-                <button onClick={handleClick} className={classes.addBtn}>Add</button>
+                <Button />
             </div>
             <div className={classes.tasksContainer}>
                 <div className='tasks-to-do'>
