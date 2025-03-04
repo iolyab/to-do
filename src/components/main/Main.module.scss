@@ -28,19 +28,6 @@
   align-items: center;
 }
 
-.input {
-  padding: 10px 300px 10px 10px;
-  border-style: none;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-  outline: none;
-
-  &:focus {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #48293d;
-  }
-}
-
 .tasksContainer {
   background-color: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);

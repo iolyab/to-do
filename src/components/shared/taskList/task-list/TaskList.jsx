@@ -1,4 +1,4 @@
-import { TaskItemContainer } from './TaskItemContainer';
+import { TaskItemContainer } from '../task-item/TaskItemContainer';
 
 const TaskList = () => {
     return (
