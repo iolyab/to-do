@@ -8,7 +8,9 @@ const Input = ({ handleChange = () => {} }) => {
         const value = e.target.value;
         if(value.trim() === '') {
             setError('Input cannot be empty.');
-        } else {
+        } else if (value.length < 2) {
+            setError('Input must have at least 2 characters');
+        }else {
             setError('');
         }
         handleChange(e);
