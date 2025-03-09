@@ -1,12 +1,11 @@
 import React from "react";
 import classes from './Dashboard.module.scss';
+import { Title } from '../../components/shared/title/Title';
 
 const Dashboard = () => {
     return (
         <div className={classes.container}>
-            <div className={classes.titleHead}>
-                <p className={classes.titleDay}>Today</p>
-            </div>
+            <Title />
             <div className={classes.tasks}>
                 <p className={classes.tasksTitle}>In progress</p>
             </div>

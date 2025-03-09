@@ -10,4 +10,10 @@ button {
     background-color: #d8c0cb;
     color: #45304d;
   }
+
+  &:focus {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #45304d;
+  }
 }

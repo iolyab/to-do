@@ -1,0 +1,12 @@
+.title {
+  &Head {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  &Day {
+    margin: 20px 0px 0px 0px;
+  }
+}

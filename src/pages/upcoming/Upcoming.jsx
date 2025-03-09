@@ -1,12 +1,11 @@
 import React from "react";
 import classes from './Upcoming.module.scss';
+import { Title } from '../../components/shared/title/Title';
 
 const Upcoming = () => {
     return (
         <div className={classes.container}>
-            <div className={classes.titleHead}>
-                <p className={classes.titleDay}>Today</p>
-            </div>
+            <Title />
             <div className={classes.priority}>
                 <p className={classes.priorityTitle}>High priority</p>
             </div>

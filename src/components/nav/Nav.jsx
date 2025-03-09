@@ -7,10 +7,12 @@ const Nav = () => {
             <div className={classes.navContainer}>
                 <ul className={classes.list}>
                     <li>
-                        <button className={classes.btn}>
-                            <img className={classes.icon} src="/assets/search.png" alt="Search"/>
-                            Search
-                        </button>
+                        <a href="">
+                            <button className={classes.btn}>
+                                <img className={classes.icon} src="/assets/search.png" alt="Search"/>
+                                Search
+                            </button>
+                        </a>
                     </li>
                     <li>
                         <a href="/">
@@ -37,10 +39,12 @@ const Nav = () => {
                         </a>
                     </li>
                     <li>
-                        <button className={classes.btn}>
-                            <img className={classes.icon} src="/assets/calendar.png" alt="Calendar"/>
-                            Calendar
-                        </button>
+                        <a href="">
+                            <button className={classes.btn}>
+                                <img className={classes.icon} src="/assets/calendar.png" alt="Calendar"/>
+                                Calendar
+                            </button>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -48,6 +52,8 @@ const Nav = () => {
     )
 }
 export default Nav;
+
+
 
 
 

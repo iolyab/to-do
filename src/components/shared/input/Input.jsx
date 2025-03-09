@@ -17,10 +17,10 @@ const Input = ({ handleChange = () => {} }) => {
     };
 
     return (
-        <div className={classes.inputContainer}>
+        <label className={classes.inputContainer}>
                 <input type="text" placeholder='To-do...' onChange={handleInputChange} className={`${classes.input} ${error ? classes.error : ""}`}></input>
                 {error && <p className={classes.errorMessage}>{error}</p>}
-        </div>
+        </label>
     )
 }
 

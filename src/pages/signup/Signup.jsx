@@ -7,18 +7,18 @@ const Signup = () => {
       <div className={classes.container}>
         <form className={classes.form}>
           <h2>Sign Up</h2>
-          <div className={classes.email}>
+          <label className={classes.email}>
             <p>Email</p>
             <input type="email" placeholder="Enter email..." className={classes.input} required />
-          </div>
-          <div className={classes.password}>
+          </label>
+          <label className={classes.password}>
             <p>Password</p>
             <input type="password" placeholder="Create password..." className={classes.input} required />
-          </div>
-          <div className={classes.confirmPassword}>
+          </label>
+          <label className={classes.confirmPassword}>
             <p>Confirm Password</p>
             <input type="password" placeholder="Confirm password..." className={classes.input} required />
-          </div>
+          </label>
           <button type="submit" className={classes.btn}>Sign Up</button>
         </form>
       </div>

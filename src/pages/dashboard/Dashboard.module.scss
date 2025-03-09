@@ -9,19 +9,6 @@
   padding: 0px 10px 0px 10px;
 }
 
-.title {
-  &Head {
-    grid-column: 1 / 4;
-    grid-row: 1;
-    font-weight: bold;
-    font-size: 25px;
-  }
-
-  &Day {
-    margin: 20px 0px 0px 0px;
-  }
-}
-
 .tasks {
   background-color: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);

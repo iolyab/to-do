@@ -7,14 +7,14 @@ const Login = () => {
       <div className={classes.container}>
         <form className={classes.form}>
           <h2>Log In</h2>
-          <div className={classes.email}>
+          <label className={classes.email}>
             <p>Email</p>
             <input type="email" placeholder="Enter your email..." className={classes.input} required />
-          </div>
-          <div className={classes.password}>
+          </label>
+          <label className={classes.password}>
             <p>Password</p>
             <input type="password" placeholder="Enter your password..." className={classes.input} required />
-          </div>
+          </label>
           <button type="submit" className={classes.btn}>Log In</button>
         </form>
       </div>
