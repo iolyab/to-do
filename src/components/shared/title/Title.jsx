@@ -1,11 +1,11 @@
-import classes from './title.module.scss';
+import classes from "./title.module.scss";
 
-const Title = () => {
-    return (
-        <div className={classes.titleHead}>
-            <p className={classes.titleDay}>Today</p>
-        </div>
-    )
-}
+const Title = ({ titleHeadClassName }) => {
+  return (
+    <div className={`${classes.titleHead} ${titleHeadClassName}`}>
+      <p className={classes.titleDay}>Today</p>
+    </div>
+  );
+};
 
-export { Title }
+export { Title };

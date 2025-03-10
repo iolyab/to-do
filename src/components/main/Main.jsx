@@ -1,24 +1,24 @@
-import React from 'react';
-import { useState } from 'react';
-import  classes from './Main.module.scss';
-import { Button } from '../shared/button/Button';
-import { Input } from '../shared/input/Input';
+import React from "react";
+import classes from "./Main.module.scss";
+import { Button } from "../shared/button/Button";
+import { Input } from "../shared/input/Input";
+import { Layout } from "../layout/Layout";
+import { Title } from "../shared/title/Title";
 
 const Main = () => {
-    return(
-        <div className={classes.main}>
-            <div className={classes.titleHead}>
-                <p className={classes.titleDay}>Today</p>
-            </div>
-            <div className={classes.inputContainer}>
-                <Input />
-                <Button />
-            </div>
-            <div className={classes.tasksContainer}>
-                <div className='tasks-to-do'>
-                </div>
-            </div>
+  return (
+    <Layout>
+      <div className={classes.main}>
+        <Title titleHeadClassName={classes.customTitleStyle} />
+        <div className={classes.inputContainer}>
+          <Input />
+          <Button />
         </div>
-    )
-}
+        <div className={classes.tasksContainer}>
+          <div className="tasks-to-do"></div>
+        </div>
+      </div>
+    </Layout>
+  );
+};
 export default Main;

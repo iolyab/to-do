@@ -5,19 +5,15 @@
   display: grid;
   grid-template-rows: 80px 100px 500px;
   grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
 }
 
-.title {
-  &Head {
-    grid-column: 2;
-    grid-row: 1;
-    font-weight: bold;
-    font-size: 25px;
-  }
-  &Day {
-    margin-bottom: 0px;
-    margin-top: 50px;
-  }
+.customTitleStyle {
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: bold;
+  font-size: 25px;
+  margin: 20px 0px 0px 0px;
 }
 
 .inputContainer {
