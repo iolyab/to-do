@@ -50,19 +50,24 @@
   column-gap: 20px;
 }
 
+// .btn {
+//   margin-top: 10px;
+//   margin-left: 140px;
+//   padding: 10px 10px 10px 10px;
+//   width: 150px;
+//   background-color: #48293d;
+//   color: white;
+//   border-style: none;
+//   font-weight: bold;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: #d8c0cb;
+//     color: #45304d;
+//   }
+// }
+
 .btn {
   margin-top: 10px;
-  margin-left: 140px;
-  padding: 10px 10px 10px 10px;
-  width: 150px;
-  background-color: #48293d;
-  color: white;
-  border-style: none;
-  font-weight: bold;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d8c0cb;
-    color: #45304d;
-  }
+  margin-left: 175px;
 }

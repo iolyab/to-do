@@ -15,7 +15,7 @@ const Main = () => {
         />
         <div className={classes.inputContainer}>
           <Input />
-          <Button />
+          <Button label="Add" size="medium" />
         </div>
         <div className={classes.tasksContainer}>
           <div className="tasks-to-do"></div>

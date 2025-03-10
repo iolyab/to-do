@@ -1,4 +1,4 @@
-button {
+.button {
   padding: 10px 30px 10px 30px;
   background-color: #48293d;
   color: white;
@@ -16,4 +16,21 @@ button {
     border-width: 1px;
     border-color: #45304d;
   }
+}
+
+.small {
+  padding: 5px 10px 5px 10px;
+  color: white;
+  font-weight: bold;
+  border-style: none;
+  cursor: pointer;
+}
+
+.medium {
+  padding: 10px 10px 10px 10px;
+  width: 85px;
+  color: white;
+  border-style: none;
+  font-weight: bold;
+  cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import classes from './Login.module.scss';
+import classes from "./Login.module.scss";
+import { Button } from "../../components/shared/button/Button";
 
 const Login = () => {
   return (
@@ -9,18 +10,27 @@ const Login = () => {
           <h2>Log In</h2>
           <label className={classes.email}>
             <p>Email</p>
-            <input type="email" placeholder="Enter your email..." className={classes.input} required />
+            <input
+              type="email"
+              placeholder="Enter your email..."
+              className={classes.input}
+              required
+            />
           </label>
           <label className={classes.password}>
             <p>Password</p>
-            <input type="password" placeholder="Enter your password..." className={classes.input} required />
+            <input
+              type="password"
+              placeholder="Enter your password..."
+              className={classes.input}
+              required
+            />
           </label>
-          <button type="submit" className={classes.btn}>Log In</button>
+          <Button label="Log In" size="medium" className={classes.btn} />
         </form>
       </div>
     </div>
   );
 };
-
 
 export default Login;
