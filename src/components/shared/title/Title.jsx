@@ -1,8 +1,11 @@
 import classes from "./title.module.scss";
 
-const Title = ({ titleHeadClassName }) => {
+const Title = ({ titleHeadClassName, customStyles }) => {
   return (
-    <div className={`${classes.titleHead} ${titleHeadClassName}`}>
+    <div
+      className={`${classes.titleHead} ${titleHeadClassName}`}
+      style={customStyles}
+    >
       <p className={classes.titleDay}>Today</p>
     </div>
   );
