@@ -9,10 +9,7 @@ const Main = () => {
   return (
     <Layout>
       <div className={classes.main}>
-        <Title
-          titleHeadClassName={classes.customTitleStyle}
-          customStyles={{ gridColumn: "2" }}
-        />
+        <Title titleHeadClassName={classes.customTitleStyle} />
         <div className={classes.inputContainer}>
           <Input />
           <Button label="Add" size="medium" />
