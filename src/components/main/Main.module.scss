@@ -20,14 +20,13 @@ div.customTitleStyle {
   grid-column: 2;
   grid-row: 2;
   display: flex;
-  column-gap: 20px;
   align-items: center;
 }
 
 .tasksContainer {
   background-color: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-  width: 555px;
+  width: 560px;
   grid-column: 2;
   grid-row: 3;
 }
