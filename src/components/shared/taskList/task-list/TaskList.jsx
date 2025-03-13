@@ -1,11 +1,13 @@
-import { TaskItemContainer } from '../task-item/TaskItemContainer';
+import { TaskItem } from "../task-item/TaskItem";
 
-const TaskList = () => {
-    return (
-        <div>
+const TaskList = ({ tasks }) => {
+  return (
+    <ul>
+      {tasks.map((task) => {
+        <TaskItem key={task.id} task={task} />;
+      })}
+    </ul>
+  );
+};
 
-        </div>
-    )
-}
-
-export { TaskList }
+export { TaskList };
