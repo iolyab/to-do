@@ -3,7 +3,7 @@ import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./inputField.module.scss";
 
-const InputField = ({ task, onAddTask }) => {
+const InputField = ({ onAddTask }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -28,14 +28,19 @@ const InputField = ({ task, onAddTask }) => {
     if (!error && inputValue) {
       console.log("Task is added");
     }
-    onAddTask(task);
+    onAddTask(inputValue);
     setInputValue("");
   };
 
   return (
     <form className={classes.inputFieldContainer} onSubmit={handleSubmit}>
-      <Input value={inputValue} error={error} handleChange={handleChange} />
-      <Button label="Add" size="medium" />
+      <Input
+        type="text"
+        value={inputValue}
+        error={error}
+        handleChange={handleChange}
+      />
+      <Button type="submit" label="Add" size="medium" />
     </form>
   );
 };

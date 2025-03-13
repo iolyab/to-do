@@ -1,11 +1,5 @@
-const TaskItem = () => {
-    return (
-        <div>
-            <ul>
-                
-            </ul>
-        </div>
-    )
-}
+const TaskItem = ({ task }) => {
+  return <li>{task.text}</li>;
+};
 
-export { TaskItem }
+export { TaskItem };
