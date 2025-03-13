@@ -3,7 +3,7 @@ import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./inputField.module.scss";
 
-const InputField = () => {
+const InputField = ({ task, onAddTask }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -27,8 +27,9 @@ const InputField = () => {
     e.preventDefault();
     if (!error && inputValue) {
       console.log("Task is added");
-      setInputValue("");
     }
+    onAddTask(task);
+    setInputValue("");
   };
 
   return (
