@@ -17,6 +17,11 @@ const Main = () => {
     console.log(`Main got the task`);
   };
 
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+    console.log("Task is deleted");
+  };
+
   return (
     <Layout>
       <div className={classes.main}>
@@ -25,7 +30,11 @@ const Main = () => {
           <InputField onAddTask={addTask} />
         </div>
         <div className={classes.tasksContainer}>
-          <TaskList tasks={tasks} className="tasks-to-do" />
+          <TaskList
+            tasks={tasks}
+            deleteTask={deleteTask}
+            className="tasks-to-do"
+          />
         </div>
       </div>
     </Layout>
