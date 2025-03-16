@@ -1,0 +1,7 @@
+.taskListContainer {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr;
+  row-gap: 4px;
+  padding-left: 0px;
+}

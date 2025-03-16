@@ -1,0 +1,26 @@
+.listItem {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column: 2;
+  align-items: center;
+  column-gap: 20px;
+  background-color: #fafafa;
+}
+
+.taskText {
+  padding-left: 20px;
+}
+
+.customButton {
+  border-style: solid;
+  border-color: #48293d;
+  border-width: 1px;
+  background-color: white;
+  color: #48293d;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}

@@ -3,7 +3,7 @@ import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./inputField.module.scss";
 
-const InputField = ({ onAddTask }) => {
+const InputField = ({ onAddTask, onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -21,6 +21,10 @@ const InputField = ({ onAddTask }) => {
     // if (handleChange && typeof handleChange === "function") {
     //   handleChange(e);
     // }
+
+    if (onChange && typeof onChange === "function") {
+      onChange(e);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -30,6 +34,10 @@ const InputField = ({ onAddTask }) => {
     }
     onAddTask(inputValue);
     setInputValue("");
+
+    // if (onSubmit && typeof onSubmit === "function") {
+    //   onSubmit(e);
+    // }
   };
 
   return (
