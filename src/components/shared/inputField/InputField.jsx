@@ -30,14 +30,11 @@ const InputField = ({ onAddTask, onChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!error && inputValue) {
-      console.log("Task is added");
+      if (onAddTask && typeof onAddTask === "function") {
+        onAddTask(inputValue);
+        setInputValue("");
+      }
     }
-    onAddTask(inputValue);
-    setInputValue("");
-
-    // if (onSubmit && typeof onSubmit === "function") {
-    //   onSubmit(e);
-    // }
   };
 
   return (
