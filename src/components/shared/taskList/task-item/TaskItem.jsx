@@ -1,9 +1,16 @@
 import { Button } from "../../button/Button";
 import classes from "./taskItem.module.scss";
 
-const TaskItem = ({ task, deleteTask, toggleComplete }) => {
-  const handleDelete = () => deleteTask(task.id);
-  const handleToggle = () => toggleComplete(task.id);
+const TaskItem = ({
+  task,
+  isEditing,
+  editedText,
+  handleDelete,
+  handleToggle,
+  handleEditClick,
+  handleEdit,
+  handleSaveEdit,
+}) => {
   return (
     <li className={classes.listItem}>
       <div className={classes.taskText}>
@@ -13,11 +20,35 @@ const TaskItem = ({ task, deleteTask, toggleComplete }) => {
           onChange={handleToggle}
           className={classes.checkbox}
         />
-        <span className={task.completed ? classes.completed : ""}>
-          {task.text}
-        </span>
+        {isEditing ? (
+          <input
+            type="text"
+            value={editedText}
+            onChange={handleEdit}
+            className={classes.editInput}
+          />
+        ) : (
+          <span className={task.completed ? classes.completed : ""}>
+            {task.text}
+          </span>
+        )}
       </div>
       <div className={classes.actionsContainer}>
+        {isEditing ? (
+          <Button
+            onClick={handleSaveEdit}
+            label="Save"
+            size="small"
+            className={classes.customButton}
+          />
+        ) : (
+          <Button
+            onClick={handleEditClick}
+            label="Edit"
+            size="small"
+            className={classes.customButton}
+          />
+        )}
         <Button
           onClick={handleDelete}
           label="Delete"

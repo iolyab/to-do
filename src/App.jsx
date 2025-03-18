@@ -31,6 +31,14 @@ const App = () => {
     );
   };
 
+  const updateTask = (id, newText) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  };
+
   return (
     <Router>
       <Routes>
@@ -45,6 +53,7 @@ const App = () => {
                 addTask={addTask}
                 deleteTask={deleteTask}
                 toggleComplete={toggleComplete}
+                updateTask={updateTask}
               />
             }
           />

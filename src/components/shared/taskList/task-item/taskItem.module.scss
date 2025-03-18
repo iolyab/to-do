@@ -1,6 +1,6 @@
 .listItem {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 300px 1fr;
   grid-column: 2;
   align-items: center;
   column-gap: 20px;
@@ -13,6 +13,7 @@
 
 .checkbox {
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .completed {
@@ -20,6 +21,7 @@
 }
 
 .customButton {
+  margin-right: 5px;
   border-style: solid;
   border-color: #48293d;
   border-width: 1px;

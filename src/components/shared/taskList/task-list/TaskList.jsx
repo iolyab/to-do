@@ -1,15 +1,16 @@
-import { TaskItem } from "../task-item/TaskItem";
+import { TaskItemContainer } from "../task-item/TaskItemContainer";
 import classes from "./taskList.module.scss";
 
-const TaskList = ({ tasks, deleteTask, toggleComplete }) => {
+const TaskList = ({ tasks, deleteTask, toggleComplete, updateTask }) => {
   return (
     <ul className={classes.taskListContainer}>
       {tasks.map((task) => (
-        <TaskItem
+        <TaskItemContainer
           key={task.id}
+          task={task}
           deleteTask={deleteTask}
           toggleComplete={toggleComplete}
-          task={task}
+          updateTask={updateTask}
         />
       ))}
     </ul>
