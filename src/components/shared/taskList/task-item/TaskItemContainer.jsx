@@ -22,6 +22,10 @@ const TaskItemContainer = ({
       setIsEditing(false);
     }
   };
+  const handleCancelEdit = () => {
+    setEditedText(task.text);
+    setIsEditing(false);
+  };
   return (
     <TaskItem
       task={task}
@@ -32,6 +36,7 @@ const TaskItemContainer = ({
       handleEditClick={handleEditClick}
       handleEdit={handleEdit}
       handleSaveEdit={handleSaveEdit}
+      handleCancelEdit={handleCancelEdit}
     />
   );
 };

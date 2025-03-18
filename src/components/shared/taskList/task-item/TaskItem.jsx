@@ -10,6 +10,7 @@ const TaskItem = ({
   handleEditClick,
   handleEdit,
   handleSaveEdit,
+  handleCancelEdit,
 }) => {
   return (
     <li className={classes.listItem}>
@@ -35,26 +36,36 @@ const TaskItem = ({
       </div>
       <div className={classes.actionsContainer}>
         {isEditing ? (
-          <Button
-            onClick={handleSaveEdit}
-            label="Save"
-            size="small"
-            className={classes.customButton}
-          />
+          <div>
+            <Button
+              onClick={handleSaveEdit}
+              label="Save"
+              size="small"
+              className={classes.customButton}
+            />
+            <Button
+              onClick={handleCancelEdit}
+              label="Cancel"
+              size="small"
+              className={classes.customButton}
+            />
+          </div>
         ) : (
-          <Button
-            onClick={handleEditClick}
-            label="Edit"
-            size="small"
-            className={classes.customButton}
-          />
+          <div>
+            <Button
+              onClick={handleEditClick}
+              label="Edit"
+              size="small"
+              className={classes.customButton}
+            />
+            <Button
+              onClick={handleDelete}
+              label="Delete"
+              size="small"
+              className={classes.customButton}
+            />
+          </div>
         )}
-        <Button
-          onClick={handleDelete}
-          label="Delete"
-          size="small"
-          className={classes.customButton}
-        />
       </div>
     </li>
   );
