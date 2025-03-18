@@ -40,12 +40,14 @@ const TaskItem = ({
             <Button
               onClick={handleSaveEdit}
               label="Save"
+              variant="save"
               size="small"
               className={classes.customButton}
             />
             <Button
               onClick={handleCancelEdit}
               label="Cancel"
+              variant="cancel"
               size="small"
               className={classes.customButton}
             />

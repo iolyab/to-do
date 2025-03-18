@@ -34,3 +34,25 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.button.save {
+  background-color: white;
+  border-color: green;
+  color: green;
+
+  &:hover {
+    background-color: green;
+    color: white;
+  }
+}
+
+.button.cancel {
+  background-color: white;
+  border-color: red;
+  color: red;
+
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+}
