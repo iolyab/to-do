@@ -3,7 +3,10 @@ import classes from "./taskItem.module.scss";
 
 const TaskItem = ({
   task,
+  priority,
+  priorities,
   isEditing,
+  isOpen,
   editedText,
   handleDelete,
   handleToggle,
@@ -11,9 +14,12 @@ const TaskItem = ({
   handleEdit,
   handleSaveEdit,
   handleCancelEdit,
+  handleIsOpen,
+  handleSelect,
+  className,
 }) => {
   return (
-    <li className={classes.listItem}>
+    <li className={`${classes.listItem} ${className}`}>
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -63,6 +69,33 @@ const TaskItem = ({
             <Button
               onClick={handleDelete}
               label="Delete"
+              size="small"
+              className={classes.customButton}
+            />
+            <div className={classes.priorityContainer}>
+              <Button
+                onClick={handleIsOpen}
+                label={priority}
+                size="small"
+                className={classes.customDropDownButton}
+              />
+              {isOpen && (
+                <ul className={classes.dropDownMenu}>
+                  {priorities.map((p) => (
+                    <li
+                      key={p}
+                      onClick={() => handleSelect(p)}
+                      className={classes.dropDownItem}
+                    >
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <Button
+              onClick={handleDelete}
+              label="Label"
               size="small"
               className={classes.customButton}
             />
