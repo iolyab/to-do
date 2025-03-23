@@ -9,6 +9,7 @@
 
 .taskText {
   padding-left: 20px;
+  font-size: 18px;
 }
 
 .checkbox {
@@ -32,6 +33,16 @@
   &:hover {
     color: white;
     background-color: #45304d;
+  }
+}
+
+.editInput {
+  border-style: none;
+  font-size: 18px;
+  &:focus {
+    border-style: solid;
+    border-color: #48293d;
+    outline: none;
   }
 }
 

@@ -1,12 +1,10 @@
 import { Button } from "../../button/Button";
+import { TaskPriority } from "../../taskPriority/TaskPriority";
 import classes from "./taskItem.module.scss";
 
 const TaskItem = ({
   task,
-  priority,
-  priorities,
   isEditing,
-  isOpen,
   editedText,
   handleDelete,
   handleToggle,
@@ -14,12 +12,11 @@ const TaskItem = ({
   handleEdit,
   handleSaveEdit,
   handleCancelEdit,
-  handleIsOpen,
-  handleSelect,
-  className,
+  priorityClassName,
+  onPriorityChange,
 }) => {
   return (
-    <li className={`${classes.listItem} ${className}`}>
+    <li className={`${classes.listItem} ${priorityClassName}`}>
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -73,25 +70,10 @@ const TaskItem = ({
               className={classes.customButton}
             />
             <div className={classes.priorityContainer}>
-              <Button
-                onClick={handleIsOpen}
-                label={priority}
-                size="small"
-                className={classes.customDropDownButton}
+              <TaskPriority
+                onPriorityChange={onPriorityChange}
+                classes={classes}
               />
-              {isOpen && (
-                <ul className={classes.dropDownMenu}>
-                  {priorities.map((p) => (
-                    <li
-                      key={p}
-                      onClick={() => handleSelect(p)}
-                      className={classes.dropDownItem}
-                    >
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
             <Button
               onClick={handleDelete}

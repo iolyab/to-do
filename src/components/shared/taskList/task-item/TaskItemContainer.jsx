@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
-import classes from "./taskItem.module.scss";
 
 const TaskItemContainer = ({
   task,
   deleteTask,
   toggleComplete,
   updateTask,
+  classes,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);
-  const [isOpen, setIsOpen] = useState(false);
-  const [priority, setPriority] = useState("Priority");
-  const priorities = ["High", "Medium", "Low"];
-  const [className, setClassName] = useState("");
+  const [priorityClassName, setPriorityClassName] = useState("");
 
   const handleDelete = () => deleteTask(task.id);
   const handleToggle = () => toggleComplete(task.id);
@@ -33,20 +30,8 @@ const TaskItemContainer = ({
     setIsEditing(false);
   };
 
-  const handleIsOpen = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const handleSelect = (selectedPriority) => {
-    setPriority(selectedPriority);
-    if (selectedPriority === "High") {
-      setClassName(classes.highPriority);
-    } else if (selectedPriority === "Medium") {
-      setClassName(classes.mediumPriority);
-    } else {
-      setClassName(classes.lowPriority);
-    }
-    setIsOpen(false);
+  const handlePriorityChange = (newPriorityClassName) => {
+    setPriorityClassName(newPriorityClassName);
   };
 
   return (
@@ -60,12 +45,9 @@ const TaskItemContainer = ({
       handleEdit={handleEdit}
       handleSaveEdit={handleSaveEdit}
       handleCancelEdit={handleCancelEdit}
-      handleIsOpen={handleIsOpen}
-      handleSelect={handleSelect}
-      isOpen={isOpen}
-      priority={priority}
-      priorities={priorities}
-      className={className}
+      priorityClassName={priorityClassName}
+      onPriorityChange={handlePriorityChange}
+      classes={classes}
     />
   );
 };

@@ -15,6 +15,7 @@ const App = () => {
       id: Math.random() + 1,
       text: taskText,
       completed: false,
+      // priority: newPriority,
     };
     setTasks([...tasks, newTask]);
   };
