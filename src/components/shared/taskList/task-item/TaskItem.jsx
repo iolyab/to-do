@@ -6,14 +6,14 @@ const TaskItem = ({
   task,
   isEditing,
   editedText,
-  handleDelete,
-  handleToggle,
+  deleted,
+  completed,
   handleEditClick,
-  handleEdit,
+  handleEditChange,
   handleSaveEdit,
   handleCancelEdit,
   priorityClassName,
-  onPriorityChange,
+  priorityChanged,
 }) => {
   return (
     <li className={`${classes.listItem} ${priorityClassName}`}>
@@ -21,14 +21,14 @@ const TaskItem = ({
         <input
           type="checkbox"
           checked={task.completed}
-          onChange={handleToggle}
+          onChange={completed}
           className={classes.checkbox}
         />
         {isEditing ? (
           <input
             type="text"
             value={editedText}
-            onChange={handleEdit}
+            onChange={handleEditChange}
             className={classes.editInput}
           />
         ) : (
@@ -64,19 +64,18 @@ const TaskItem = ({
               className={classes.customButton}
             />
             <Button
-              onClick={handleDelete}
+              onClick={deleted}
               label="Delete"
               size="small"
               className={classes.customButton}
             />
             <div className={classes.priorityContainer}>
               <TaskPriority
-                onPriorityChange={onPriorityChange}
+                priorityChanged={priorityChanged}
                 classes={classes}
               />
             </div>
             <Button
-              onClick={handleDelete}
               label="Label"
               size="small"
               className={classes.customButton}

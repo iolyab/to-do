@@ -15,16 +15,16 @@ const App = () => {
       id: Math.random() + 1,
       text: taskText,
       completed: false,
-      // priority: newPriority,
+      priority: "Low",
     };
     setTasks([...tasks, newTask]);
   };
 
-  const deleteTask = (id) => {
+  const handleDelete = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const toggleComplete = (id) => {
+  const handleCompleted = (id) => {
     setTasks(
       tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -32,10 +32,19 @@ const App = () => {
     );
   };
 
-  const updateTask = (id, newText) => {
+  const handleEdit = (id, newText) => {
+    updateTask({ id, text: newText });
+  };
+
+  const handlePriority = (id, newPriorityClassName) => {
+    console.log(tasks);
+    updateTask({ id, priority: newPriorityClassName });
+  };
+
+  const updateTask = (newFields) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        task.id === id ? { ...task, text: newText } : task
+        task.id === newFields.id ? { ...task, ...newFields } : task
       )
     );
   };
@@ -52,9 +61,10 @@ const App = () => {
               <Main
                 tasks={tasks}
                 addTask={addTask}
-                deleteTask={deleteTask}
-                toggleComplete={toggleComplete}
-                updateTask={updateTask}
+                handleDelete={handleDelete}
+                handleCompleted={handleCompleted}
+                handleEdit={handleEdit}
+                handlePriority={handlePriority}
               />
             }
           />

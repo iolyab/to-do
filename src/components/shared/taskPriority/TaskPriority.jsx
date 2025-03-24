@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../button/Button";
 
-export const TaskPriority = ({ classes, onPriorityChange }) => {
+const TaskPriority = ({ classes, priorityChanged }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [priority, setPriority] = useState("Priority");
   const priorities = ["High", "Medium", "Low"];
@@ -22,7 +22,7 @@ export const TaskPriority = ({ classes, onPriorityChange }) => {
       newClassName = classes.lowPriority;
     }
 
-    onPriorityChange(newClassName);
+    priorityChanged(newClassName);
     setIsOpen(false);
   };
 
@@ -51,3 +51,5 @@ export const TaskPriority = ({ classes, onPriorityChange }) => {
     </div>
   );
 };
+
+export { TaskPriority };

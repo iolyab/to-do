@@ -4,7 +4,14 @@ import { Title } from "../shared/title/Title";
 import { InputField } from "../shared/inputField/InputField";
 import { TaskList } from "../shared/taskList/task-list/TaskList";
 
-const Main = ({ tasks, addTask, deleteTask, toggleComplete, updateTask }) => {
+const Main = ({
+  tasks,
+  addTask,
+  handleDelete,
+  handleCompleted,
+  handleEdit,
+  handlePriority,
+}) => {
   return (
     <Layout>
       <div className={classes.main}>
@@ -17,9 +24,10 @@ const Main = ({ tasks, addTask, deleteTask, toggleComplete, updateTask }) => {
         <div className={classes.tasksContainer}>
           <TaskList
             tasks={tasks}
-            deleteTask={deleteTask}
-            toggleComplete={toggleComplete}
-            updateTask={updateTask}
+            handleDelete={handleDelete}
+            handleCompleted={handleCompleted}
+            handleEdit={handleEdit}
+            handlePriority={handlePriority}
             className="tasks-to-do"
           />
         </div>
