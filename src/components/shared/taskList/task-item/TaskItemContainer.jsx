@@ -11,7 +11,6 @@ const TaskItemContainer = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);
-  const [priorityClassName, setPriorityClassName] = useState(task.priority);
 
   const deleted = () => handleDelete(task.id);
   const completed = () => handleCompleted(task.id);
@@ -31,9 +30,8 @@ const TaskItemContainer = ({
     setIsEditing(false);
   };
 
-  const priorityChanged = (newPriorityClassName) => {
-    setPriorityClassName(newPriorityClassName);
-    handlePriority(task.id, newPriorityClassName);
+  const priorityChanged = (newPriority) => {
+    handlePriority(task.id, newPriority);
   };
 
   return (
@@ -47,7 +45,7 @@ const TaskItemContainer = ({
       handleEditChange={handleEditChange}
       handleSaveEdit={handleSaveEdit}
       handleCancelEdit={handleCancelEdit}
-      priorityClassName={priorityClassName}
+      priorityClassName={task.priority}
       priorityChanged={priorityChanged}
       classes={classes}
     />
