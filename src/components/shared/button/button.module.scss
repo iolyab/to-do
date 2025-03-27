@@ -57,3 +57,27 @@
     color: white;
   }
 }
+
+.icon {
+  width: 12px;
+  height: 12px;
+  object-fit: cover;
+}
+
+.button.addLabel {
+  width: 100px;
+  margin: 0px 0px 0px 0px;
+}
+
+.button.saveLabel {
+  background-color: white;
+  border-color: green;
+  color: green;
+  width: 100px;
+  margin: 2px 0px 0px 0px;
+
+  &:hover {
+    background-color: green;
+    color: white;
+  }
+}

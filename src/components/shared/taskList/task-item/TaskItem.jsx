@@ -1,5 +1,7 @@
 import { Button } from "../../button/Button";
 import { TaskPriority } from "../../taskPriority/TaskPriority";
+import { TaskLabels } from "../../taskLabels/TaskLabels";
+
 import classes from "./taskItem.module.scss";
 
 const TaskItem = ({
@@ -14,6 +16,7 @@ const TaskItem = ({
   handleCancelEdit,
   priorityClassName,
   priorityChanged,
+  labelsSet,
 }) => {
   return (
     <li className={`${classes.listItem} ${priorityClassName}`}>
@@ -63,21 +66,25 @@ const TaskItem = ({
               size="small"
               className={classes.customButton}
             />
-            <Button
-              onClick={deleted}
-              label="Delete"
-              size="small"
-              className={classes.customButton}
-            />
             <div className={classes.priorityContainer}>
               <TaskPriority
                 priorityChanged={priorityChanged}
                 classes={classes}
               />
             </div>
+            <div className={classes.labelContainer}>
+              <TaskLabels
+                labelsSet={labelsSet}
+                currentLabel={task.label}
+                labels={task.labels || []}
+                classes={classes}
+              />
+            </div>
+
             <Button
-              label="Label"
+              onClick={deleted}
               size="small"
+              icon={"/assets/green-trash-can-icon.png"}
               className={classes.customButton}
             />
           </div>

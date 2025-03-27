@@ -7,6 +7,7 @@ const TaskItemContainer = ({
   handleCompleted,
   handleEdit,
   handlePriority,
+  handleLabels,
   classes,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,6 +35,10 @@ const TaskItemContainer = ({
     handlePriority(task.id, newPriority);
   };
 
+  const labelsSet = (newLabel) => {
+    handleLabels(task.id, newLabel);
+  };
+
   return (
     <TaskItem
       task={task}
@@ -47,6 +52,7 @@ const TaskItemContainer = ({
       handleCancelEdit={handleCancelEdit}
       priorityClassName={task.priority}
       priorityChanged={priorityChanged}
+      labelsSet={labelsSet}
       classes={classes}
     />
   );

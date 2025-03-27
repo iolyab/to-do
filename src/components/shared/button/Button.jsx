@@ -5,6 +5,7 @@ const Button = ({
   size = "medium",
   className = "",
   variant,
+  icon,
   ...props
 }) => {
   const sizeClass = size === "small" ? classes.small : classes.medium;
@@ -14,6 +15,10 @@ const Button = ({
       return classes.cancel;
     } else if (variant === "save") {
       return classes.save;
+    } else if (variant === "addLabel") {
+      return classes.addLabel;
+    } else if (variant === "saveLabel") {
+      return classes.saveLabel;
     }
   };
 
@@ -24,7 +29,11 @@ const Button = ({
       } ${sizeClass} ${variantClass()} ${className}`}
       {...props}
     >
-      {label}
+      {icon ? (
+        <img src={icon} alt={label || "icon"} className={classes.icon} />
+      ) : (
+        label
+      )}
     </button>
   );
 };

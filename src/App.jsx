@@ -16,6 +16,7 @@ const App = () => {
       text: taskText,
       completed: false,
       priority: "Low",
+      labels: ["Work", "Personal"],
     };
     setTasks([...tasks, newTask]);
   };
@@ -37,8 +38,22 @@ const App = () => {
   };
 
   const handlePriority = (id, newPriorityClassName) => {
-    console.log(tasks);
     updateTask({ id, priority: newPriorityClassName });
+  };
+
+  const handleLabels = (id, newLabel) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              labels: task.labels.includes(newLabel)
+                ? task.labels
+                : [...task.labels, newLabel],
+            }
+          : task
+      )
+    );
   };
 
   const updateTask = (newFields) => {
@@ -65,6 +80,7 @@ const App = () => {
                 handleCompleted={handleCompleted}
                 handleEdit={handleEdit}
                 handlePriority={handlePriority}
+                handleLabels={handleLabels}
               />
             }
           />
