@@ -1,6 +1,10 @@
 import { Button } from "../../button/Button";
 import { TaskPriority } from "../../taskPriority/TaskPriority";
 import { TaskLabels } from "../../taskLabels/TaskLabels";
+import { TaskDeadline } from "../../taskDeadline/TaskDeadline";
+import dayjs from "dayjs";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import classes from "./taskItem.module.scss";
 
@@ -17,6 +21,7 @@ const TaskItem = ({
   priorityClassName,
   priorityChanged,
   labelsSet,
+  deadlineSet,
 }) => {
   return (
     <li className={`${classes.listItem} ${priorityClassName}`}>
@@ -40,6 +45,7 @@ const TaskItem = ({
           </span>
         )}
       </div>
+
       <div className={classes.actionsContainer}>
         {isEditing ? (
           <div>
@@ -57,9 +63,17 @@ const TaskItem = ({
               size="small"
               className={classes.customButton}
             />
+            <div className={classes.deadlineContainer}>
+              <TaskDeadline
+                deadline={task.deadline}
+                deadlineSet={deadlineSet}
+                Button={Button}
+                classes={classes}
+              />
+            </div>
           </div>
         ) : (
-          <div>
+          <div className={classes.taskActionsContainer}>
             <Button
               onClick={handleEditClick}
               label="Edit"
@@ -87,6 +101,12 @@ const TaskItem = ({
               icon={"/assets/green-trash-can-icon.png"}
               className={classes.customButton}
             />
+
+            {task.deadline && (
+              <p className={classes.taskDeadline}>
+                📅 {dayjs(task.deadline).format("YYYY-MM-DD")}
+              </p>
+            )}
           </div>
         )}
       </div>

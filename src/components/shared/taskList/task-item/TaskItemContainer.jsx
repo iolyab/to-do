@@ -8,6 +8,7 @@ const TaskItemContainer = ({
   handleEdit,
   handlePriority,
   handleLabels,
+  handleDeadline,
   classes,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,6 +40,10 @@ const TaskItemContainer = ({
     handleLabels(task.id, newLabel);
   };
 
+  const deadlineSet = (newDeadline) => {
+    handleDeadline(task.id, newDeadline);
+  };
+
   return (
     <TaskItem
       task={task}
@@ -53,6 +58,7 @@ const TaskItemContainer = ({
       priorityClassName={task.priority}
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
+      deadlineSet={deadlineSet}
       classes={classes}
     />
   );

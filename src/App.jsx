@@ -10,13 +10,14 @@ import Upcoming from "./pages/upcoming/Upcoming";
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
-  const addTask = (taskText) => {
+  const addTask = (taskText, deadline) => {
     const newTask = {
       id: Math.random() + 1,
       text: taskText,
       completed: false,
       priority: "Low",
       labels: ["Work", "Personal"],
+      deadline: deadline || null,
     };
     setTasks([...tasks, newTask]);
   };
@@ -56,6 +57,14 @@ const App = () => {
     );
   };
 
+  const handleDeadline = (id, date) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, deadline: date } : task
+      )
+    );
+  };
+
   const updateTask = (newFields) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -81,6 +90,7 @@ const App = () => {
                 handleEdit={handleEdit}
                 handlePriority={handlePriority}
                 handleLabels={handleLabels}
+                handleDeadline={handleDeadline}
               />
             }
           />

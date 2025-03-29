@@ -19,6 +19,8 @@ const Button = ({
       return classes.addLabel;
     } else if (variant === "saveLabel") {
       return classes.saveLabel;
+    } else if (variant === "deadlineButton") {
+      return classes.deadlineButton;
     }
   };
 

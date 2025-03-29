@@ -73,6 +73,11 @@
   display: inline-block;
 }
 
+.deadlineContainer {
+  position: relative;
+  display: inline-block;
+}
+
 .dropDownMenu {
   position: absolute;
   width: 72px;
@@ -157,4 +162,21 @@
     border-color: #48293d;
     outline: none;
   }
+}
+
+.deadlinePicker {
+  position: absolute;
+}
+
+.taskDeadline {
+  margin: 0px 0px 0px 0px;
+  font-size: 14px;
+}
+
+.taskActionsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 2px;
 }
