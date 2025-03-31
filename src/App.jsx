@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Main from "./components/main/Main";
@@ -8,18 +8,25 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Upcoming from "./pages/upcoming/Upcoming";
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks"));
+    return savedTasks || [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = (taskText, deadline) => {
     const newTask = {
       id: Math.random() + 1,
       text: taskText,
       completed: false,
-      priority: "Low",
-      labels: ["Work", "Personal"],
-      deadline: deadline || null,
+      priority: null,
+      labels: [],
+      deadline: deadline,
     };
-    setTasks([...tasks, newTask]);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
   const handleDelete = (id) => {
