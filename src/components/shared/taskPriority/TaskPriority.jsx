@@ -1,28 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../button/Button";
 
-const TaskPriority = ({ classes, priorityChanged }) => {
+const TaskPriority = ({ classes, priorityChanged, currentPriority }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [priority, setPriority] = useState("Priority");
-  const priorities = ["High", "Medium", "Low"];
+  const [priority, setPriority] = useState(currentPriority || "Priority");
+
+  useEffect(() => {
+    if (currentPriority) {
+      setPriority(currentPriority);
+    }
+  }, [currentPriority]);
+
+  const priorityOptions = {
+    High: { name: "High", className: classes.highPriority },
+    Medium: { name: "Medium", className: classes.mediumPriority },
+    Low: { name: "Low", className: classes.lowPriority },
+  };
 
   const handleIsOpen = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (selectedPriority) => {
-    setPriority(selectedPriority);
-    let newClassName = "";
+  const handleSelect = (selectedName) => {
+    setPriority(selectedName);
 
-    if (selectedPriority === "High") {
-      newClassName = classes.highPriority;
-    } else if (selectedPriority === "Medium") {
-      newClassName = classes.mediumPriority;
-    } else {
-      newClassName = classes.lowPriority;
-    }
-
-    priorityChanged(newClassName);
+    priorityChanged(priorityOptions[selectedName]);
     setIsOpen(false);
   };
 
@@ -36,7 +38,7 @@ const TaskPriority = ({ classes, priorityChanged }) => {
       />
       {isOpen && (
         <ul className={classes.dropDownMenu}>
-          {priorities.map((p) => (
+          {Object.keys(priorityOptions).map((p) => (
             <li
               key={p}
               onClick={() => handleSelect(p)}

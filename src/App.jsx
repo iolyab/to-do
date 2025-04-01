@@ -9,8 +9,8 @@ import Upcoming from "./pages/upcoming/Upcoming";
 
 const App = () => {
   const [tasks, setTasks] = useState(() => {
-    const savedTasks = JSON.parse(localStorage.getItem("tasks"));
-    return savedTasks || [];
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
   useEffect(() => {
@@ -45,8 +45,18 @@ const App = () => {
     updateTask({ id, text: newText });
   };
 
-  const handlePriority = (id, newPriorityClassName) => {
-    updateTask({ id, priority: newPriorityClassName });
+  const handlePriority = (id, newPriority) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              priority: newPriority.name,
+              priorityClass: newPriority.className,
+            }
+          : task
+      )
+    );
   };
 
   const handleLabels = (id, newLabel) => {

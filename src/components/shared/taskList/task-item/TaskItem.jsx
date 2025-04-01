@@ -24,7 +24,7 @@ const TaskItem = ({
   deadlineSet,
 }) => {
   return (
-    <li className={`${classes.listItem} ${priorityClassName}`}>
+    <li className={`${classes.listItem} ${task.priorityClass}`}>
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -82,7 +82,9 @@ const TaskItem = ({
             />
             <div className={classes.priorityContainer}>
               <TaskPriority
+                key={task.id}
                 priorityChanged={priorityChanged}
+                currentPriority={task.priority}
                 classes={classes}
               />
             </div>
