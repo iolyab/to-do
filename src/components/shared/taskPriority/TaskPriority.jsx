@@ -17,6 +17,12 @@ const TaskPriority = ({ classes, priorityChanged, currentPriority }) => {
     Low: { name: "Low", className: classes.lowPriority },
   };
 
+  localStorage.setItem("priorityOptions", JSON.stringify(priorityOptions));
+
+  const retrievedPriorityOptions = JSON.parse(
+    localStorage.getItem("priorityOptions")
+  );
+
   const handleIsOpen = () => {
     setIsOpen((prev) => !prev);
   };
@@ -38,7 +44,7 @@ const TaskPriority = ({ classes, priorityChanged, currentPriority }) => {
       />
       {isOpen && (
         <ul className={classes.dropDownMenu}>
-          {Object.keys(priorityOptions).map((p) => (
+          {Object.keys(retrievedPriorityOptions).map((p) => (
             <li
               key={p}
               onClick={() => handleSelect(p)}
