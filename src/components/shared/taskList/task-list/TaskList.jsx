@@ -9,6 +9,7 @@ const TaskList = ({
   handlePriority,
   handleLabels,
   handleDeadline,
+  id,
 }) => {
   return (
     <ul className={classes.taskListContainer}>
@@ -22,6 +23,7 @@ const TaskList = ({
           handlePriority={handlePriority}
           handleLabels={handleLabels}
           handleDeadline={handleDeadline}
+          id={id}
         />
       ))}
     </ul>

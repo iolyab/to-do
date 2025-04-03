@@ -23,6 +23,7 @@ const App = () => {
       text: taskText,
       completed: false,
       priority: null,
+      label: "Labels",
       labels: [],
       deadline: deadline,
     };
@@ -65,6 +66,7 @@ const App = () => {
         task.id === id
           ? {
               ...task,
+              label: newLabel,
               labels: task.labels.includes(newLabel)
                 ? task.labels
                 : [...task.labels, newLabel],

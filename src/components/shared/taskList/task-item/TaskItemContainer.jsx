@@ -10,6 +10,7 @@ const TaskItemContainer = ({
   handleLabels,
   handleDeadline,
   classes,
+  id,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);
@@ -59,6 +60,7 @@ const TaskItemContainer = ({
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
       deadlineSet={deadlineSet}
+      id={id}
       classes={classes}
     />
   );

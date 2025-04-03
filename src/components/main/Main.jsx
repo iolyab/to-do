@@ -13,6 +13,7 @@ const Main = ({
   handlePriority,
   handleLabels,
   handleDeadline,
+  id,
 }) => {
   return (
     <Layout>
@@ -32,6 +33,7 @@ const Main = ({
             handlePriority={handlePriority}
             handleLabels={handleLabels}
             handleDeadline={handleDeadline}
+            id={id}
             className="tasks-to-do"
           />
         </div>

@@ -22,6 +22,7 @@ const TaskItem = ({
   priorityChanged,
   labelsSet,
   deadlineSet,
+  id,
 }) => {
   return (
     <li className={`${classes.listItem} ${task.priorityClass}`}>
@@ -93,6 +94,7 @@ const TaskItem = ({
                 labelsSet={labelsSet}
                 currentLabel={task.label}
                 labels={task.labels || []}
+                id={id}
                 classes={classes}
               />
             </div>

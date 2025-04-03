@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../button/Button";
 
-const TaskLabels = ({ classes, labelsSet, currentLabel, labels }) => {
+const TaskLabels = ({ classes, labelsSet, currentLabel, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [label, setLabel] = useState(currentLabel || "Labels");
   const [newLabel, setNewLabel] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const [availableLabels, setAvailableLabels] = useState([]);
+
+  useEffect(() => {
+    const existingLabels = JSON.parse(localStorage.getItem("defaultLabels"));
+    if (!existingLabels) {
+      const defaultLabels = ["Work", "Personal"];
+      localStorage.setItem("defaultLabels", JSON.stringify(defaultLabels));
+      setAvailableLabels(defaultLabels);
+    } else {
+      setAvailableLabels(existingLabels);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentLabel) {
+      setLabel(currentLabel);
+    }
+  }, [currentLabel]);
 
   const handleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -18,10 +36,17 @@ const TaskLabels = ({ classes, labelsSet, currentLabel, labels }) => {
   };
 
   const handleCreateLabel = () => {
-    if (newLabel.trim() && !labels.includes(newLabel)) {
+    if (newLabel.trim() !== "") {
+      const retrievedLabels =
+        JSON.parse(localStorage.getItem("defaultLabels")) || [];
+      if (!retrievedLabels.includes(newLabel)) {
+        const updatedLabels = [...retrievedLabels, newLabel];
+        localStorage.setItem("defaultLabels", JSON.stringify(updatedLabels));
+        setAvailableLabels(updatedLabels);
+        setNewLabel("");
+      }
       labelsSet(newLabel);
       setLabel(newLabel);
-      setNewLabel("");
       setIsOpen(false);
       setIsAdding(false);
     }
@@ -41,7 +66,7 @@ const TaskLabels = ({ classes, labelsSet, currentLabel, labels }) => {
       />
       {isOpen && (
         <ul className={classes.dropDownMenuLabels}>
-          {labels.map((l) => (
+          {availableLabels.map((l) => (
             <li
               key={l}
               onClick={() => handleSelect(l)}
