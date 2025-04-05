@@ -1,7 +1,7 @@
 import { Button } from "../../button/Button";
-import { TaskPriority } from "../../taskPriority/TaskPriority";
-import { TaskLabels } from "../../taskLabels/TaskLabels";
-import { TaskDeadline } from "../../taskDeadline/TaskDeadline";
+import { TaskPriority } from "../../task-priority/TaskPriority";
+import { TaskLabels } from "../../task-labels/TaskLabels";
+import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import dayjs from "dayjs";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -49,7 +49,7 @@ const TaskItem = ({
 
       <div className={classes.actionsContainer}>
         {isEditing ? (
-          <div>
+          <div className={classes.editingContainer}>
             <Button
               onClick={handleSaveEdit}
               label="Save"
@@ -72,23 +72,6 @@ const TaskItem = ({
                 classes={classes}
               />
             </div>
-          </div>
-        ) : (
-          <div className={classes.taskActionsContainer}>
-            <Button
-              onClick={handleEditClick}
-              label="Edit"
-              size="small"
-              className={classes.customButton}
-            />
-            <div className={classes.priorityContainer}>
-              <TaskPriority
-                key={task.id}
-                priorityChanged={priorityChanged}
-                currentPriority={task.priority}
-                classes={classes}
-              />
-            </div>
             <div className={classes.labelContainer}>
               <TaskLabels
                 labelsSet={labelsSet}
@@ -98,19 +81,50 @@ const TaskItem = ({
                 classes={classes}
               />
             </div>
+          </div>
+        ) : (
+          <div className={classes.taskItemsContainer}>
+            <div className={classes.taskActions}>
+              <Button
+                onClick={handleEditClick}
+                label="Edit"
+                size="small"
+                className={classes.customButton}
+              />
+              <div className={classes.priorityContainer}>
+                <TaskPriority
+                  key={task.id}
+                  priorityChanged={priorityChanged}
+                  currentPriority={task.priority}
+                  classes={classes}
+                />
+              </div>
 
-            <Button
-              onClick={deleted}
-              size="small"
-              icon={"/assets/green-trash-can-icon.png"}
-              className={classes.customButton}
-            />
+              <Button
+                onClick={deleted}
+                size="small"
+                icon={"/assets/green-trash-can-icon.png"}
+                className={classes.customButton}
+              />
+            </div>
+            <div className={classes.taskLabels}>
+              {task.deadline && (
+                <p className={classes.taskDeadline}>
+                  📅 {dayjs(task.deadline).format("YYYY-MM-DD")}
+                </p>
+              )}
 
-            {task.deadline && (
-              <p className={classes.taskDeadline}>
-                📅 {dayjs(task.deadline).format("YYYY-MM-DD")}
-              </p>
-            )}
+              {task.labels && task.labels.length > 0 && (
+                <div className={classes.labelList}>
+                  {task.labels.map((label, index) => (
+                    <span key={index} className={classes.labelTag}>
+                      {label}
+                      {index < task.labels.length}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

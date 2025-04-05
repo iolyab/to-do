@@ -46,6 +46,93 @@
   }
 }
 
+.editingContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.deadlineContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.labelContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.taskActionsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.taskActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  flex-wrap: wrap;
+  row-gap: 2px;
+}
+
+.priorityContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.highPriority {
+  background-color: lightpink;
+}
+
+.mediumPriority {
+  background-color: thistle;
+}
+
+.lowPriority {
+  background-color: lavenderblush;
+}
+
+.taskLabels {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: end;
+}
+
+.newLabelInput {
+  width: 92px;
+  padding: 2px 0px 2px 0px;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-style: solid;
+    border-color: #48293d;
+    outline: none;
+  }
+}
+
+.labelList {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+}
+
+.labelTag {
+  background-color: rgb(233, 231, 231);
+  color: #48293d;
+  font-size: 12px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #48293d;
+  border-radius: 5px;
+  padding: 1px 3px 1px 3px;
+}
+
 .customDropDownButton {
   margin-right: 5px;
   border-style: solid;
@@ -61,21 +148,6 @@
     color: white;
     background-color: #45304d;
   }
-}
-
-.priorityContainer {
-  position: relative;
-  display: inline-block;
-}
-
-.labelContainer {
-  position: relative;
-  display: inline-block;
-}
-
-.deadlineContainer {
-  position: relative;
-  display: inline-block;
 }
 
 .dropDownMenu {
@@ -102,18 +174,6 @@
     background-color: #48293d;
     color: white;
   }
-}
-
-.highPriority {
-  background-color: lightpink;
-}
-
-.mediumPriority {
-  background-color: thistle;
-}
-
-.lowPriority {
-  background-color: lavenderblush;
 }
 
 .dropDownMenuLabels {
@@ -151,19 +211,6 @@
   }
 }
 
-.newLabelInput {
-  width: 92px;
-  padding: 2px 0px 2px 0px;
-  font-size: 14px;
-  outline: none;
-
-  &:focus {
-    border-style: solid;
-    border-color: #48293d;
-    outline: none;
-  }
-}
-
 .deadlinePicker {
   position: absolute;
   z-index: 1;
@@ -172,12 +219,4 @@
 .taskDeadline {
   margin: 0px 0px 0px 0px;
   font-size: 14px;
-}
-
-.taskActionsContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  row-gap: 2px;
 }

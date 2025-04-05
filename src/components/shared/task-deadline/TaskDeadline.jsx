@@ -7,11 +7,6 @@ import { Button } from "../button/Button";
 const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // const handleAddDeadlineClick = (date) => {
-  //   deadlineSet(date);
-  //   setIsOpen(false);
-  // };
-
   const handleAddDeadlineClick = (date) => {
     if (typeof deadlineSet === "function") {
       deadlineSet(date);
@@ -27,7 +22,7 @@ const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
         onClick={() => setIsOpen(!isOpen)}
         size="small"
         variant="deadlineButton"
-        label={deadline ? dayjs(deadline).format("YYYY-MM-DD") : "Set Deadline"}
+        label={deadline ? dayjs(deadline).format("MM-DD") : "Deadline"}
         className={classes.customButton}
       />
       {isOpen && (
