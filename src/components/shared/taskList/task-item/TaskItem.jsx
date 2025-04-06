@@ -110,7 +110,16 @@ const TaskItem = ({
             <div className={classes.taskLabels}>
               {task.deadline && (
                 <p className={classes.taskDeadline}>
-                  📅 {dayjs(task.deadline).format("YYYY-MM-DD")}
+                  📅 {""}
+                  {(() => {
+                    const today = dayjs();
+                    const deadline = dayjs(task.deadline);
+
+                    if (deadline.isSame(today, "day")) return "Today";
+                    if (deadline.isSame(today.add(1, "day"), "day"))
+                      return "Tomorrow";
+                    return deadline.format("MM-DD");
+                  })()}
                 </p>
               )}
 
