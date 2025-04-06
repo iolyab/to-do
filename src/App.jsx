@@ -1,20 +1,20 @@
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signup/Signup";
-import Main from "./components/main/Main";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Upcoming from "./pages/upcoming/Upcoming";
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Login from './pages/login/Login';
+import Signup from './pages/signup/Signup';
+import Main from './components/main/Main';
+import Dashboard from './pages/dashboard/Dashboard';
+import Upcoming from './pages/upcoming/Upcoming';
 
 const App = () => {
   const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem("tasks");
+    const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = (taskText, deadline) => {
@@ -23,7 +23,7 @@ const App = () => {
       text: taskText,
       completed: false,
       priority: null,
-      label: "Labels",
+      label: 'Labels',
       labels: [],
       deadline: deadline,
     };
@@ -36,9 +36,7 @@ const App = () => {
 
   const handleCompleted = (id) => {
     setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+      tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task))
     );
   };
 
@@ -52,8 +50,7 @@ const App = () => {
         task.id === id
           ? {
               ...task,
-              priority: newPriority.name,
-              priorityClass: newPriority.className,
+              priority: newPriority,
             }
           : task
       )
@@ -67,9 +64,7 @@ const App = () => {
           ? {
               ...task,
               label: newLabel,
-              labels: task.labels.includes(newLabel)
-                ? task.labels
-                : [...task.labels, newLabel],
+              labels: task.labels.includes(newLabel) ? task.labels : [...task.labels, newLabel],
             }
           : task
       )
@@ -78,17 +73,13 @@ const App = () => {
 
   const handleDeadline = (id, date) => {
     setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, deadline: date } : task
-      )
+      prevTasks.map((task) => (task.id === id ? { ...task, deadline: date } : task))
     );
   };
 
   const updateTask = (newFields) => {
     setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === newFields.id ? { ...task, ...newFields } : task
-      )
+      prevTasks.map((task) => (task.id === newFields.id ? { ...task, ...newFields } : task))
     );
   };
 

@@ -1,12 +1,18 @@
-import { Button } from "../../button/Button";
-import { TaskPriority } from "../../task-priority/TaskPriority";
-import { TaskLabels } from "../../task-labels/TaskLabels";
-import { TaskDeadline } from "../../task-deadline/TaskDeadline";
-import dayjs from "dayjs";
+import { Button } from '../../button/Button';
+import { TaskPriority } from '../../task-priority/TaskPriority';
+import { TaskLabels } from '../../task-labels/TaskLabels';
+import { TaskDeadline } from '../../task-deadline/TaskDeadline';
+import dayjs from 'dayjs';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
-import classes from "./taskItem.module.scss";
+import classes from './taskItem.module.scss';
+
+const taskPriorityClassNames = {
+  High: classes.highPriority,
+  Medium: classes.mediumPriority,
+  Low: classes.lowPriority,
+};
 
 const TaskItem = ({
   task,
@@ -18,14 +24,14 @@ const TaskItem = ({
   handleEditChange,
   handleSaveEdit,
   handleCancelEdit,
-  priorityClassName,
+  // priorityClassName,
   priorityChanged,
   labelsSet,
   deadlineSet,
   id,
 }) => {
   return (
-    <li className={`${classes.listItem} ${task.priorityClass}`}>
+    <li className={`${classes.listItem} ${taskPriorityClassNames[task.priority]} `}>
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -41,9 +47,7 @@ const TaskItem = ({
             className={classes.editInput}
           />
         ) : (
-          <span className={task.completed ? classes.completed : ""}>
-            {task.text}
-          </span>
+          <span className={task.completed ? classes.completed : ''}>{task.text}</span>
         )}
       </div>
 
@@ -75,7 +79,7 @@ const TaskItem = ({
             <div className={classes.labelContainer}>
               <TaskLabels
                 labelsSet={labelsSet}
-                currentLabel={task.label}
+                // currentLabel={task.labels[0]}
                 labels={task.labels || []}
                 id={id}
                 classes={classes}
@@ -96,29 +100,28 @@ const TaskItem = ({
                   key={task.id}
                   priorityChanged={priorityChanged}
                   currentPriority={task.priority}
-                  classes={classes}
+                  // classes={classes}
                 />
               </div>
 
               <Button
                 onClick={deleted}
                 size="small"
-                icon={"/assets/green-trash-can-icon.png"}
+                icon={'/assets/green-trash-can-icon.png'}
                 className={classes.customButton}
               />
             </div>
             <div className={classes.taskLabels}>
               {task.deadline && (
                 <p className={classes.taskDeadline}>
-                  📅 {""}
+                  📅 {''}
                   {(() => {
                     const today = dayjs();
                     const deadline = dayjs(task.deadline);
 
-                    if (deadline.isSame(today, "day")) return "Today";
-                    if (deadline.isSame(today.add(1, "day"), "day"))
-                      return "Tomorrow";
-                    return deadline.format("MM-DD");
+                    if (deadline.isSame(today, 'day')) return 'Today';
+                    if (deadline.isSame(today.add(1, 'day'), 'day')) return 'Tomorrow';
+                    return deadline.format('MM-DD');
                   })()}
                 </p>
               )}

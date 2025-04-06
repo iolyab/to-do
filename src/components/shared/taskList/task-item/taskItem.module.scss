@@ -133,38 +133,6 @@
   padding: 1px 3px 1px 3px;
 }
 
-.customDropDownButton {
-  margin-right: 5px;
-  border-style: solid;
-  border-color: #48293d;
-  border-width: 1px;
-  background-color: white;
-  color: #48293d;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 75px;
-
-  &:hover {
-    color: white;
-    background-color: #45304d;
-  }
-}
-
-.dropDownMenu {
-  position: absolute;
-  width: 72px;
-  list-style-type: none;
-  padding: 0px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  border-style: solid;
-  border-width: 1px;
-  text-align: center;
-  z-index: 1;
-  background-color: #fafafa;
-}
-
 .dropDownItem {
   padding: 5px 5px 5px 5px;
   color: #48293d;
