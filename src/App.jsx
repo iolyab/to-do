@@ -9,8 +9,16 @@ import Upcoming from "./pages/upcoming/Upcoming";
 
 const App = () => {
   const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
+    try {
+      const savedTasks = localStorage.getItem("tasks");
+      if (savedTasks) {
+        return JSON.parse(savedTasks);
+      }
+      return [];
+    } catch (error) {
+      console.log("Error loading tasks from localStorage:", error);
+      return [];
+    }
   });
 
   useEffect(() => {
@@ -23,7 +31,6 @@ const App = () => {
       text: taskText,
       completed: false,
       priority: null,
-      label: "Labels",
       labels: [],
       deadline: deadline,
     };
@@ -52,8 +59,7 @@ const App = () => {
         task.id === id
           ? {
               ...task,
-              priority: newPriority.name,
-              priorityClass: newPriority.className,
+              priority: newPriority,
             }
           : task
       )

@@ -1,0 +1,63 @@
+.dropDownMenuLabels {
+  position: absolute;
+  min-width: 100px;
+  max-width: 112px;
+  list-style-type: none;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  z-index: 1;
+  background-color: #fafafa;
+}
+
+.customDropDownButtonLabels {
+  margin-right: 5px;
+  border-style: solid;
+  border-color: #48293d;
+  border-width: 1px;
+  background-color: white;
+  color: #48293d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 102px;
+  max-width: 150px;
+
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}
+
+.dropDownItem {
+  padding: 5px 5px 5px 5px;
+  color: #48293d;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background-color: #48293d;
+    color: white;
+  }
+}
+
+.newLabelInput {
+  width: 92px;
+  padding: 2px 0px 2px 0px;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-style: solid;
+    border-color: #48293d;
+    outline: none;
+  }
+}
+
+.activeLabel {
+  background-color: #45304d;
+  color: white;
+}

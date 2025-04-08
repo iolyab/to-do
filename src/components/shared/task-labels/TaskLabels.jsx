@@ -1,54 +1,47 @@
 import { useState, useEffect } from "react";
 import { Button } from "../button/Button";
+import { addLabel } from "../../../services/labels-service";
+import classes from "./taskLabels.module.scss";
 
-const TaskLabels = ({ classes, labelsSet, currentLabel, id }) => {
+const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [label, setLabel] = useState(currentLabel || "Labels");
   const [newLabel, setNewLabel] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [availableLabels, setAvailableLabels] = useState([]);
 
   useEffect(() => {
-    const existingLabels = JSON.parse(localStorage.getItem("defaultLabels"));
-    if (!existingLabels) {
+    try {
+      const existingLabels = JSON.parse(localStorage.getItem("defaultLabels"));
+      if (!existingLabels) {
+        const defaultLabels = ["Work", "Personal"];
+        localStorage.setItem("defaultLabels", JSON.stringify(defaultLabels));
+        setAvailableLabels(defaultLabels);
+      } else {
+        setAvailableLabels(existingLabels);
+      }
+    } catch (error) {
+      console.log("Error accessing or parsing localStorage:", error);
       const defaultLabels = ["Work", "Personal"];
-      localStorage.setItem("defaultLabels", JSON.stringify(defaultLabels));
       setAvailableLabels(defaultLabels);
-    } else {
-      setAvailableLabels(existingLabels);
     }
   }, []);
-
-  useEffect(() => {
-    if (currentLabel) {
-      setLabel(currentLabel);
-    }
-  }, [currentLabel]);
 
   const handleIsOpen = () => {
     setIsOpen((prev) => !prev);
   };
 
   const handleSelect = (selectedLabel) => {
-    setLabel(selectedLabel);
     labelsSet(selectedLabel);
     setIsOpen(false);
   };
 
   const handleCreateLabel = () => {
     if (newLabel.trim() !== "") {
-      const retrievedLabels =
-        JSON.parse(localStorage.getItem("defaultLabels")) || [];
-      if (!retrievedLabels.includes(newLabel)) {
-        const updatedLabels = [...retrievedLabels, newLabel];
-        localStorage.setItem("defaultLabels", JSON.stringify(updatedLabels));
-        setAvailableLabels(updatedLabels);
-        setNewLabel("");
-      }
+      addLabel(newLabel);
       labelsSet(newLabel);
-      setLabel(newLabel);
       setIsOpen(false);
       setIsAdding(false);
+      setNewLabel("");
     }
   };
 
@@ -60,7 +53,7 @@ const TaskLabels = ({ classes, labelsSet, currentLabel, id }) => {
     <div>
       <Button
         onClick={handleIsOpen}
-        label={label}
+        label={currentLabel || "Labels"}
         size="small"
         className={classes.customDropDownButtonLabels}
       />
@@ -70,8 +63,9 @@ const TaskLabels = ({ classes, labelsSet, currentLabel, id }) => {
             <li
               key={l}
               onClick={() => handleSelect(l)}
-              className={classes.dropDownItem}
-              classes={classes}
+              className={`${classes.dropDownItem} ${
+                labels.includes(l) ? classes.activeLabel : ""
+              }`}
             >
               {l}
             </li>

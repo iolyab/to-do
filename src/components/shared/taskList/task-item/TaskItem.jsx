@@ -8,6 +8,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import classes from "./taskItem.module.scss";
 
+const priorityClassNames = {
+  High: classes.highPriority,
+  Medium: classes.mediumPriority,
+  Low: classes.lowPriority,
+};
+
 const TaskItem = ({
   task,
   isEditing,
@@ -18,14 +24,13 @@ const TaskItem = ({
   handleEditChange,
   handleSaveEdit,
   handleCancelEdit,
-  priorityClassName,
   priorityChanged,
   labelsSet,
   deadlineSet,
   id,
 }) => {
   return (
-    <li className={`${classes.listItem} ${task.priorityClass}`}>
+    <li className={`${classes.listItem} ${priorityClassNames[task.priority]}`}>
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -50,20 +55,6 @@ const TaskItem = ({
       <div className={classes.actionsContainer}>
         {isEditing ? (
           <div className={classes.editingContainer}>
-            <Button
-              onClick={handleSaveEdit}
-              label="Save"
-              variant="save"
-              size="small"
-              className={classes.customButton}
-            />
-            <Button
-              onClick={handleCancelEdit}
-              label="Cancel"
-              variant="cancel"
-              size="small"
-              className={classes.customButton}
-            />
             <div className={classes.deadlineContainer}>
               <TaskDeadline
                 deadline={task.deadline}
@@ -81,6 +72,20 @@ const TaskItem = ({
                 classes={classes}
               />
             </div>
+            <Button
+              onClick={handleSaveEdit}
+              label="Save"
+              variant="save"
+              size="small"
+              className={classes.customButton}
+            />
+            <Button
+              onClick={handleCancelEdit}
+              label="Cancel"
+              variant="cancel"
+              size="small"
+              className={classes.customButton}
+            />
           </div>
         ) : (
           <div className={classes.taskItemsContainer}>
@@ -96,7 +101,6 @@ const TaskItem = ({
                   key={task.id}
                   priorityChanged={priorityChanged}
                   currentPriority={task.priority}
-                  classes={classes}
                 />
               </div>
 

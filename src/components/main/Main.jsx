@@ -1,4 +1,5 @@
 import classes from "./Main.module.scss";
+
 import { Layout } from "../layout/Layout";
 import { Title } from "../shared/title/Title";
 import { InputField } from "../shared/inputField/InputField";
@@ -24,6 +25,7 @@ const Main = ({
         <div className={classes.inputContainer}>
           <InputField onAddTask={addTask} />
         </div>
+
         <div className={classes.tasksContainer}>
           <TaskList
             tasks={tasks}
@@ -34,7 +36,6 @@ const Main = ({
             handleLabels={handleLabels}
             handleDeadline={handleDeadline}
             id={id}
-            className="tasks-to-do"
           />
         </div>
       </div>
