@@ -24,12 +24,27 @@ const TaskList = ({
     if (sortDirection === "none") return tasks;
 
     const sorted = [...tasks].sort((a, b) => {
-      const aPriority = priorityOrder[a.priority] || 0;
-      const bPriority = priorityOrder[b.priority] || 0;
+      if (sortDirection === "low-high" || sortDirection === "high-low") {
+        const aPriority = priorityOrder[a.priority] || 0;
+        const bPriority = priorityOrder[b.priority] || 0;
 
-      return sortDirection === "low-high"
-        ? aPriority - bPriority
-        : bPriority - aPriority;
+        return sortDirection === "low-high"
+          ? aPriority - bPriority
+          : bPriority - aPriority;
+      }
+      if (sortDirection === "date-soon" || sortDirection === "date-late") {
+        const aDeadline = a.deadline ? new Date(a.deadline) : null;
+        const bDeadline = b.deadline ? new Date(b.deadline) : null;
+
+        if (!aDeadline && bDeadline) return 0;
+        if (!aDeadline) return 1;
+        if (!bDeadline) return -1;
+
+        return sortDirection === "date-soon"
+          ? aDeadline - bDeadline
+          : bDeadline - aDeadline;
+      }
+      return 0;
     });
     return sorted;
   };
@@ -44,6 +59,8 @@ const TaskList = ({
           <option value="none">Sort</option>
           <option value="low-high">low-high</option>
           <option value="high-low">high-low</option>
+          <option value="date-soon">sooner-later</option>
+          <option value="date-late">later-sooner</option>
         </select>
       </div>
       <ul className={classes.taskListContainer}>
