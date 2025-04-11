@@ -1,9 +1,10 @@
 import { TaskItemContainer } from "../task-item/TaskItemContainer";
 import classes from "./taskList.module.scss";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TaskContext } from "../../../../context/TaskContext";
 
 const TaskList = ({
-  tasks,
+  // tasks,
   handleDelete,
   handleCompleted,
   handleEdit,
@@ -12,6 +13,7 @@ const TaskList = ({
   handleDeadline,
   id,
 }) => {
+  const { tasks } = useContext(TaskContext);
   const [sortDirection, setSortDirection] = useState("none");
   const priorityOrder = {
     High: 3,
@@ -48,6 +50,7 @@ const TaskList = ({
     });
     return sorted;
   };
+
   return (
     <div>
       <div className={classes.sortContainer}>
