@@ -8,4 +8,20 @@ export function addLabel(newLabel) {
     return retrievedLabels;
 }
 
+export function getLabels() {
+    try {
+        const existingLabels = JSON.parse(localStorage.getItem("defaultLabels"));
+        if (!existingLabels) {
+          const defaultLabels = ["Work", "Personal"];
+          localStorage.setItem("defaultLabels", JSON.stringify(defaultLabels));
+          return defaultLabels;
+        } else {
+         return existingLabels;
+        }
+      } catch (error) {
+        console.log("Error accessing or parsing localStorage:", error);
+        const defaultLabels = ["Work", "Personal"];
+        return defaultLabels;
+      }
+}
 

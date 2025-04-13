@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "../button/Button";
 import { addLabel } from "../../../services/labels-service";
+import { getLabels } from "../../../services/labels-service";
 import classes from "./taskLabels.module.scss";
 
 const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
@@ -10,20 +11,8 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
   const [availableLabels, setAvailableLabels] = useState([]);
 
   useEffect(() => {
-    try {
-      const existingLabels = JSON.parse(localStorage.getItem("defaultLabels"));
-      if (!existingLabels) {
-        const defaultLabels = ["Work", "Personal"];
-        localStorage.setItem("defaultLabels", JSON.stringify(defaultLabels));
-        setAvailableLabels(defaultLabels);
-      } else {
-        setAvailableLabels(existingLabels);
-      }
-    } catch (error) {
-      console.log("Error accessing or parsing localStorage:", error);
-      const defaultLabels = ["Work", "Personal"];
-      setAvailableLabels(defaultLabels);
-    }
+    const labels = getLabels();
+    setAvailableLabels(labels);
   }, []);
 
   const handleIsOpen = () => {
