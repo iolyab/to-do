@@ -1,38 +1,23 @@
 import React from "react";
 import { createContext } from "react";
 import { useState, useEffect } from "react";
+import {
+  getSavedTasks,
+  saveTasks,
+  createTask,
+} from "../services/tasks-service";
 
 export const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
-  //   const [taskList, setTaskList] = useState([]);
-
-  const [tasks, setTasks] = useState(() => {
-    try {
-      const savedTasks = localStorage.getItem("tasks");
-      if (savedTasks) {
-        return JSON.parse(savedTasks);
-      }
-      return [];
-    } catch (error) {
-      console.log("Error loading tasks from localStorage:", error);
-      return [];
-    }
-  });
+  const [tasks, setTasks] = useState(getSavedTasks);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    saveTasks(tasks);
   }, [tasks]);
 
   const addTask = (taskText, deadline) => {
-    const newTask = {
-      id: Math.random() + 1,
-      text: taskText,
-      completed: false,
-      priority: null,
-      labels: [],
-      deadline: deadline,
-    };
+    const newTask = createTask(taskText, deadline);
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
