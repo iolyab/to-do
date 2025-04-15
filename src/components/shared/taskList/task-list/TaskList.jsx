@@ -3,27 +3,21 @@ import classes from "./taskList.module.scss";
 import { useState, useContext } from "react";
 import { TaskContext } from "../../../../context/TaskContext";
 import { getSortedTasks } from "../../../../utils/sort";
+import { TasksSort } from "../../task-sort/TasksSort";
 
 const TaskList = () => {
   const { tasks } = useContext(TaskContext);
-  const [sortDirection, setSortDirection] = useState("none");
+  const [sortParams, setSortParams] = useState({
+    field: "none",
+    order: "none",
+  });
 
-  const sortedTasks = getSortedTasks(tasks, sortDirection);
+  const sortedTasks = getSortedTasks(tasks, sortParams.field, sortParams.order);
 
   return (
     <div>
       <div className={classes.sortContainer}>
-        <select
-          onChange={(e) => setSortDirection(e.target.value)}
-          value={sortDirection}
-          className={classes.sortDropdown}
-        >
-          <option value="none">Sort</option>
-          <option value="low-high">low-high</option>
-          <option value="high-low">high-low</option>
-          <option value="date-soon">sooner-later</option>
-          <option value="date-late">later-sooner</option>
-        </select>
+        <TasksSort sortParams={sortParams} onSortChange={setSortParams} />
       </div>
       <ul className={classes.taskListContainer}>
         {sortedTasks.map((task) => (
