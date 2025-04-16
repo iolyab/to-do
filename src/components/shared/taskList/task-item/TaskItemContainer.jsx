@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { TaskItem } from "./TaskItem";
-import { TaskContext } from "../../../../context/TaskContext";
+import { useTasks } from "../../../../hooks/useTasks";
 
 const TaskItemContainer = ({ task, classes, id }) => {
   const {
@@ -10,7 +10,7 @@ const TaskItemContainer = ({ task, classes, id }) => {
     handlePriority,
     handleLabels,
     handleDeadline,
-  } = useContext(TaskContext);
+  } = useTasks();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);

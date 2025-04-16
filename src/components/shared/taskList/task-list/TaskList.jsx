@@ -1,12 +1,10 @@
 import { TaskItemContainer } from "../task-item/TaskItemContainer";
 import classes from "./taskList.module.scss";
-import { useState, useContext } from "react";
-// import { TaskContext } from "../../../../context/TaskContext";
+import { useState } from "react";
 import { getSortedTasks } from "../../../../utils/sort";
 import { TasksSort } from "../../task-sort/TasksSort";
 
 const TaskList = ({ tasks }) => {
-  // const { tasks } = useContext(TaskContext);
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",

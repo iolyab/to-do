@@ -3,11 +3,10 @@ import classes from "./Upcoming.module.scss";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
 import { TaskList } from "../../components/shared/taskList/task-list/TaskList";
-import { useContext } from "react";
-import { TaskContext } from "../../context/TaskContext";
+import { useTasks } from "../../hooks/useTasks";
 
 const Upcoming = () => {
-  const { tasks } = useContext(TaskContext);
+  const { tasks } = useTasks();
 
   return (
     <Layout>
