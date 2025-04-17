@@ -4,7 +4,7 @@ import { useState } from "react";
 import { getSortedTasks } from "../../../../utils/sort";
 import { TasksSort } from "../../task-sort/TasksSort";
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, isUpcoming }) => {
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",
@@ -19,7 +19,11 @@ const TaskList = ({ tasks }) => {
       </div>
       <ul className={classes.taskListContainer}>
         {sortedTasks.map((task) => (
-          <TaskItemContainer key={task.id} task={task} />
+          <TaskItemContainer
+            key={task.id}
+            task={task}
+            isUpcoming={isUpcoming}
+          />
         ))}
       </ul>
     </div>

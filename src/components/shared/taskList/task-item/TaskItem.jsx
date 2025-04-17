@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
@@ -28,9 +29,18 @@ const TaskItem = ({
   labelsSet,
   deadlineSet,
   id,
+  isUpcoming,
 }) => {
-  return (
-    <li className={`${classes.listItem} ${priorityClassNames[task.priority]}`}>
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleDropdownClick = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  return !isUpcoming ? (
+    <li
+      className={`${classes.listItem} ${priorityClassNames[task.priority]}  `}
+    >
       <div className={classes.taskText}>
         <input
           type="checkbox"
@@ -138,6 +148,109 @@ const TaskItem = ({
                 </div>
               )}
             </div>
+          </div>
+        )}
+      </div>
+    </li>
+  ) : (
+    <li
+      className={`${classes.listItem} ${priorityClassNames[task.priority]} ${
+        isUpcoming ? classes.upcomingItem : ""
+      }`}
+    >
+      <div className={classes.taskText}>
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={completed}
+          className={classes.checkbox}
+        />
+        {isEditing ? (
+          <input
+            type="text"
+            value={editedText}
+            onChange={handleEditChange}
+            className={classes.editInput}
+          />
+        ) : (
+          <span className={task.completed ? classes.completed : ""}>
+            {task.text}
+          </span>
+        )}
+      </div>
+
+      <div className={classes.actionsContainer}>
+        <Button
+          onClick={handleDropdownClick}
+          label="..."
+          variant="edit"
+          size="small"
+          className={classes.customElseButton}
+        />
+
+        {isOpen && (
+          <div className={classes.dropDownMenuUpcoming}>
+            {isEditing ? (
+              <div className={classes.editingContainer}>
+                <div className={classes.deadlineContainer}>
+                  <TaskDeadline
+                    deadline={task.deadline}
+                    deadlineSet={deadlineSet}
+                    Button={Button}
+                    classes={classes}
+                  />
+                </div>
+                <div className={classes.labelContainer}>
+                  <TaskLabels
+                    labelsSet={labelsSet}
+                    currentLabel={task.label}
+                    labels={task.labels || []}
+                    id={id}
+                    classes={classes}
+                  />
+                </div>
+                <Button
+                  onClick={handleSaveEdit}
+                  label="Save"
+                  variant="save"
+                  size="small"
+                  className={classes.customButton}
+                />
+                <Button
+                  onClick={handleCancelEdit}
+                  label="Cancel"
+                  variant="cancel"
+                  size="small"
+                  className={classes.customButton}
+                />
+              </div>
+            ) : (
+              <div className={classes.taskItemsContainer}>
+                <div className={classes.taskActionsUpcoming}>
+                  <Button
+                    onClick={handleEditClick}
+                    label="Edit"
+                    size="small"
+                    className={classes.customButton}
+                  />
+
+                  <div className={classes.priorityContainer}>
+                    <TaskPriority
+                      key={task.id}
+                      priorityChanged={priorityChanged}
+                      currentPriority={task.priority}
+                    />
+                  </div>
+
+                  <Button
+                    onClick={deleted}
+                    size="small"
+                    icon={"/assets/green-trash-can-icon.png"}
+                    className={classes.customButton}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -22,7 +22,6 @@
 }
 
 .customButton {
-  margin-right: 5px;
   border-style: solid;
   border-color: #48293d;
   border-width: 1px;
@@ -49,6 +48,7 @@
 .editingContainer {
   display: flex;
   flex-direction: row;
+  gap: 5px;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: end;
@@ -82,7 +82,7 @@
   align-items: center;
   justify-content: end;
   flex-wrap: wrap;
-  row-gap: 2px;
+  gap: 5px;
 }
 
 .priorityContainer {
@@ -167,4 +167,45 @@
 .taskDeadline {
   margin: 0px 0px 0px 0px;
   font-size: 14px;
+}
+
+.upcomingItem {
+  display: grid;
+  grid-template-columns: 250px 70px;
+  position: relative;
+}
+
+.customElseButton {
+  border-style: solid;
+  border-color: #48293d;
+  border-width: 1px;
+  background-color: white;
+  color: #48293d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 78px;
+
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}
+
+.dropDownMenuUpcoming {
+  position: absolute;
+  width: 75px;
+  list-style-type: none;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 1;
+  background-color: #fafafa;
+}
+
+.taskActionsUpcoming {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 2px;
 }
