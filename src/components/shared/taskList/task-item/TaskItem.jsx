@@ -158,25 +158,55 @@ const TaskItem = ({
         isUpcoming ? classes.upcomingItem : ""
       }`}
     >
-      <div className={classes.taskText}>
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={completed}
-          className={classes.checkbox}
-        />
-        {isEditing ? (
+      <div className={classes.taskTextUpcoming}>
+        <div className={classes.taskTopRowUpcoming}>
           <input
-            type="text"
-            value={editedText}
-            onChange={handleEditChange}
-            className={classes.editInput}
+            type="checkbox"
+            checked={task.completed}
+            onChange={completed}
+            className={classes.checkbox}
           />
-        ) : (
-          <span className={task.completed ? classes.completed : ""}>
-            {task.text}
-          </span>
-        )}
+
+          {isEditing ? (
+            <input
+              type="text"
+              value={editedText}
+              onChange={handleEditChange}
+              className={classes.editInput}
+            />
+          ) : (
+            <span className={task.completed ? classes.completed : ""}>
+              {task.text}
+            </span>
+          )}
+        </div>
+        <div className={classes.taskLabelsUpcoming}>
+          {task.deadline && (
+            <p className={classes.taskDeadline}>
+              📅 {""}
+              {(() => {
+                const today = dayjs();
+                const deadline = dayjs(task.deadline);
+
+                if (deadline.isSame(today, "day")) return "Today";
+                if (deadline.isSame(today.add(1, "day"), "day"))
+                  return "Tomorrow";
+                return deadline.format("MM-DD");
+              })()}
+            </p>
+          )}
+
+          {task.labels && task.labels.length > 0 && (
+            <div className={classes.labelList}>
+              {task.labels.map((label, index) => (
+                <span key={index} className={classes.labelTag}>
+                  {label}
+                  {index < task.labels.length}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className={classes.actionsContainer}>
@@ -191,7 +221,7 @@ const TaskItem = ({
         {isOpen && (
           <div className={classes.dropDownMenuUpcoming}>
             {isEditing ? (
-              <div className={classes.editingContainer}>
+              <div className={classes.editingDropdown}>
                 <div className={classes.deadlineContainer}>
                   <TaskDeadline
                     deadline={task.deadline}

@@ -171,8 +171,27 @@
 
 .upcomingItem {
   display: grid;
-  grid-template-columns: 250px 70px;
+  grid-template-columns: 250px 1fr;
   position: relative;
+}
+
+.taskTextUpcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.taskTopRowUpcoming {
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.taskLabelsUpcoming {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
 }
 
 .customElseButton {
@@ -185,6 +204,27 @@
   transition: all 0.3s ease;
   min-width: 78px;
 
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}
+
+.editingDropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.customDeadlineButton {
+  min-width: 102px;
+  max-width: 150px;
+  border-style: solid;
+  border-color: #48293d;
+  border-width: 1px;
+  background-color: white;
+  color: #48293d;
   &:hover {
     color: white;
     background-color: #45304d;
