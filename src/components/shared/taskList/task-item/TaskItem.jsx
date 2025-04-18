@@ -29,7 +29,7 @@ const TaskItem = ({
   labelsSet,
   deadlineSet,
   id,
-  isUpcoming,
+  isSimplified,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,7 +37,7 @@ const TaskItem = ({
     setIsOpen((prev) => !prev);
   };
 
-  return !isUpcoming ? (
+  return !isSimplified ? (
     <li
       className={`${classes.listItem} ${priorityClassNames[task.priority]}  `}
     >
@@ -155,11 +155,11 @@ const TaskItem = ({
   ) : (
     <li
       className={`${classes.listItem} ${priorityClassNames[task.priority]} ${
-        isUpcoming ? classes.upcomingItem : ""
+        isSimplified ? classes.simplifiedItem : ""
       }`}
     >
-      <div className={classes.taskTextUpcoming}>
-        <div className={classes.taskTopRowUpcoming}>
+      <div className={classes.taskTextSimplified}>
+        <div className={classes.taskTopRowSimplified}>
           <input
             type="checkbox"
             checked={task.completed}
@@ -180,7 +180,7 @@ const TaskItem = ({
             </span>
           )}
         </div>
-        <div className={classes.taskLabelsUpcoming}>
+        <div className={classes.taskLabelsSimplified}>
           {task.deadline && (
             <p className={classes.taskDeadline}>
               📅 {""}

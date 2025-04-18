@@ -4,7 +4,7 @@ import { useState } from "react";
 import { getSortedTasks } from "../../../../utils/sort";
 import { TasksSort } from "../../task-sort/TasksSort";
 
-const TaskList = ({ tasks, isUpcoming }) => {
+const TaskList = ({ tasks, isSimplified }) => {
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",
@@ -22,7 +22,7 @@ const TaskList = ({ tasks, isUpcoming }) => {
           <TaskItemContainer
             key={task.id}
             task={task}
-            isUpcoming={isUpcoming}
+            isSimplified={isSimplified}
           />
         ))}
       </ul>

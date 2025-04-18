@@ -17,7 +17,7 @@ const Upcoming = () => {
           <div className={classes.tasksContainer}>
             <TaskList
               tasks={tasks.filter((task) => task.priority === "High")}
-              isUpcoming={true}
+              isSimplified={true}
             />
           </div>
         </div>
@@ -26,7 +26,7 @@ const Upcoming = () => {
           <div className={classes.tasksContainer}>
             <TaskList
               tasks={tasks.filter((task) => task.priority === "Medium")}
-              isUpcoming={true}
+              isSimplified={true}
             />
           </div>
         </div>
@@ -35,7 +35,7 @@ const Upcoming = () => {
           <div className={classes.tasksContainer}>
             <TaskList
               tasks={tasks.filter((task) => task.priority === "Low")}
-              isUpcoming={true}
+              isSimplified={true}
             />
           </div>
         </div>

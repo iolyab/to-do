@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { useTasks } from "../../../../hooks/useTasks";
 
-const TaskItemContainer = ({ task, classes, id, isUpcoming }) => {
+const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const {
     handleDelete,
     handleCompleted,
@@ -62,7 +62,7 @@ const TaskItemContainer = ({ task, classes, id, isUpcoming }) => {
       deadlineSet={deadlineSet}
       id={id}
       classes={classes}
-      isUpcoming={isUpcoming}
+      isSimplified={isSimplified}
     />
   );
 };
