@@ -219,7 +219,7 @@ const TaskItem = ({
         />
 
         {isOpen && (
-          <div className={classes.dropDownMenuUpcoming}>
+          <div className={classes.dropDownMenuSimplified}>
             {isEditing ? (
               <div className={classes.editingDropdown}>
                 <div className={classes.deadlineContainer}>
@@ -256,7 +256,7 @@ const TaskItem = ({
               </div>
             ) : (
               <div className={classes.taskItemsContainer}>
-                <div className={classes.taskActionsUpcoming}>
+                <div className={classes.taskActionsSimplified}>
                   <Button
                     onClick={handleEditClick}
                     label="Edit"
