@@ -81,3 +81,14 @@
     color: white;
   }
 }
+
+.button.arrowButton {
+  background-color: white;
+  border-style: none;
+  color: #48293d;
+
+  &:hover {
+    background-color: #d8c0cb;
+    color: #48293d;
+  }
+}

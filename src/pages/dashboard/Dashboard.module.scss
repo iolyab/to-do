@@ -27,3 +27,10 @@
   grid-template-rows: 1fr 1fr;
   row-gap: 20px;
 }
+
+.switchContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}

@@ -21,6 +21,8 @@ const Button = ({
       return classes.saveLabel;
     } else if (variant === "deadlineButton") {
       return classes.deadlineButton;
+    } else if (variant === "arrowButton") {
+      return classes.arrowButton;
     }
   };
 
