@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { useTasks } from "../../../../hooks/useTasks";
+import { TaskItemSimplified } from "./TaskItemSimplified";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const {
@@ -45,8 +46,27 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     handleDeadline(task.id, newDeadline);
   };
 
-  return (
+  return !isSimplified ? (
     <TaskItem
+      task={task}
+      isEditing={isEditing}
+      editedText={editedText}
+      deleted={deleted}
+      completed={completed}
+      handleEditClick={handleEditClick}
+      handleEditChange={handleEditChange}
+      handleSaveEdit={handleSaveEdit}
+      handleCancelEdit={handleCancelEdit}
+      priorityClassName={task.priorityClass}
+      priorityChanged={priorityChanged}
+      labelsSet={labelsSet}
+      deadlineSet={deadlineSet}
+      id={id}
+      classes={classes}
+      isSimplified={isSimplified}
+    />
+  ) : (
+    <TaskItemSimplified
       task={task}
       isEditing={isEditing}
       editedText={editedText}

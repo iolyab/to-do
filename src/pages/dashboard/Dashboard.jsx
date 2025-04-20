@@ -14,15 +14,15 @@ const Dashboard = () => {
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>In progress</p>
           <TaskList
-            tasks={tasks.filter((task) => task.completed !== true)}
-            isSimplified={true}
+            tasks={tasks.filter((task) => !task.completed)}
+            isSimplified
           />
         </div>
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>Completed</p>
           <TaskList
-            tasks={tasks.filter((task) => task.completed === true)}
-            isSimplified={true}
+            tasks={tasks.filter((task) => task.completed)}
+            isSimplified
           />
         </div>
         <div className={classes.workPersonalContainer}>
@@ -30,14 +30,14 @@ const Dashboard = () => {
             <p className={classes.tasksTitle}>Work</p>
             <TaskList
               tasks={tasks.filter((task) => task.labels.includes("Work"))}
-              isSimplified={true}
+              isSimplified
             />
           </div>
           <div className={classes.tasks}>
             <p className={classes.tasksTitle}>Personal</p>
             <TaskList
               tasks={tasks.filter((task) => task.labels.includes("Personal"))}
-              isSimplified={true}
+              isSimplified
             />
           </div>
         </div>
