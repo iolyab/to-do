@@ -31,31 +31,43 @@ const Dashboard = () => {
     );
   };
 
+  const filteredTasks = tasks.reduce(
+    (acc, task) => {
+      if (!task.completed) {
+        acc.inProgress.push(task);
+      } else {
+        acc.completed.push(task);
+      }
+
+      if (task.labels.includes("Work")) {
+        acc.work.push(task);
+      }
+
+      if (task.labels.includes(availableLabels[currentIndex])) {
+        acc.currLabel.push(task);
+      }
+
+      return acc;
+    },
+    { inProgress: [], completed: [], work: [], currLabel: [] }
+  );
+
   return (
     <Layout>
       <div className={classes.container}>
         <Title />
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>In progress</p>
-          <TaskList
-            tasks={tasks.filter((task) => !task.completed)}
-            isSimplified
-          />
+          <TaskList tasks={filteredTasks.inProgress} isSimplified />
         </div>
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>Completed</p>
-          <TaskList
-            tasks={tasks.filter((task) => task.completed)}
-            isSimplified
-          />
+          <TaskList tasks={filteredTasks.completed} isSimplified />
         </div>
         <div className={classes.workPersonalContainer}>
           <div className={classes.tasks}>
             <p className={classes.tasksTitle}>Work</p>
-            <TaskList
-              tasks={tasks.filter((task) => task.labels.includes("Work"))}
-              isSimplified
-            />
+            <TaskList tasks={filteredTasks.work} isSimplified />
           </div>
           <div className={classes.tasks}>
             <div className={classes.switchContainer}>
@@ -77,12 +89,7 @@ const Dashboard = () => {
                 className={classes.customButton}
               />
             </div>
-            <TaskList
-              tasks={tasks.filter((task) =>
-                task.labels.includes(availableLabels[currentIndex])
-              )}
-              isSimplified
-            />
+            <TaskList tasks={filteredTasks.currLabel} isSimplified />
           </div>
         </div>
       </div>

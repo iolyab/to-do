@@ -194,28 +194,45 @@
   gap: 5px;
 }
 
-.customElseButton {
-  border-style: solid;
-  border-color: #48293d;
-  border-width: 1px;
-  background-color: white;
-  color: #48293d;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 78px;
-
-  &:hover {
-    color: white;
-    background-color: #45304d;
-  }
-}
-
 .editingDropdown {
   position: absolute;
   display: flex;
   flex-direction: column;
   z-index: 1;
 }
+
+.customEditButton {
+  width: 75px;
+  border-style: none;
+  background-color: white;
+  color: #48293d;
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}
+
+.customDeleteButton {
+  width: 75px;
+  border-style: none;
+  background-color: white;
+  color: #48293d;
+  &:hover {
+    color: white;
+    background-color: #45304d;
+  }
+}
+
+// .customPriorityButton {
+//   width: 75px;
+//   border-style: none;
+//   background-color: white;
+//   color: #48293d;
+//   &:hover {
+//     color: white;
+//     background-color: #45304d;
+//   }
+// }
 
 .customDeadlineButton {
   min-width: 102px;
@@ -242,10 +259,14 @@
 }
 
 .taskActionsSimplified {
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   row-gap: 2px;
+  z-index: 1;
 }

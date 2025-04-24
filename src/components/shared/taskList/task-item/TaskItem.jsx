@@ -27,6 +27,7 @@ const TaskItem = ({
   priorityChanged,
   labelsSet,
   deadlineSet,
+  calculatedDeadline,
   id,
 }) => {
   return (
@@ -117,15 +118,7 @@ const TaskItem = ({
               {task.deadline && (
                 <p className={classes.taskDeadline}>
                   📅 {""}
-                  {(() => {
-                    const today = dayjs();
-                    const deadline = dayjs(task.deadline);
-
-                    if (deadline.isSame(today, "day")) return "Today";
-                    if (deadline.isSame(today.add(1, "day"), "day"))
-                      return "Tomorrow";
-                    return deadline.format("MM-DD");
-                  })()}
+                  {calculatedDeadline(task)}
                 </p>
               )}
 

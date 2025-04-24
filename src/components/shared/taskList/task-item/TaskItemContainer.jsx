@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { useTasks } from "../../../../hooks/useTasks";
 import { TaskItemSimplified } from "./TaskItemSimplified";
+import dayjs from "dayjs";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const {
@@ -46,6 +47,15 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     handleDeadline(task.id, newDeadline);
   };
 
+  function calculatedDeadline(task) {
+    const today = dayjs();
+    const deadline = dayjs(task.deadline);
+
+    if (deadline.isSame(today, "day")) return "Today";
+    if (deadline.isSame(today.add(1, "day"), "day")) return "Tomorrow";
+    return deadline.format("MM-DD");
+  }
+
   return !isSimplified ? (
     <TaskItem
       task={task}
@@ -57,10 +67,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleEditChange={handleEditChange}
       handleSaveEdit={handleSaveEdit}
       handleCancelEdit={handleCancelEdit}
-      priorityClassName={task.priorityClass}
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
       deadlineSet={deadlineSet}
+      calculatedDeadline={calculatedDeadline}
       id={id}
       classes={classes}
       isSimplified={isSimplified}
@@ -76,10 +86,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleEditChange={handleEditChange}
       handleSaveEdit={handleSaveEdit}
       handleCancelEdit={handleCancelEdit}
-      priorityClassName={task.priorityClass}
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
       deadlineSet={deadlineSet}
+      calculatedDeadline={calculatedDeadline}
       id={id}
       classes={classes}
       isSimplified={isSimplified}

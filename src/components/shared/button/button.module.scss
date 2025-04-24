@@ -92,3 +92,15 @@
     color: #48293d;
   }
 }
+
+.button.elseButton {
+  border-style: none;
+  background-color: white;
+  color: #48293d;
+  margin-right: 5px;
+
+  &:hover {
+    background-color: #48293d;
+    color: white;
+  }
+}

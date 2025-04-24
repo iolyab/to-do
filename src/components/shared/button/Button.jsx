@@ -23,6 +23,8 @@ const Button = ({
       return classes.deadlineButton;
     } else if (variant === "arrowButton") {
       return classes.arrowButton;
+    } else if (variant === "elseButton") {
+      return classes.elseButton;
     }
   };
 
