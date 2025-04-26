@@ -79,7 +79,7 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
                 />
                 <Button
                   onClick={handleCreateLabel}
-                  label="Save"
+                  icon={"/assets/save.png"}
                   size="small"
                   variant="saveLabel"
                   className={classes.customButton}

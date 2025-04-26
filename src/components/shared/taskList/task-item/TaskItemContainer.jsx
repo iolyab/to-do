@@ -56,6 +56,12 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     return deadline.format("MM-DD");
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return !isSimplified ? (
     <TaskItem
       task={task}
@@ -93,6 +99,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       id={id}
       classes={classes}
       isSimplified={isSimplified}
+      isOpen={isOpen}
+      handleOpen={handleOpen}
     />
   );
 };

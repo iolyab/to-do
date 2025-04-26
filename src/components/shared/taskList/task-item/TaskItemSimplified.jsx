@@ -4,7 +4,7 @@ import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
-import { Dropdown } from "../../dropdown/Dropdown";
+import { useState } from "react";
 
 const priorityClassNames = {
   High: classes.highPriority,
@@ -28,6 +28,8 @@ const TaskItemSimplified = ({
   calculatedDeadline,
   id,
   isSimplified,
+  isOpen,
+  handleOpen,
 }) => {
   return (
     <li
@@ -79,81 +81,77 @@ const TaskItemSimplified = ({
       </div>
 
       <div className={classes.actionsContainer}>
-        <Dropdown
-          trigger={
+        <Button
+          onClick={handleOpen}
+          label="&hellip;"
+          variant="elseButton"
+          size="small"
+          className={classes.customButton}
+        />
+      </div>
+
+      {isOpen &&
+        (isEditing ? (
+          <div className={classes.editingDropdown}>
+            <div className={classes.deadlineContainer}>
+              <TaskDeadline
+                deadline={task.deadline}
+                deadlineSet={deadlineSet}
+                Button={Button}
+                classes={classes}
+              />
+            </div>
+            <div className={classes.labelContainer}>
+              <TaskLabels
+                labelsSet={labelsSet}
+                currentLabel={task.label}
+                labels={task.labels || []}
+                id={id}
+                classes={classes}
+              />
+            </div>
             <Button
-              label="&hellip;"
-              variant="elseButton"
+              onClick={handleSaveEdit}
+              icon={"/assets/save.png"}
+              variant="save"
               size="small"
               className={classes.customButton}
             />
-          }
-          className={classes.dropDownMenuSimplified}
-        >
-          {isEditing ? (
-            <div className={classes.editingDropdown}>
-              <div className={classes.deadlineContainer}>
-                <TaskDeadline
-                  deadline={task.deadline}
-                  deadlineSet={deadlineSet}
-                  Button={Button}
-                  classes={classes}
-                />
-              </div>
-              <div className={classes.labelContainer}>
-                <TaskLabels
-                  labelsSet={labelsSet}
-                  currentLabel={task.label}
-                  labels={task.labels || []}
-                  id={id}
-                  classes={classes}
-                />
-              </div>
+            <Button
+              onClick={handleCancelEdit}
+              icon={"/assets/cancel.png"}
+              variant="cancel"
+              size="small"
+              className={classes.customButton}
+            />
+          </div>
+        ) : (
+          <div className={classes.taskItemsContainerSimplified}>
+            <div className={classes.taskActionsSimplified}>
               <Button
-                onClick={handleSaveEdit}
-                label="Save"
-                variant="save"
+                onClick={handleEditClick}
+                icon={"/assets/edit.png"}
                 size="small"
                 className={classes.customButton}
               />
+
+              <div className={classes.priorityContainer}>
+                <TaskPriority
+                  key={task.id}
+                  priorityChanged={priorityChanged}
+                  icon={"/assets/priority.png"}
+                />
+              </div>
+
               <Button
-                onClick={handleCancelEdit}
-                label="Cancel"
-                variant="cancel"
+                onClick={deleted}
                 size="small"
+                icon={"/assets/delete.png"}
                 className={classes.customButton}
               />
             </div>
-          ) : (
-            <div className={classes.taskItemsContainer}>
-              <div className={classes.taskActionsSimplified}>
-                <Button
-                  onClick={handleEditClick}
-                  label="Edit"
-                  size="small"
-                  className={classes.customEditButton}
-                />
-
-                <div className={classes.priorityContainer}>
-                  <TaskPriority
-                    key={task.id}
-                    priorityChanged={priorityChanged}
-                    currentPriority={task.priority}
-                    className={classes.customPriorityButton}
-                  />
-                </div>
-
-                <Button
-                  onClick={deleted}
-                  size="small"
-                  icon={"/assets/green-trash-can-icon.png"}
-                  className={classes.customDeleteButton}
-                />
-              </div>
-            </div>
-          )}
-        </Dropdown>
-      </div>
+          </div>
+        ))}
     </li>
   );
 };

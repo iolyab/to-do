@@ -27,8 +27,8 @@
   max-width: 150px;
 
   &:hover {
-    color: white;
-    background-color: #45304d;
+    color: #48293d;
+    background-color: #fbf1ff;
   }
 }
 
@@ -57,6 +57,6 @@
 }
 
 .activeLabel {
-  background-color: #45304d;
-  color: white;
+  background-color: rgb(240, 238, 238);
+  color: #48293d;
 }

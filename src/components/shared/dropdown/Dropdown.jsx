@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import classes from "./dropdown.module.scss";
 
-const Dropdown = ({ children, trigger }) => {
+const Dropdown = ({ classes, trigger, onSelect, options, renderItem }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const dropdownRef = useRef(null);
 
   const handleClickOutside = (e) => {
@@ -23,10 +23,30 @@ const Dropdown = ({ children, trigger }) => {
     setIsOpen((prev) => !prev);
   };
 
+  const handleSelect = (option) => {
+    setIsOpen(false);
+    if (onSelect) {
+      onSelect(option);
+    }
+  };
+
   return (
     <div className={classes.dropdownContainer} ref={dropdownRef}>
       <div onClick={handleDropdownClick}>{trigger}</div>
-      {isOpen && <div>{children}</div>}
+      {isOpen && (
+        <div className={classes.dropDownMenu}>
+          {options.map((option) => (
+            <div
+              key={option}
+              onClick={() => handleSelect(option)}
+              className={classes.dropDownItem}
+              classes={classes}
+            >
+              {renderItem(option)}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

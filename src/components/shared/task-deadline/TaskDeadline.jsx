@@ -23,7 +23,7 @@ const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
         size="small"
         variant="deadlineButton"
         label={deadline ? dayjs(deadline).format("MM-DD") : "Deadline"}
-        className={classes.customDeadlineButton}
+        className={classes.customButton}
       />
       {isOpen && (
         <div className={classes.deadlinePicker}>

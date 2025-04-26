@@ -13,25 +13,18 @@ const TaskPriority = ({ priorityChanged, currentPriority }) => {
       <Dropdown
         trigger={
           <Button
-            label={currentPriority || "Priority"}
+            // label={currentPriority || "Priority"}
+            icon={"/assets/priority.png"}
             size="small"
             className={classes.customDropDownButton}
           />
         }
-      >
-        <ul className={classes.dropDownMenu}>
-          {retrievedPriorityOptions.map((p) => (
-            <li
-              key={p}
-              onClick={() => handleSelect(p)}
-              className={classes.dropDownItem}
-              classes={classes}
-            >
-              {p}
-            </li>
-          ))}
-        </ul>
-      </Dropdown>
+        onSelect={handleSelect}
+        renderItem={(option) => <span>{option}</span>}
+        options={retrievedPriorityOptions}
+        className={classes.dropDownItem}
+        classes={classes}
+      ></Dropdown>
     </div>
   );
 };

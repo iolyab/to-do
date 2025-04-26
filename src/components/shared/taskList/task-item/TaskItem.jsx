@@ -2,7 +2,6 @@ import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
-import dayjs from "dayjs";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -77,14 +76,14 @@ const TaskItem = ({
             </div>
             <Button
               onClick={handleSaveEdit}
-              label="Save"
+              icon={"/assets/save.png"}
               variant="save"
               size="small"
               className={classes.customButton}
             />
             <Button
               onClick={handleCancelEdit}
-              label="Cancel"
+              icon={"/assets/cancel.png"}
               variant="cancel"
               size="small"
               className={classes.customButton}
@@ -95,7 +94,7 @@ const TaskItem = ({
             <div className={classes.taskActions}>
               <Button
                 onClick={handleEditClick}
-                label="Edit"
+                icon={"/assets/edit.png"}
                 size="small"
                 className={classes.customButton}
               />
@@ -110,7 +109,7 @@ const TaskItem = ({
               <Button
                 onClick={deleted}
                 size="small"
-                icon={"/assets/green-trash-can-icon.png"}
+                icon={"/assets/delete.png"}
                 className={classes.customButton}
               />
             </div>
