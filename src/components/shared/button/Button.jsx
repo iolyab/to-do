@@ -25,6 +25,8 @@ const Button = ({
       return classes.arrowButton;
     } else if (variant === "elseButton") {
       return classes.elseButton;
+    } else {
+      return classes.customButton;
     }
   };
 

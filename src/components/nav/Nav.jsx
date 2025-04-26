@@ -8,18 +8,6 @@ const Nav = () => {
       <nav className={classes.navContainer}>
         <ul className={classes.list}>
           <li>
-            <NavLink to="/search">
-              <button className={classes.btn}>
-                <img
-                  className={classes.icon}
-                  src="/assets/search.png"
-                  alt="Search"
-                />
-                Search
-              </button>
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/">
               <button className={classes.btn}>
                 <img

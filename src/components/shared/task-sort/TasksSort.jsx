@@ -2,10 +2,24 @@ import React from "react";
 import { getSortParams } from "../../../utils/sort";
 import classes from "./sortTasks.module.scss";
 
-const TasksSort = ({ sortParams, onSortChange }) => {
+const TasksSort = ({ sortParams, onSortChange, sortFields }) => {
   const handleSortChange = (e) => {
     onSortChange(getSortParams(e.target.value));
   };
+
+  const sortOptions = sortFields.map((field) => {
+    return (
+      <>
+        <option key={field} value={`${field}-asc`}>
+          ⬆️{field}
+        </option>
+        <option key={field} value={`${field}-desc`}>
+          ⬇️{field}
+        </option>
+      </>
+    );
+  });
+
   return (
     <div>
       <select
@@ -18,10 +32,7 @@ const TasksSort = ({ sortParams, onSortChange }) => {
         className={classes.sortDropdown}
       >
         <option value="default">Sort</option>
-        <option value="priority-asc">⬆️ priority</option>
-        <option value="priority-desc">⬇️ priority</option>
-        <option value="deadline-asc">⬆️ deadline</option>
-        <option value="deadline-desc">⬇️ deadline</option>
+        {sortOptions}
       </select>
     </div>
   );

@@ -12,10 +12,16 @@ const TaskList = ({ tasks, isSimplified }) => {
 
   const sortedTasks = getSortedTasks(tasks, sortParams.field, sortParams.order);
 
+  const sortFields = ["priority", "deadline", "title"];
+
   return (
     <div>
       <div className={classes.sortContainer}>
-        <TasksSort sortParams={sortParams} onSortChange={setSortParams} />
+        <TasksSort
+          sortParams={sortParams}
+          onSortChange={setSortParams}
+          sortFields={sortFields}
+        />
       </div>
       <ul className={classes.taskListContainer}>
         {sortedTasks.map((task) => (
