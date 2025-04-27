@@ -1,3 +1,4 @@
+
 const priorityOrder = {
     High: 3,
     Medium: 2,
@@ -20,6 +21,7 @@ const priorityOrder = {
       field: "none",
       order: "none",
     };
+
   }
 
   export function sortByPriority(sortField, sortOrder) {

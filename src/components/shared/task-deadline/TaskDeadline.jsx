@@ -22,7 +22,8 @@ const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
         onClick={() => setIsOpen(!isOpen)}
         size="small"
         variant="deadlineButton"
-        label={deadline ? dayjs(deadline).format("MM-DD") : "Deadline"}
+        label={deadline ? dayjs(deadline).format("MM-DD") : ""}
+        icon={"/assets/deadline.png"}
         className={classes.customButton}
       />
       {isOpen && (

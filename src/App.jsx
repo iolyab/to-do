@@ -6,6 +6,7 @@ import Signup from "./pages/signup/Signup";
 import Main from "./components/main/Main";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Upcoming from "./pages/upcoming/Upcoming";
+import { BigCalendar } from "./pages/calendar/BigCalendar";
 import { TaskProvider } from "./context/TaskContext";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route index element={<Main />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/upcoming" element={<Upcoming />} />
+            <Route path="/calendar" element={<BigCalendar />} />
           </Route>
         </Routes>
       </Router>

@@ -9,14 +9,10 @@ const TasksSort = ({ sortParams, onSortChange, sortFields }) => {
 
   const sortOptions = sortFields.map((field) => {
     return (
-      <>
-        <option key={field} value={`${field}-asc`}>
-          ⬆️{field}
-        </option>
-        <option key={field} value={`${field}-desc`}>
-          ⬇️{field}
-        </option>
-      </>
+      <React.Fragment key={field}>
+        <option value={`${field}-asc`}>⬆️{field}</option>
+        <option value={`${field}-desc`}>⬇️{field}</option>
+      </React.Fragment>
     );
   });
 
