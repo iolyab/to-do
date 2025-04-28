@@ -4,15 +4,17 @@ import classes from "./sortTasks.module.scss";
 
 const TasksSort = ({ sortParams, onSortChange, sortFields }) => {
   const handleSortChange = (e) => {
-    onSortChange(getSortParams(e.target.value));
+    if (typeof onSortChange === "function") {
+      onSortChange(getSortParams(e.target.value));
+    }
   };
 
   const sortOptions = sortFields.map((field) => {
     return (
-      <React.Fragment key={field}>
+      <>
         <option value={`${field}-asc`}>⬆️{field}</option>
         <option value={`${field}-desc`}>⬇️{field}</option>
-      </React.Fragment>
+      </>
     );
   });
 

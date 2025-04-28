@@ -37,7 +37,7 @@ const BigCalendar = () => {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 650 }}
+          style={{ height: 672 }}
         />
       </div>
     </Layout>

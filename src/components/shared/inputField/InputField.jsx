@@ -18,9 +18,6 @@ const InputField = ({ onAddTask, onChange }) => {
     } else {
       setError("");
     }
-    // if (handleChange && typeof handleChange === "function") {
-    //   handleChange(e);
-    // }
 
     if (onChange && typeof onChange === "function") {
       onChange(e);

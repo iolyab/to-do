@@ -25,7 +25,7 @@ const Dropdown = ({ classes, trigger, onSelect, options, renderItem }) => {
 
   const handleSelect = (option) => {
     setIsOpen(false);
-    if (onSelect) {
+    if (typeof onSelect === "function") {
       onSelect(option);
     }
   };
@@ -40,9 +40,8 @@ const Dropdown = ({ classes, trigger, onSelect, options, renderItem }) => {
               key={option}
               onClick={() => handleSelect(option)}
               className={classes.dropDownItem}
-              classes={classes}
             >
-              {renderItem(option)}
+              {typeof renderItem === "function" ? renderItem(option) : option}
             </div>
           ))}
         </div>
