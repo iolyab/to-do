@@ -4,30 +4,22 @@ import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
-// import format from "date-fns/format";
-// import parse from "date-fns/parse";
-// import startOfWeek from "date-fns/startOfWeek";
-// import getDay from "date-fns/getDay";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useTasks } from "../../hooks/useTasks";
+import { useState } from "react";
 
 const BigCalendar = () => {
-  // const locales = {
-  //   "en-US": require("date-fns/locale/en-US"),
-  // };
-
-  // const localizer = dateFnsLocalizer({
-  //   format,
-  //   parse,
-  //   startOfWeek,
-  //   getDay,
-  //   locales,
-  // });
-
   dayjs.extend(weekday);
   dayjs.extend(localeData);
 
   const localizer = dayjsLocalizer(dayjs);
+
+  const [view, setView] = useState("month");
+
+  const handleView = (newView) => {
+    setView(newView);
+  };
 
   const { tasks } = useTasks();
 
@@ -35,6 +27,7 @@ const BigCalendar = () => {
     title: task.text,
     start: dayjs(task.deadline).toDate(),
     end: dayjs(task.deadline).add(1, "hour").toDate(),
+    allDay: true,
   }));
 
   return (
@@ -45,6 +38,9 @@ const BigCalendar = () => {
           events={events}
           startAccessor="start"
           endAccessor="end"
+          views={["month", "week", "day", "agenda"]}
+          view={view}
+          onView={handleView}
           style={{ height: 672 }}
         />
       </div>

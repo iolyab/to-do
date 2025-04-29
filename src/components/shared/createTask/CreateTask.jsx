@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Input } from "../input/Input";
 import { Button } from "../button/Button";
-import classes from "./inputField.module.scss";
+import classes from "./createTask.module.scss";
 
-const InputField = ({ onAddTask, onChange }) => {
+const CreateTask = ({ onAddTask, onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -47,4 +47,4 @@ const InputField = ({ onAddTask, onChange }) => {
   );
 };
 
-export { InputField };
+export { CreateTask };

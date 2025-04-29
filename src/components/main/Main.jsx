@@ -2,7 +2,7 @@ import classes from "./Main.module.scss";
 
 import { Layout } from "../layout/Layout";
 import { Title } from "../shared/title/Title";
-import { InputField } from "../shared/inputField/InputField";
+import { CreateTask } from "../shared/createTask/CreateTask";
 import { TaskList } from "../shared/taskList/task-list/TaskList";
 import { useTasks } from "../../hooks/useTasks";
 
@@ -16,7 +16,7 @@ const Main = () => {
           <Title />
         </div>
         <div className={classes.inputContainer}>
-          <InputField onAddTask={addTask} />
+          <CreateTask onAddTask={addTask} />
         </div>
 
         <div className={classes.tasksContainer}>

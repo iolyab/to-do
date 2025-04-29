@@ -8,8 +8,8 @@ export const Layout = ({ children }) => {
     <>
       <Header />
       <Nav />
-      <Footer />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };
