@@ -11,11 +11,12 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     handleEdit,
     handlePriority,
     handleLabels,
-    handleDeadline,
   } = useTasks();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   const deleted = () => handleDelete(task.id);
   const completed = () => handleCompleted(task.id);
@@ -23,12 +24,14 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     setIsEditing(true);
   };
   const handleEditChange = (e) => setEditedText(e.target.value);
+
   const handleSaveEdit = () => {
     if (editedText.trim().length > 1) {
-      handleEdit(task.id, editedText);
+      handleEdit(task.id, editedText, startDate, endDate);
       setIsEditing(false);
     }
   };
+
   const handleCancelEdit = () => {
     setEditedText(task.text);
 
@@ -43,18 +46,14 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     handleLabels(task.id, newLabel);
   };
 
-  const deadlineSet = (newDeadline) => {
-    handleDeadline(task.id, newDeadline);
+  const handleStartChange = (date) => {
+    setStartDate(date);
+    if (date > endDate) setEndDate(date);
   };
 
-  function calculatedDeadline(task) {
-    const today = dayjs();
-    const deadline = dayjs(task.deadline);
-
-    if (deadline.isSame(today, "day")) return "Today";
-    if (deadline.isSame(today.add(1, "day"), "day")) return "Tomorrow";
-    return deadline.format("MM-DD");
-  }
+  const handleEndChange = (date) => {
+    setEndDate(date);
+  };
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -75,8 +74,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleCancelEdit={handleCancelEdit}
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
-      deadlineSet={deadlineSet}
-      calculatedDeadline={calculatedDeadline}
+      handleStartChange={handleStartChange}
+      handleEndChange={handleEndChange}
+      startDate={startDate}
+      endDate={endDate}
       id={id}
       classes={classes}
       isSimplified={isSimplified}
@@ -94,8 +95,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleCancelEdit={handleCancelEdit}
       priorityChanged={priorityChanged}
       labelsSet={labelsSet}
-      deadlineSet={deadlineSet}
-      calculatedDeadline={calculatedDeadline}
+      handleStartChange={handleStartChange}
+      handleEndChange={handleEndChange}
+      startDate={startDate}
+      endDate={endDate}
       id={id}
       classes={classes}
       isSimplified={isSimplified}

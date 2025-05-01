@@ -6,6 +6,7 @@ import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import "react-datepicker/dist/react-datepicker.css";
 
 import classes from "./taskItem.module.scss";
+import dayjs from "dayjs";
 
 const priorityClassNames = {
   High: classes.highPriority,
@@ -25,8 +26,10 @@ const TaskItem = ({
   handleCancelEdit,
   priorityChanged,
   labelsSet,
-  deadlineSet,
-  calculatedDeadline,
+  handleStartChange,
+  handleEndChange,
+  startDate,
+  endDate,
   id,
 }) => {
   return (
@@ -59,8 +62,10 @@ const TaskItem = ({
           <div className={classes.editingContainer}>
             <div className={classes.deadlineContainer}>
               <TaskDeadline
-                deadline={task.deadline}
-                deadlineSet={deadlineSet}
+                start={startDate}
+                end={endDate}
+                onStartChange={handleStartChange}
+                onEndChange={handleEndChange}
                 Button={Button}
                 classes={classes}
               />
@@ -114,10 +119,10 @@ const TaskItem = ({
               />
             </div>
             <div className={classes.taskLabels}>
-              {task.deadline && (
+              {task.start && (
                 <p className={classes.taskDeadline}>
-                  📅 {""}
-                  {calculatedDeadline(task)}
+                  📅 {dayjs(task.start).format("MM-DD HH:mm")} →{" "}
+                  {dayjs(task.end).format("HH:mm")}
                 </p>
               )}
 

@@ -23,12 +23,21 @@ const BigCalendar = () => {
 
   const { tasks } = useTasks();
 
-  const events = tasks.map((task) => ({
-    title: task.text,
-    start: dayjs(task.deadline).toDate(),
-    end: dayjs(task.deadline).add(1, "hour").toDate(),
-    allDay: true,
-  }));
+  const events = tasks.map((task) => {
+    const startDate = task.start ? dayjs(task.start).toDate() : null;
+    const endDate = task.end ? dayjs(task.end).toDate() : null;
+
+    const isAllDay = !startDate || !endDate;
+
+    return {
+      title: task.text,
+      start: startDate,
+      end: endDate || dayjs(startDate).add(1, "hour").toDate(),
+      allDay: isAllDay,
+    };
+  });
+
+  console.log(events);
 
   return (
     <Layout>

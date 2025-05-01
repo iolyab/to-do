@@ -9,8 +9,6 @@ import {
 
 export const TaskContext = createContext();
 
-//test-merge
-
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState(getSavedTasks);
 
@@ -35,8 +33,8 @@ export function TaskProvider({ children }) {
     );
   };
 
-  const handleEdit = (id, newText) => {
-    updateTask({ id, text: newText });
+  const handleEdit = (id, newText, newStart, newEnd) => {
+    updateTask({ id, text: newText, start: newStart, end: newEnd });
   };
 
   const handlePriority = (id, newPriority) => {
@@ -68,20 +66,14 @@ export function TaskProvider({ children }) {
     );
   };
 
-  const handleDeadline = (id, date) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, deadline: date } : task
-      )
-    );
-  };
-
   const updateTask = (newFields) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
+    setTasks((prevTasks) => {
+      const newTasks = prevTasks.map((task) =>
         task.id === newFields.id ? { ...task, ...newFields } : task
-      )
-    );
+      );
+      saveTasks(newTasks);
+      return newTasks;
+    });
   };
 
   return (
@@ -95,7 +87,6 @@ export function TaskProvider({ children }) {
         handleEdit,
         handlePriority,
         handleLabels,
-        handleDeadline,
         updateTask,
       }}
     >

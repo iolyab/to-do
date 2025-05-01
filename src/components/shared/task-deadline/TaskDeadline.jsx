@@ -1,20 +1,11 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
 import { Button } from "../button/Button";
+import classes from "./taskDeadline.module.scss";
 
-const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
+const TaskDeadline = ({ start, end, onStartChange, onEndChange, classes }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleAddDeadlineClick = (date) => {
-    if (typeof deadlineSet === "function") {
-      deadlineSet(date);
-    } else {
-      console.error("deadlineSet is not a function:", deadlineSet);
-    }
-    setIsOpen(false);
-  };
 
   return (
     <div>
@@ -22,17 +13,30 @@ const TaskDeadline = ({ deadline, deadlineSet, classes }) => {
         onClick={() => setIsOpen(!isOpen)}
         size="small"
         variant="deadlineButton"
-        label={deadline ? dayjs(deadline).format("MM-DD") : ""}
-        icon={"/assets/deadline.png"}
+        icon={"/assets/deadline-start.png"}
         className={classes.customButton}
       />
       {isOpen && (
         <div className={classes.deadlinePicker}>
+          <label>Start Date & Time</label>
           <DatePicker
-            selected={deadline}
-            onChange={handleAddDeadlineClick}
-            dateFormat="MM-dd-yyyy"
+            selected={start}
+            onChange={onStartChange}
+            timeFormat="HH:mm"
+            dateFormat="MM-dd-yyyy "
+            showTimeInput
             inline
+          />
+          <label>End Date & Time</label>
+          <DatePicker
+            selected={end}
+            onChange={onEndChange}
+            timeFormat="HH:mm"
+            dateFormat="MM-dd-yyyy"
+            showTimeInput
+            inline
+            minDate={start}
+            minTime={start}
           />
         </div>
       )}
