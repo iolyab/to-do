@@ -30,6 +30,7 @@ const TaskItem = ({
   handleEndChange,
   startDate,
   endDate,
+  calculatedDeadline,
   id,
 }) => {
   return (
@@ -119,12 +120,7 @@ const TaskItem = ({
               />
             </div>
             <div className={classes.taskLabels}>
-              {task.start && (
-                <p className={classes.taskDeadline}>
-                  📅 {dayjs(task.start).format("MM-DD HH:mm")} →{" "}
-                  {dayjs(task.end).format("HH:mm")}
-                </p>
-              )}
+              <p className={classes.taskDeadline}>📅 {calculatedDeadline()}</p>
 
               {task.labels && task.labels.length > 0 && (
                 <div className={classes.labelList}>

@@ -55,6 +55,16 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     setEndDate(date);
   };
 
+  const calculatedDeadline = () => {
+    const start = dayjs(task.start);
+    const today = dayjs();
+    const tomorrow = today.add(1, "day");
+
+    if (start.isSame(today, "day")) return "Today";
+    if (start.isSame(tomorrow, "day")) return "Tomorrow";
+    return start.format("MMM D hA");
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -78,6 +88,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleEndChange={handleEndChange}
       startDate={startDate}
       endDate={endDate}
+      calculatedDeadline={calculatedDeadline}
       id={id}
       classes={classes}
       isSimplified={isSimplified}
@@ -99,6 +110,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleEndChange={handleEndChange}
       startDate={startDate}
       endDate={endDate}
+      calculatedDeadline={calculatedDeadline}
       id={id}
       classes={classes}
       isSimplified={isSimplified}
