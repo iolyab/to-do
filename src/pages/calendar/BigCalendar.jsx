@@ -16,9 +16,14 @@ const BigCalendar = () => {
   const localizer = dayjsLocalizer(dayjs);
 
   const [view, setView] = useState("month");
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const handleView = (newView) => {
     setView(newView);
+  };
+
+  const handleNavigate = (date) => {
+    setCurrentDate(date);
   };
 
   const { tasks } = useTasks();
@@ -50,6 +55,8 @@ const BigCalendar = () => {
           views={["month", "week", "day", "agenda"]}
           view={view}
           onView={handleView}
+          date={currentDate}
+          onNavigate={handleNavigate}
           style={{ height: 672 }}
         />
       </div>
