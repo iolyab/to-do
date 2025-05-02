@@ -3,20 +3,36 @@ import classes from "./taskList.module.scss";
 import { useState } from "react";
 import { getSortedTasks } from "../../../../utils/sort";
 import { TasksSort } from "../../task-sort/TasksSort";
+import { TaskFilter } from "../../task-filter/TaskFilter";
+import { getFilteredTasks } from "../../../../utils/filter";
 
 const TaskList = ({ tasks, isSimplified }) => {
+  console.log("tasks", tasks);
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",
   });
 
-  const sortedTasks = getSortedTasks(tasks, sortParams.field, sortParams.order);
-
   const sortFields = ["priority", "deadline", "title"];
+
+  const [filterOption, setFilterOption] = useState("All");
+
+  const handleFilterChange = (value) => {
+    setFilterOption(value);
+  };
+
+  const filteredTasks = getFilteredTasks(tasks, filterOption);
+
+  const visibleTasks = getSortedTasks(
+    filteredTasks,
+    sortParams.field,
+    sortParams.order
+  );
 
   return (
     <div>
-      <div className={classes.sortContainer}>
+      <div className={classes.filterSortContainer}>
+        <TaskFilter onFilterChange={handleFilterChange} />
         <TasksSort
           sortParams={sortParams}
           onSortChange={setSortParams}
@@ -24,7 +40,7 @@ const TaskList = ({ tasks, isSimplified }) => {
         />
       </div>
       <ul className={classes.taskListContainer}>
-        {sortedTasks.map((task) => (
+        {visibleTasks.map((task) => (
           <TaskItemContainer
             key={task.id}
             task={task}

@@ -87,7 +87,7 @@
   border-style: none;
   color: #48293d;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: #d8c0cb;
     color: #48293d;
   }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "../button/Button";
-import classes from "./taskDeadline.module.scss";
+import "./taskDeadline.module.scss";
 
 const TaskDeadline = ({ start, end, onStartChange, onEndChange, classes }) => {
   const [isOpen, setIsOpen] = useState(false);

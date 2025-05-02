@@ -2,6 +2,7 @@ import classes from "./button.module.scss";
 
 const Button = ({
   label,
+  disabled,
   size = "medium",
   className = "",
   variant,
@@ -35,6 +36,7 @@ const Button = ({
       className={`${
         classes.button
       } ${sizeClass} ${variantClass()} ${className}`}
+      disabled={disabled}
       {...props}
     >
       {icon ? (

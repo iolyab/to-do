@@ -13,12 +13,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const labels = getLabels();
-    setAvailableLabels(labels);
+    const filtered = labels.filter((label) => label !== "Work");
+    setAvailableLabels(filtered);
   }, []);
 
   const { tasks } = useTasks();
 
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSwitchContainerForward = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % availableLabels.length);
@@ -76,7 +77,10 @@ const Dashboard = () => {
                 label="&lt;"
                 variant="arrowButton"
                 size="small"
-                className={classes.customButton}
+                className={`${classes.customButton} ${
+                  currentIndex === 0 ? classes.disabled : ""
+                }`}
+                disabled={currentIndex === 0}
               />
               <p className={classes.tasksTitle}>
                 {availableLabels[currentIndex]}
@@ -86,7 +90,12 @@ const Dashboard = () => {
                 label="&gt;"
                 variant="arrowButton"
                 size="small"
-                className={classes.customButton}
+                className={`${classes.customButton} ${
+                  currentIndex === availableLabels.length - 1
+                    ? classes.disabled
+                    : ""
+                }`}
+                disabled={currentIndex === availableLabels.length - 1}
               />
             </div>
             <TaskList tasks={filteredTasks.currLabel} isSimplified />
