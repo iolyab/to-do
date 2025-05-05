@@ -3,7 +3,7 @@ import classes from "./Main.module.scss";
 import { Layout } from "../layout/Layout";
 import { Title } from "../shared/title/Title";
 import { CreateTask } from "../shared/createTask/CreateTask";
-import { TaskList } from "../shared/taskList/task-list/TaskList";
+import { TaskListContainer } from "../shared/taskList/task-list/TaskListContainer";
 import { useTasks } from "../../hooks/useTasks";
 
 const Main = () => {
@@ -20,7 +20,7 @@ const Main = () => {
         </div>
 
         <div className={classes.tasksContainer}>
-          <TaskList tasks={tasks} />
+          <TaskListContainer tasks={tasks} />
         </div>
       </div>
     </Layout>

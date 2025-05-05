@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
 import { useTasks } from "../../hooks/useTasks";
-import { TaskList } from "../../components/shared/taskList/task-list/TaskList";
+import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
 import { Button } from "../../components/shared/button/Button";
 import { getLabels } from "../../services/labels-service";
 
@@ -59,16 +59,16 @@ const Dashboard = () => {
         <Title />
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>In progress</p>
-          <TaskList tasks={filteredTasks.inProgress} isSimplified />
+          <TaskListContainer tasks={filteredTasks.inProgress} isSimplified />
         </div>
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>Completed</p>
-          <TaskList tasks={filteredTasks.completed} isSimplified />
+          <TaskListContainer tasks={filteredTasks.completed} isSimplified />
         </div>
         <div className={classes.workPersonalContainer}>
           <div className={classes.tasks}>
             <p className={classes.tasksTitle}>Work</p>
-            <TaskList tasks={filteredTasks.work} isSimplified />
+            <TaskListContainer tasks={filteredTasks.work} isSimplified />
           </div>
           <div className={classes.tasks}>
             <div className={classes.switchContainer}>
@@ -98,7 +98,7 @@ const Dashboard = () => {
                 disabled={currentIndex === availableLabels.length - 1}
               />
             </div>
-            <TaskList tasks={filteredTasks.currLabel} isSimplified />
+            <TaskListContainer tasks={filteredTasks.currLabel} isSimplified />
           </div>
         </div>
       </div>

@@ -1,33 +1,16 @@
 import { TaskItemContainer } from "../task-item/TaskItemContainer";
 import classes from "./taskList.module.scss";
-import { useState } from "react";
-import { getSortedTasks } from "../../../../utils/sort";
 import { TasksSort } from "../../task-sort/TasksSort";
 import { TaskFilter } from "../../task-filter/TaskFilter";
-import { getFilteredTasks } from "../../../../utils/filter";
 
-const TaskList = ({ tasks, isSimplified }) => {
-  const [sortParams, setSortParams] = useState({
-    field: "none",
-    order: "none",
-  });
-
-  const sortFields = ["priority", "deadline", "title"];
-
-  const [filterOption, setFilterOption] = useState("All");
-
-  const handleFilterChange = (value) => {
-    setFilterOption(value);
-  };
-
-  const filteredTasks = getFilteredTasks(tasks, filterOption);
-
-  const visibleTasks = getSortedTasks(
-    filteredTasks,
-    sortParams.field,
-    sortParams.order
-  );
-
+const TaskList = ({
+  isSimplified,
+  sortParams,
+  setSortParams,
+  sortFields,
+  handleFilterChange,
+  visibleTasks,
+}) => {
   return (
     <div>
       <div className={classes.filterSortContainer}>

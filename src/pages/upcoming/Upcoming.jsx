@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Upcoming.module.scss";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
-import { TaskList } from "../../components/shared/taskList/task-list/TaskList";
+import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
 import { useTasks } from "../../hooks/useTasks";
 
 const Upcoming = () => {
@@ -15,7 +15,7 @@ const Upcoming = () => {
         <div className={classes.priority}>
           <p className={classes.priorityTitle}>High priority</p>
           <div className={classes.tasksContainer}>
-            <TaskList
+            <TaskListContainer
               tasks={tasks.filter((task) => task.priority === "High")}
               isSimplified={true}
             />
@@ -24,7 +24,7 @@ const Upcoming = () => {
         <div className={classes.priority}>
           <p className={classes.priorityTitle}>Medium priority</p>
           <div className={classes.tasksContainer}>
-            <TaskList
+            <TaskListContainer
               tasks={tasks.filter((task) => task.priority === "Medium")}
               isSimplified={true}
             />
@@ -33,7 +33,7 @@ const Upcoming = () => {
         <div className={classes.priority}>
           <p className={classes.priorityTitle}>Low priority</p>
           <div className={classes.tasksContainer}>
-            <TaskList
+            <TaskListContainer
               tasks={tasks.filter((task) => task.priority === "Low")}
               isSimplified={true}
             />
