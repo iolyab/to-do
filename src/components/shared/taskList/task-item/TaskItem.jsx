@@ -6,7 +6,6 @@ import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import "react-datepicker/dist/react-datepicker.css";
 
 import classes from "./taskItem.module.scss";
-import dayjs from "dayjs";
 
 const priorityClassNames = {
   High: classes.highPriority,

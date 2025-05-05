@@ -9,12 +9,12 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useTasks } from "../../hooks/useTasks";
 import { useState } from "react";
 
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+
+const localizer = dayjsLocalizer(dayjs);
+
 const BigCalendar = () => {
-  dayjs.extend(weekday);
-  dayjs.extend(localeData);
-
-  const localizer = dayjsLocalizer(dayjs);
-
   const [view, setView] = useState("month");
   const [currentDate, setCurrentDate] = useState(new Date());
 

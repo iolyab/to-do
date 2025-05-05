@@ -7,7 +7,6 @@ import { TaskFilter } from "../../task-filter/TaskFilter";
 import { getFilteredTasks } from "../../../../utils/filter";
 
 const TaskList = ({ tasks, isSimplified }) => {
-  console.log("tasks", tasks);
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",

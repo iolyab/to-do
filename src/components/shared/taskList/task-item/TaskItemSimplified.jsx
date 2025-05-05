@@ -4,7 +4,6 @@ import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
-import { useState } from "react";
 
 const priorityClassNames = {
   High: classes.highPriority,
