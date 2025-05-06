@@ -17,6 +17,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [editedText, setEditedText] = useState(task.text);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   const deleted = () => handleDelete(task.id);
   const completed = () => handleCompleted(task.id);
@@ -64,8 +65,6 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
     if (start.isSame(tomorrow, "day")) return "Tomorrow";
     return start.format("MMM D hA");
   };
-
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
     setIsOpen((prev) => !prev);

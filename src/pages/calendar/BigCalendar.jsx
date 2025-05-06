@@ -17,6 +17,7 @@ const localizer = dayjsLocalizer(dayjs);
 const BigCalendar = () => {
   const [view, setView] = useState("month");
   const [currentDate, setCurrentDate] = useState(new Date());
+  const { tasks } = useTasks();
 
   const handleView = (newView) => {
     setView(newView);
@@ -25,8 +26,6 @@ const BigCalendar = () => {
   const handleNavigate = (date) => {
     setCurrentDate(date);
   };
-
-  const { tasks } = useTasks();
 
   const events = tasks.map((task) => {
     const startDate = task.start ? dayjs(task.start).toDate() : null;
@@ -41,8 +40,6 @@ const BigCalendar = () => {
       allDay: isAllDay,
     };
   });
-
-  console.log(events);
 
   return (
     <Layout>

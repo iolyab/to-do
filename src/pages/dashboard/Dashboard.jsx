@@ -10,16 +10,14 @@ import { getLabels } from "../../services/labels-service";
 
 const Dashboard = () => {
   const [availableLabels, setAvailableLabels] = useState([]);
+  const { tasks } = useTasks();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const labels = getLabels();
     const filtered = labels.filter((label) => label !== "Work");
     setAvailableLabels(filtered);
   }, []);
-
-  const { tasks } = useTasks();
-
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSwitchContainerForward = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % availableLabels.length);
