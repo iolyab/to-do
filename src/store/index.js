@@ -1,8 +1,11 @@
-import {legacy_createStore, combineReducers} from 'redux';
+import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {thunk} from 'redux-thunk';
 import { tasksReducer } from './tasks/reducer';
 
 const rootReducer = combineReducers({tasks: tasksReducer});
 
-const store = legacy_createStore(rootReducer, window._REDUX_DEVTOOLS_EXTENSION_ && window._REDUX_DEVTOOLS_EXTENSION_())
+const composeEnhances = window._REDUX_DEVTOOLS_EXTENSION__COMPOSE_ || compose;
 
-export default store;
+const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)))
+
+export {store}

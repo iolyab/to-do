@@ -3,15 +3,25 @@ import { TaskItem } from "./TaskItem";
 import { useTasks } from "../../../../hooks/useTasks";
 import { TaskItemSimplified } from "./TaskItemSimplified";
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
+import {
+  deleteTask,
+  completeTask,
+  editTask,
+  updateTaskPriority,
+  updateTaskLabels,
+} from "../../../../store/tasks/actions";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
-  const {
-    handleDelete,
-    handleCompleted,
-    handleEdit,
-    handlePriority,
-    handleLabels,
-  } = useTasks();
+  // const {
+  //   handleDelete,
+  //   handleCompleted,
+  //   handleEdit,
+  //   handlePriority,
+  //   handleLabels,
+  // } = useTasks();
+
+  const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(task.text);
@@ -19,8 +29,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
-  const deleted = () => handleDelete(task.id);
-  const completed = () => handleCompleted(task.id);
+  const deleted = () => dispatch(deleteTask(task.id));
+  const completed = () => dispatch(completeTask(task.id));
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -28,7 +38,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
 
   const handleSaveEdit = () => {
     if (editedText.trim().length > 1) {
-      handleEdit(task.id, editedText, startDate, endDate);
+      dispatch(editTask(task.id, editedText, startDate, endDate));
       setIsEditing(false);
     }
   };
@@ -40,11 +50,11 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   };
 
   const priorityChanged = (newPriority) => {
-    handlePriority(task.id, newPriority);
+    dispatch(updateTaskPriority(task.id, newPriority));
   };
 
   const labelsSet = (newLabel) => {
-    handleLabels(task.id, newLabel);
+    dispatch(updateTaskLabels(task.id, newLabel));
   };
 
   const handleStartChange = (date) => {

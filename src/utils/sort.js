@@ -53,7 +53,15 @@ const priorityOrder = {
   }
 
   export function getSortedTasks(tasks, sortField, sortOrder) {
+    if(tasks && typeof tasks === 'object') {
+      tasks = Object.values(tasks);
+    };
+
+    if(!Array.isArray(tasks)) return [];
+
     if (sortOrder === "none" || sortField === "none") return tasks;
+
+    let sortedTasks = [];
 
 
     if(sortField === "priority") {
@@ -62,5 +70,5 @@ const priorityOrder = {
       return tasks.toSorted(sortByDeadline(sortField, sortOrder));
     }
 
-    return tasks;
+    return sortedTasks;
   };

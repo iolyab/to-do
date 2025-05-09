@@ -2,14 +2,17 @@ import { TaskList } from "./TaskList";
 import { useState } from "react";
 import { getSortedTasks } from "../../../../utils/sort";
 import { getFilteredTasks } from "../../../../utils/filter";
+import { useSelector } from "react-redux";
 
-const TaskListContainer = ({ tasks, isSimplified }) => {
+const TaskListContainer = ({ isSimplified }) => {
+  const tasks = useSelector((state) => state.tasks.tasks);
+
   const [sortParams, setSortParams] = useState({
     field: "none",
     order: "none",
   });
 
-  const sortFields = ["priority", "deadline", "title"];
+  const sortFields = ["priority", "deadline"];
 
   const [filterOption, setFilterOption] = useState("All");
 
@@ -24,6 +27,7 @@ const TaskListContainer = ({ tasks, isSimplified }) => {
     sortParams.field,
     sortParams.order
   );
+
   return (
     <div>
       <TaskList

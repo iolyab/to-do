@@ -3,10 +3,12 @@ import classes from "./Upcoming.module.scss";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
 import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
-import { useTasks } from "../../hooks/useTasks";
+import { useSelector } from "react-redux";
+// import { useTasks } from "../../hooks/useTasks";
 
 const Upcoming = () => {
-  const { tasks } = useTasks();
+  // const { tasks } = useTasks();
+  const tasks = useSelector((state) => state.tasks.tasks);
 
   return (
     <Layout>
