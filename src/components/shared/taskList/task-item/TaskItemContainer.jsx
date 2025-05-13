@@ -13,14 +13,6 @@ import {
 } from "../../../../store/tasks/actions";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
-  // const {
-  //   handleDelete,
-  //   handleCompleted,
-  //   handleEdit,
-  //   handlePriority,
-  //   handleLabels,
-  // } = useTasks();
-
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);

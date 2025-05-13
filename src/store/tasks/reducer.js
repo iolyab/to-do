@@ -1,5 +1,5 @@
 import { getSavedTasks } from '../../services/tasks-service';
-import {LOAD_TASKS, ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_LABELS, UPDATE_TASK} from './actions';
+import {ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_LABELS, UPDATE_TASK} from './actions';
 
 const initialState = {
     tasks: getSavedTasks(),
@@ -7,11 +7,6 @@ const initialState = {
 
 const tasksReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_TASKS:
-            return {
-                ...state,
-                tasks: action.payload
-            }
         case ADD_TASK:
             return {
                 ...state,
@@ -60,10 +55,7 @@ const tasksReducer = (state = initialState, action) => {
                 task.id === action.payload.id
                   ? {
                       ...task,
-                      label: action.payload.newLabel,
-                      labels: task.labels.includes(action.payload.newLabel)
-                        ? task.labels
-                        : [...task.labels, action.payload.newLabel],
+                      labels: action.payload.newLabels,
                     }
                   : task
               )
