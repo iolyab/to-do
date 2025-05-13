@@ -3,7 +3,7 @@ import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./createTask.module.scss";
 
-const CreateTask = ({ onAddTask, onChange }) => {
+const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -28,7 +28,7 @@ const CreateTask = ({ onAddTask, onChange }) => {
     e.preventDefault();
     if (!error && inputValue) {
       if (onAddTask && typeof onAddTask === "function") {
-        onAddTask(inputValue);
+        onAddTask(inputValue, startDate, endDate);
         setInputValue("");
       }
     }

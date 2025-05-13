@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
 
 export function getFilteredTasks(tasks, filterOption) {
+  if(tasks && typeof tasks === 'object') {
+    tasks = Object.values(tasks);
+  };
+  if(!Array.isArray(tasks)) return [];
+  
     if (filterOption === "All") return tasks;
 
     const [type, value] = filterOption.split("-");

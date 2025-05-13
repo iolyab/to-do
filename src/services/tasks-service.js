@@ -13,7 +13,12 @@ export const getSavedTasks =  () => {
 
 export const saveTasks = (tasks) => {
     try {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        const tasksToSave = tasks.map((task) => ({
+            ...task, 
+            start: task.start || null,
+            end: task.end || null
+        }))
+        localStorage.setItem("tasks", JSON.stringify(tasksToSave));
     } catch (error) {
         console.log("Error saving tasks to localStorage:", error);
     }

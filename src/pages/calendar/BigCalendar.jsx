@@ -6,8 +6,9 @@ import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { useTasks } from "../../hooks/useTasks";
+// import { useTasks } from "../../hooks/useTasks";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
@@ -17,7 +18,8 @@ const localizer = dayjsLocalizer(dayjs);
 const BigCalendar = () => {
   const [view, setView] = useState("month");
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { tasks } = useTasks();
+  // const { tasks } = useTasks();
+  const tasks = useSelector((state) => state.tasks.tasks);
 
   const handleView = (newView) => {
     setView(newView);
