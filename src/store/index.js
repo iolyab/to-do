@@ -4,8 +4,8 @@ import { tasksReducer } from './tasks/reducer';
 
 const rootReducer = combineReducers({tasks: tasksReducer});
 
-const composeEnhances = window._REDUX_DEVTOOLS_EXTENSION__COMPOSE_ || compose;
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export {store}

@@ -14,10 +14,9 @@ import { BigCalendar } from "./pages/calendar/BigCalendar";
 // import { TaskProvider } from "./context/TaskContext";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadTasks());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(loadTasks());
+  // }, [dispatch]);
 
   return (
     <Provider store={store}>

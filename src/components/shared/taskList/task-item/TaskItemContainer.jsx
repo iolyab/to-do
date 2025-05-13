@@ -67,6 +67,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   };
 
   const calculatedDeadline = () => {
+    if (!task.start || !dayjs(task.start).isValid()) return "";
+
     const start = dayjs(task.start);
     const today = dayjs();
     const tomorrow = today.add(1, "day");

@@ -60,11 +60,12 @@ export const completeTask = (id) => {
     }
 };
 
-export const editTask = (id, newText, newStart, newEnd) => {
+export const editTask = (id, text, start, end) => {
+    console.log(start);
     return(dispatch, getState) => {
         dispatch({
             type: EDIT_TASK,
-            payload: {id, newText, newStart, newEnd}
+            payload: {id, text, start, end}
         })
         const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)

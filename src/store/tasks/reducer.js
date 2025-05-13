@@ -32,8 +32,13 @@ const tasksReducer = (state = initialState, action) => {
         case EDIT_TASK:
             return {
                 ...state,
-                tasks: state.tasks.map((task) =>
-                    task.id === action.payload.id ? { ...task, ...action.payload } : task
+                tasks: state.tasks.map((task) => {
+                    if(task.id === action.payload.id) {
+                
+                        return { ...task, ...action.payload } 
+                    }
+                    return task
+                }
                   ),
             }
         case UPDATE_TASK_PRIORITY:
