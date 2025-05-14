@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
-import { useTasks } from "../../../../hooks/useTasks";
 import { TaskItemSimplified } from "./TaskItemSimplified";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import {
-  deleteTask,
-  completeTask,
-  editTask,
   updateTaskPriority,
   updateTaskLabels,
+  updateTask,
 } from "../../../../store/tasks/actions";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
@@ -21,8 +18,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
-  const deleted = () => dispatch(deleteTask(task.id));
-  const completed = () => dispatch(completeTask(task.id));
+  const deleted = () => dispatch(updateTask(task.id, "delete"));
+  const completed = () => dispatch(updateTask(task.id, "complete"));
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -30,7 +27,13 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
 
   const handleSaveEdit = () => {
     if (editedText.trim().length > 1) {
-      dispatch(editTask(task.id, editedText, startDate, endDate));
+      dispatch(
+        updateTask(task.id, "edit", {
+          text: editedText,
+          start: startDate,
+          end: endDate,
+        })
+      );
       setIsEditing(false);
     }
   };

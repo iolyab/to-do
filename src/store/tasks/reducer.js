@@ -12,30 +12,30 @@ const tasksReducer = (state = initialState, action) => {
                 ...state,
                 tasks: [...state.tasks, action.payload],
             }
-        case DELETE_TASK:
-            return {
-                ...state,
-                tasks: state.tasks.filter((task) => task.id !== action.payload)
-            }
-        case COMPLETE_TASK:
-            return {
-                ...state,
-                tasks: state.tasks.map((task) =>
-                    task.id === action.payload ? { ...task, completed: !task.completed } : task
-                  )
-            }
-        case EDIT_TASK:
-            return {
-                ...state,
-                tasks: state.tasks.map((task) => {
-                    if(task.id === action.payload.id) {
+        // case DELETE_TASK:
+        //     return {
+        //         ...state,
+        //         tasks: state.tasks.filter((task) => task.id !== action.payload)
+        //     }
+        // case COMPLETE_TASK:
+        //     return {
+        //         ...state,
+        //         tasks: state.tasks.map((task) =>
+        //             task.id === action.payload ? { ...task, completed: !task.completed } : task
+        //           )
+        //     }
+        // case EDIT_TASK:
+        //     return {
+        //         ...state,
+        //         tasks: state.tasks.map((task) => {
+        //             if(task.id === action.payload.id) {
                 
-                        return { ...task, ...action.payload } 
-                    }
-                    return task
-                }
-                  ),
-            }
+        //                 return { ...task, ...action.payload } 
+        //             }
+        //             return task
+        //         }
+        //           ),
+        //     }
         case UPDATE_TASK_PRIORITY:
             return {
                 ...state,
@@ -60,16 +60,15 @@ const tasksReducer = (state = initialState, action) => {
                   : task
               )
         }
-        case UPDATE_TASK:
-            return {
+        case UPDATE_TASK: {
+              return {
                 ...state,
-                tasks: state.tasks.map((task) =>
-                    task.id === action.payload.id ? { ...task, ...action.payload } : task
-                  ),
+                tasks: action.payload.updatedTasks,
+              };
             }
-        default:
+      
+          default:
             return state;
+        }
     }
-  }
-
-export {tasksReducer}
+ export { tasksReducer };

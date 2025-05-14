@@ -27,38 +27,38 @@ export const addTask = (taskText, startDate, endDate) => {
     }
 };
 
-export const deleteTask = (id) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: DELETE_TASK,
-            payload: id,
-        })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
-    }
-};
+// export const deleteTask = (id) => {
+//     return (dispatch, getState) => {
+//         dispatch({
+//             type: UPDATE_TASK,
+//             payload: {id, updateType: 'delete'}
+//         })
+//         const updatedTasks = getState().tasks.tasks;
+//         saveTasks(updatedTasks)
+//     }
+// };
 
-export const completeTask = (id) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: COMPLETE_TASK,
-            payload: id,
-        })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
-    }
-};
+// export const completeTask = (id) => {
+//     return (dispatch, getState) => {
+//         dispatch({
+//             type: UPDATE_TASK,
+//             payload: {id, updateType: 'complete'},
+//         })
+//         const updatedTasks = getState().tasks.tasks;
+//         saveTasks(updatedTasks)
+//     }
+// };
 
-export const editTask = (id, text, start, end) => {
-    return(dispatch, getState) => {
-        dispatch({
-            type: EDIT_TASK,
-            payload: {id, text, start, end}
-        })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
-    }
-};
+// export const editTask = (id, text, start, end) => {
+//     return(dispatch, getState) => {
+//         dispatch({
+//             type: UPDATE_TASK,
+//             payload: {id, updateType: 'edit', data: {text, start, end}}
+//         })
+//         const updatedTasks = getState().tasks.tasks;
+//         saveTasks(updatedTasks)
+//     }
+// };
 
 export const updateTaskPriority = (id, newPriority) => {
     return(dispatch, getState) => {
@@ -90,13 +90,33 @@ export const updateTaskLabels = (id, newLabel) => {
     }
 };
 
-export const updateTask = (newFields) => {
+export const updateTask = (id, updateType, data = null) => {
     return (dispatch, getState) => {
+        const currentTasks = getState().tasks.tasks;
+
+        let updatedTasks;
+
+        switch (updateType) {
+            case 'delete':
+              updatedTasks =  currentTasks.filter(task => task.id !== id);
+              break;
+
+            case 'complete':
+              updatedTasks = currentTasks.map(task => task.id === id ? {...task, completed: !task.completed} : task);
+              break;
+
+            case 'edit':
+                updatedTasks = currentTasks.map(task => task.id === id ? { ...task, ...data } : task);
+                break;
+    
+            default:
+              updatedTasks = currentTasks;
+          }
+
         dispatch({
             type: UPDATE_TASK,
-            payload: newFields,
+            payload: {updatedTasks},
         })
-        const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
     }
 };
