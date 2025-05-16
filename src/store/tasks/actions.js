@@ -95,28 +95,37 @@ export const updateTask = (id, updateType, data = null) => {
         const currentTasks = getState().tasks.tasks;
 
         let updatedTasks;
+        let actionType;
+        let actionPayload;
 
         switch (updateType) {
             case 'delete':
               updatedTasks =  currentTasks.filter(task => task.id !== id);
+              actionType = DELETE_TASK;
+              actionPayload = id;
               break;
 
             case 'complete':
               updatedTasks = currentTasks.map(task => task.id === id ? {...task, completed: !task.completed} : task);
+              actionType = COMPLETE_TASK;
+              actionPayload = id;
               break;
 
             case 'edit':
                 updatedTasks = currentTasks.map(task => task.id === id ? { ...task, ...data } : task);
+                actionType = EDIT_TASK;
+                actionPayload = {id, ...data};
                 break;
     
             default:
-              updatedTasks = currentTasks;
+              return;
           }
 
+          saveTasks(updatedTasks)
+
         dispatch({
-            type: UPDATE_TASK,
-            payload: {updatedTasks},
+            type: actionType,
+            payload: actionPayload,
         })
-        saveTasks(updatedTasks)
     }
 };
