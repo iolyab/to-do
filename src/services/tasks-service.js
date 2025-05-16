@@ -14,7 +14,7 @@ export const getSavedTasks =  () => {
 export const saveTasks = (tasks) => {
     try {
         const tasksToSave = tasks.map((task) => ({
-            ...task, 
+            ...task,
             start: task.start || null,
             end: task.end || null
         }))

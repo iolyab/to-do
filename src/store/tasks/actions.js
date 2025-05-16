@@ -1,5 +1,7 @@
 import { createTask, saveTasks } from "../../services/tasks-service";
 
+import dayjs from "dayjs";
+
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
@@ -27,44 +29,48 @@ export const addTask = (taskText, startDate, endDate) => {
     }
 };
 
-// export const deleteTask = (id) => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: UPDATE_TASK,
-//             payload: {id, updateType: 'delete'}
-//         })
-//         const updatedTasks = getState().tasks.tasks;
-//         saveTasks(updatedTasks)
-//     }
-// };
+export const deleteTask = (id) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: DELETE_TASK,
+            payload: id,
+        })
+        const updatedTasks = getState().tasks.tasks;
+        saveTasks(updatedTasks)
+    }
+};
 
-// export const completeTask = (id) => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: UPDATE_TASK,
-//             payload: {id, updateType: 'complete'},
-//         })
-//         const updatedTasks = getState().tasks.tasks;
-//         saveTasks(updatedTasks)
-//     }
-// };
+export const completeTask = (id) => {
+    return (dispatch, getState) => {
+        const currentTasks = getState().tasks.tasks;
 
-// export const editTask = (id, text, start, end) => {
-//     return(dispatch, getState) => {
-//         dispatch({
-//             type: UPDATE_TASK,
-//             payload: {id, updateType: 'edit', data: {text, start, end}}
-//         })
-//         const updatedTasks = getState().tasks.tasks;
-//         saveTasks(updatedTasks)
-//     }
-// };
+        const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
+        const updatedTask = updatedTasks.find(task => task.id === id);
+
+        dispatch({
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {completed: updatedTask.completed}},
+        })
+        saveTasks(updatedTasks)
+    }
+};
+
+export const editTask = (id, text, start, end) => {
+    return(dispatch, getState) => {
+        dispatch({
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {text, start, end}}
+        })
+        const updatedTasks = getState().tasks.tasks;
+        saveTasks(updatedTasks)
+    }
+};
 
 export const updateTaskPriority = (id, newPriority) => {
     return(dispatch, getState) => {
         dispatch({
-            type: UPDATE_TASK_PRIORITY,
-            payload: {id, newPriority}
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {priority: newPriority}}
         })
         const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
@@ -82,50 +88,10 @@ export const updateTaskLabels = (id, newLabel) => {
             newLabels = taskToUpdate.labels.includes(newLabel) ? taskToUpdate.labels : [...taskToUpdate.labels, newLabel];
         }
         dispatch({
-            type: UPDATE_TASK_LABELS,
-            payload: {id, newLabels},
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {labels: newLabels}},
         })
         const updatedTasks = tasks.map(task => task.id === id ? {...task, labels: newLabels} : task);
         saveTasks(updatedTasks)
-    }
-};
-
-export const updateTask = (id, updateType, data = null) => {
-    return (dispatch, getState) => {
-        const currentTasks = getState().tasks.tasks;
-
-        let updatedTasks;
-        let actionType;
-        let actionPayload;
-
-        switch (updateType) {
-            case 'delete':
-              updatedTasks =  currentTasks.filter(task => task.id !== id);
-              actionType = DELETE_TASK;
-              actionPayload = id;
-              break;
-
-            case 'complete':
-              updatedTasks = currentTasks.map(task => task.id === id ? {...task, completed: !task.completed} : task);
-              actionType = COMPLETE_TASK;
-              actionPayload = id;
-              break;
-
-            case 'edit':
-                updatedTasks = currentTasks.map(task => task.id === id ? { ...task, ...data } : task);
-                actionType = EDIT_TASK;
-                actionPayload = {id, ...data};
-                break;
-    
-            default:
-              return;
-          }
-
-          saveTasks(updatedTasks)
-
-        dispatch({
-            type: actionType,
-            payload: actionPayload,
-        })
     }
 };
