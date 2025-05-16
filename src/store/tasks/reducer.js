@@ -1,5 +1,5 @@
 import { getSavedTasks } from '../../services/tasks-service';
-import {ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_LABELS, UPDATE_TASK} from './actions';
+import { ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_LABELS, UPDATE_TASK} from './actions';
 
 const initialState = {
     tasks: getSavedTasks(),
@@ -12,30 +12,30 @@ const tasksReducer = (state = initialState, action) => {
                 ...state,
                 tasks: [...state.tasks, action.payload],
             }
-        // case DELETE_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.filter((task) => task.id !== action.payload)
-        //     }
-        // case COMPLETE_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.map((task) =>
-        //             task.id === action.payload ? { ...task, completed: !task.completed } : task
-        //           )
-        //     }
-        // case EDIT_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.map((task) => {
-        //             if(task.id === action.payload.id) {
+        case DELETE_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.filter((task) => task.id !== action.payload)
+            }
+        case COMPLETE_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) =>
+                    task.id === action.payload ? { ...task, completed: !task.completed } : task
+                  )
+            }
+        case EDIT_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => {
+                    if(task.id === action.payload.id) {
                 
-        //                 return { ...task, ...action.payload } 
-        //             }
-        //             return task
-        //         }
-        //           ),
-        //     }
+                        return { ...task, ...action.payload }
+                    }
+                    return task
+                }
+                  ),
+            }
         case UPDATE_TASK_PRIORITY:
             return {
                 ...state,
@@ -55,17 +55,20 @@ const tasksReducer = (state = initialState, action) => {
                 task.id === action.payload.id
                   ? {
                       ...task,
-                      labels: action.payload.newLabels,
+                      label: action.payload.newLabel,
+                      labels: task.labels.includes(action.payload.newLabel)
+                        ? task.labels
+                        : [...task.labels, action.payload.newLabel],
                     }
                   : task
               )
         }
-        case UPDATE_TASK: {
-              return {
-                ...state,
-                tasks: action.payload.updatedTasks,
-              };
-            }
+        // case UPDATE_TASK: {
+        //       return {
+        //         ...state,
+        //         tasks: action.payload.updatedTasks,
+        //       };
+        //     }
       
           default:
             return state;
