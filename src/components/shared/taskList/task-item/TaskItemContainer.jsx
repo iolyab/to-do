@@ -4,9 +4,12 @@ import { TaskItemSimplified } from "./TaskItemSimplified";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import {
+  deleteTask,
+  completeTask,
   updateTaskPriority,
   updateTaskLabels,
   updateTask,
+  editTask,
 } from "../../../../store/tasks/actions";
 
 const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
@@ -18,8 +21,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
-  const deleted = () => dispatch(updateTask(task.id, "delete"));
-  const completed = () => dispatch(updateTask(task.id, "complete"));
+  const deleted = () => dispatch(deleteTask(task.id, "delete"));
+  const completed = () => dispatch(completeTask(task.id, "complete"));
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -27,13 +30,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
 
   const handleSaveEdit = () => {
     if (editedText.trim().length > 1) {
-      dispatch(
-        updateTask(task.id, "edit", {
-          text: editedText,
-          start: startDate,
-          end: endDate,
-        })
-      );
+      dispatch(editTask(task.id, editedText, startDate, endDate));
       setIsEditing(false);
     }
   };
