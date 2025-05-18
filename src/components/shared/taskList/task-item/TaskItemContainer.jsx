@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { TaskItemSimplified } from "./TaskItemSimplified";
-import dayjs from "dayjs";
+import { getChangedDeadline } from "../../../../utils/date";
 import { useDispatch } from "react-redux";
 import {
   deleteTask,
   completeTask,
   updateTaskPriority,
   updateTaskLabels,
-  updateTask,
   editTask,
 } from "../../../../store/tasks/actions";
 
@@ -21,18 +20,19 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
-  const deleted = () => dispatch(deleteTask(task.id, "delete"));
-  const completed = () => dispatch(completeTask(task.id, "complete"));
+  const deleted = () => dispatch(deleteTask(task.id));
+
+  const completed = () => dispatch(completeTask(task.id));
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
+
   const handleEditChange = (e) => setEditedText(e.target.value);
 
   const handleSaveEdit = () => {
-    if (editedText.trim().length > 1) {
-      dispatch(editTask(task.id, editedText, startDate, endDate));
-      setIsEditing(false);
-    }
+    dispatch(editTask(task.id, editedText, startDate, endDate));
+    setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
@@ -59,15 +59,8 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   };
 
   const calculatedDeadline = () => {
-    if (!task.start || !dayjs(task.start).isValid()) return "";
-
-    const start = dayjs(task.start);
-    const today = dayjs();
-    const tomorrow = today.add(1, "day");
-
-    if (start.isSame(today, "day")) return "Today";
-    if (start.isSame(tomorrow, "day")) return "Tomorrow";
-    return start.format("MMM D hA");
+    if (!task.start) return null;
+    return getChangedDeadline(task.start);
   };
 
   const handleOpen = () => {

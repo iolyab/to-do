@@ -31,12 +31,16 @@ export const addTask = (taskText, startDate, endDate) => {
 
 export const deleteTask = (id) => {
     return (dispatch, getState) => {
+        const currentTasks = getState().tasks.tasks;
+
+        const updatedTasks = currentTasks.filter(task => task.id !== id);
+
+        saveTasks(updatedTasks)
+
         dispatch({
             type: DELETE_TASK,
-            payload: id,
+            payload: updatedTasks,
         })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
     }
 };
 
@@ -57,10 +61,13 @@ export const completeTask = (id) => {
 
 export const editTask = (id, text, start, end) => {
     return(dispatch, getState) => {
+        if(text.trim().length <= 1) return;
+
         dispatch({
             type: UPDATE_TASK,
             payload: {id, updatedTaskData: {text, start, end}}
         })
+
         const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
     }
