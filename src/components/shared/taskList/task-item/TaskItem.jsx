@@ -119,7 +119,11 @@ const TaskItem = ({
               />
             </div>
             <div className={classes.taskLabels}>
-              <p className={classes.taskDeadline}>📅 {calculatedDeadline()}</p>
+              {calculatedDeadline() && (
+                <p className={classes.taskDeadline}>
+                  📅 {calculatedDeadline()}
+                </p>
+              )}
 
               {task.labels && task.labels.length > 0 && (
                 <div className={classes.labelList}>

@@ -1,5 +1,7 @@
 import { createTask, saveTasks } from "../../services/tasks-service";
 
+import dayjs from "dayjs";
+
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
@@ -29,32 +31,43 @@ export const addTask = (taskText, startDate, endDate) => {
 
 export const deleteTask = (id) => {
     return (dispatch, getState) => {
+        const currentTasks = getState().tasks.tasks;
+
+        const updatedTasks = currentTasks.filter(task => task.id !== id);
+
+        saveTasks(updatedTasks)
+
         dispatch({
             type: DELETE_TASK,
-            payload: id,
+            payload: updatedTasks,
         })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
     }
 };
 
 export const completeTask = (id) => {
     return (dispatch, getState) => {
+        const currentTasks = getState().tasks.tasks;
+
+        const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
+        const updatedTask = updatedTasks.find(task => task.id === id);
+
         dispatch({
-            type: COMPLETE_TASK,
-            payload: id,
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {completed: updatedTask.completed}},
         })
-        const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
     }
 };
 
 export const editTask = (id, text, start, end) => {
     return(dispatch, getState) => {
+        if(text.trim().length <= 1) return;
+
         dispatch({
-            type: EDIT_TASK,
-            payload: {id, text, start, end}
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {text, start, end}}
         })
+
         const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
     }
@@ -63,8 +76,8 @@ export const editTask = (id, text, start, end) => {
 export const updateTaskPriority = (id, newPriority) => {
     return(dispatch, getState) => {
         dispatch({
-            type: UPDATE_TASK_PRIORITY,
-            payload: {id, newPriority}
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {priority: newPriority}}
         })
         const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
@@ -82,21 +95,10 @@ export const updateTaskLabels = (id, newLabel) => {
             newLabels = taskToUpdate.labels.includes(newLabel) ? taskToUpdate.labels : [...taskToUpdate.labels, newLabel];
         }
         dispatch({
-            type: UPDATE_TASK_LABELS,
-            payload: {id, newLabels},
+            type: UPDATE_TASK,
+            payload: {id, updatedTaskData: {labels: newLabels}},
         })
         const updatedTasks = tasks.map(task => task.id === id ? {...task, labels: newLabels} : task);
-        saveTasks(updatedTasks)
-    }
-};
-
-export const updateTask = (newFields) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: UPDATE_TASK,
-            payload: newFields,
-        })
-        const updatedTasks = getState().tasks.tasks;
         saveTasks(updatedTasks)
     }
 };
