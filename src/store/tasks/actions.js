@@ -1,8 +1,10 @@
+import { postTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 
-import dayjs from "dayjs";
 
-export const ADD_TASK = 'ADD_TASK';
+export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
+export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
+export const ADD_TASK_PENDING = 'ADD_TASK_PENDING'
 export const DELETE_TASK = 'DELETE_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
@@ -12,19 +14,38 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 
 
 export const addTask = (taskText, startDate, endDate) => {
-    return(dispatch, getState) => {
+    return async (dispatch, getState) => {
         const task = createTask(taskText, startDate, endDate);
 
         const currentTasks = getState().tasks.tasks;
 
         const updatedTasks = [...currentTasks, task];
 
-        saveTasks(updatedTasks)
+        // saveTasks(updatedTasks)
+
+        // dispatch({
+        //     type: ADD_TASK,
+        //     payload: task,
+        // })
 
         dispatch({
+            type: ADD_TASK_PENDING,
+        })
 
-            type: ADD_TASK,
-            payload: task,
+        await postTask(task)
+        .then((task) => {
+            console.log("Task posted successfully:", task);
+            dispatch({
+                type: ADD_TASK_SUCCESS,
+                payload: task,
+            })
+            saveTasks(updatedTasks)
+        }).catch((error) => {
+            console.error("Error posting task:", error);
+            dispatch({
+                type: ADD_TASK_FAILURE,
+                payload: task,
+            })
         })
     }
 };
