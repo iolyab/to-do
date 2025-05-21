@@ -1,4 +1,4 @@
-import { postTask } from "../../api/tasks";
+import { postTask, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 
 
@@ -7,10 +7,12 @@ export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
 export const ADD_TASK_PENDING = 'ADD_TASK_PENDING'
 export const DELETE_TASK = 'DELETE_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
-export const EDIT_TASK = 'EDIT_TASK';
 export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY';
 export const UPDATE_TASK_LABELS = 'UPDATE_TASK_LABELS';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
+export const UPDATE_TASK_PENDING = 'UPDATE_TASK_PENDING';
+export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
 
 
 export const addTask = (taskText, startDate, endDate) => {
@@ -75,16 +77,30 @@ export const completeTask = (id) => {
 };
 
 export const editTask = (id, text, start, end) => {
-    return(dispatch, getState) => {
+    return async(dispatch, getState) => {
         if(text.trim().length <= 1) return;
 
         dispatch({
-            type: UPDATE_TASK,
-            payload: {id, updatedTaskData: {text, start, end}}
+            type: UPDATE_TASK_PENDING,
         })
 
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
+        try {
+            const updatedTask = await updateTask(id, text, start, end);
+            dispatch({
+                type: UPDATE_TASK_SUCCESS,
+                payload: {id, updatedTaskData: updatedTask}
+            })
+            const updatedTasks = getState().tasks.tasks;
+            saveTasks(updatedTasks)
+        }catch (error) {
+            console.error("Error editing task:", error);
+            dispatch({
+                type: UPDATE_TASK_FAILURE,
+                payload: {id, error},
+            })
+        }
+
+
     }
 };
 

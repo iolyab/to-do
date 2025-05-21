@@ -45,11 +45,7 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
         handleChange={handleChange}
         disabled={loading}
       />
-      <Button
-        type="submit"
-        label={loading ? <span className={classes.spinner} /> : "Add"}
-        size="medium"
-      />
+      <Button type="submit" label="Add" loading={loading} size="medium" />
     </form>
   );
 };

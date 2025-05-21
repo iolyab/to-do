@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { TaskItemSimplified } from "./TaskItemSimplified";
 import { getChangedDeadline } from "../../../../utils/date";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteTask,
   completeTask,
@@ -19,6 +19,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const isSaving = useSelector((state) => state.tasks.loading);
 
   const deleted = () => dispatch(deleteTask(task.id));
 
@@ -31,8 +32,11 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const handleEditChange = (e) => setEditedText(e.target.value);
 
   const handleSaveEdit = () => {
-    dispatch(editTask(task.id, editedText, startDate, endDate));
-    setIsEditing(false);
+    dispatch(editTask(task.id, editedText, startDate, endDate))
+      .then(() => {
+        setIsEditing(false);
+      })
+      .catch(() => {});
   };
 
   const handleCancelEdit = () => {
@@ -88,6 +92,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       id={id}
       classes={classes}
       isSimplified={isSimplified}
+      isSaving={isSaving}
     />
   ) : (
     <TaskItemSimplified
@@ -112,6 +117,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       isSimplified={isSimplified}
       isOpen={isOpen}
       handleOpen={handleOpen}
+      isSaving={isSaving}
     />
   );
 };

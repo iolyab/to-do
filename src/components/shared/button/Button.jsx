@@ -7,6 +7,7 @@ const Button = ({
   className = "",
   variant,
   icon,
+  loading = false,
   ...props
 }) => {
   const sizeClass = size === "small" ? classes.small : classes.medium;
@@ -39,7 +40,9 @@ const Button = ({
       disabled={disabled}
       {...props}
     >
-      {icon ? (
+      {loading ? (
+        <span className={classes.spinner} />
+      ) : icon ? (
         <img src={icon} alt={label || "icon"} className={classes.icon} />
       ) : (
         label
