@@ -21,12 +21,6 @@ export const addTask = (taskText, startDate, endDate) => {
 
         const updatedTasks = [...currentTasks, task];
 
-        // saveTasks(updatedTasks)
-
-        // dispatch({
-        //     type: ADD_TASK,
-        //     payload: task,
-        // })
 
         dispatch({
             type: ADD_TASK_PENDING,

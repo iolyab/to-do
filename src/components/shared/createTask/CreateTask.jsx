@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./createTask.module.scss";
+import { useSelector } from "react-redux";
 
 const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
+  const loading = useSelector((state) => state.tasks.loading);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -41,8 +43,13 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
         value={inputValue}
         error={error}
         handleChange={handleChange}
+        disabled={loading}
       />
-      <Button type="submit" label="Add" size="medium" />
+      <Button
+        type="submit"
+        label={loading ? <span className={classes.spinner} /> : "Add"}
+        size="medium"
+      />
     </form>
   );
 };
