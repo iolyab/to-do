@@ -1,3 +1,4 @@
+import { useState } from "react";
 import classes from "./button.module.scss";
 
 const Button = ({
@@ -37,7 +38,7 @@ const Button = ({
       className={`${
         classes.button
       } ${sizeClass} ${variantClass()} ${className}`}
-      disabled={disabled}
+      disabled={disabled || loading}
       {...props}
     >
       {loading ? (

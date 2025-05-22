@@ -31,7 +31,7 @@ const TaskItem = ({
   endDate,
   calculatedDeadline,
   id,
-  isSaving,
+  loading,
 }) => {
   return (
     <li
@@ -85,7 +85,8 @@ const TaskItem = ({
               icon={"/assets/save.png"}
               variant="save"
               size="small"
-              loading={isSaving}
+              disabled={loading}
+              loading={loading}
               className={classes.customButton}
             />
             <Button

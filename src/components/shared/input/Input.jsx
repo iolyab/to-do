@@ -1,7 +1,7 @@
 import classes from "./input.module.scss";
 import PropTypes from "prop-types";
 
-const Input = ({ value, error, handleChange, disabled }) => {
+const Input = ({ value, error, handleChange }) => {
   return (
     <label className={classes.inputContainer}>
       <input
@@ -9,7 +9,6 @@ const Input = ({ value, error, handleChange, disabled }) => {
         placeholder="To-do..."
         value={value}
         onChange={handleChange}
-        disabled={disabled}
         className={`${classes.input} ${error ? classes.error : ""}`}
       ></input>
       {error && <p className={classes.errorMessage}>{error}</p>}

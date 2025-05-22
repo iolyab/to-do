@@ -29,6 +29,7 @@ const TaskItemSimplified = ({
   isSimplified,
   isOpen,
   handleOpen,
+  loading,
 }) => {
   return (
     <li
@@ -113,6 +114,8 @@ const TaskItemSimplified = ({
               onClick={handleSaveEdit}
               icon={"/assets/save.png"}
               variant="save"
+              disabled={loading}
+              loading={loading}
               size="small"
               className={classes.customButton}
             />

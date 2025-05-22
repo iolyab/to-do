@@ -13,6 +13,8 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
 export const UPDATE_TASK_PENDING = 'UPDATE_TASK_PENDING';
 export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
+export const SET_SCOPED_LOADING = 'SET_SCOPED_LOADING';
+export const CLEAR_SCOPED_LOADING = 'CLEAR_SCOPED_LOADING';
 
 
 export const addTask = (taskText, startDate, endDate) => {
@@ -24,25 +26,26 @@ export const addTask = (taskText, startDate, endDate) => {
         const updatedTasks = [...currentTasks, task];
 
 
+        dispatch(setScopedLoading("addTask", null));
         dispatch({
             type: ADD_TASK_PENDING,
         })
 
-        await postTask(task)
-        .then((task) => {
-            console.log("Task posted successfully:", task);
+        try {
+            const responseTask = await postTask(task);
             dispatch({
                 type: ADD_TASK_SUCCESS,
-                payload: task,
+                payload: responseTask,
             })
             saveTasks(updatedTasks)
-        }).catch((error) => {
-            console.error("Error posting task:", error);
+        }catch(error) {
             dispatch({
                 type: ADD_TASK_FAILURE,
-                payload: task,
+                payload: error,
             })
-        })
+        }finally {
+            dispatch(clearScopedLoading());
+        }
     }
 };
 
@@ -80,6 +83,7 @@ export const editTask = (id, text, start, end) => {
     return async(dispatch, getState) => {
         if(text.trim().length <= 1) return;
 
+        dispatch(setScopedLoading("editTask", id));
         dispatch({
             type: UPDATE_TASK_PENDING,
         })
@@ -98,6 +102,8 @@ export const editTask = (id, text, start, end) => {
                 type: UPDATE_TASK_FAILURE,
                 payload: {id, error},
             })
+        }finally {
+            dispatch(clearScopedLoading())
         }
 
 
@@ -133,3 +139,14 @@ export const updateTaskLabels = (id, newLabel) => {
         saveTasks(updatedTasks)
     }
 };
+
+export const setScopedLoading = (context, id) => ({
+    type: SET_SCOPED_LOADING,
+    payload: {context, id},
+});
+
+export const clearScopedLoading = () => ({
+    type: CLEAR_SCOPED_LOADING,
+});
+
+

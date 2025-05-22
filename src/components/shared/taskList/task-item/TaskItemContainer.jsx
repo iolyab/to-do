@@ -19,7 +19,13 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const isSaving = useSelector((state) => state.tasks.loading);
+
+  const loading = useSelector(
+    (state) =>
+      state.tasks.loading &&
+      state.tasks.loadingContext === "editTask" &&
+      state.tasks.loadingId === task.id
+  );
 
   const deleted = () => dispatch(deleteTask(task.id));
 
@@ -92,7 +98,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       id={id}
       classes={classes}
       isSimplified={isSimplified}
-      isSaving={isSaving}
+      loading={loading}
     />
   ) : (
     <TaskItemSimplified
@@ -117,7 +123,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       isSimplified={isSimplified}
       isOpen={isOpen}
       handleOpen={handleOpen}
-      isSaving={isSaving}
+      loading={loading}
     />
   );
 };

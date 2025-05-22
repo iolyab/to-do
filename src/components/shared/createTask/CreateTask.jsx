@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const loading = useSelector((state) => state.tasks.loading);
+  const loading = useSelector(
+    (state) => state.tasks.loading && state.tasks.loadingContext === "addTask"
+  );
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -43,9 +45,14 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
         value={inputValue}
         error={error}
         handleChange={handleChange}
-        disabled={loading}
       />
-      <Button type="submit" label="Add" loading={loading} size="medium" />
+      <Button
+        type="submit"
+        label="Add"
+        disabled={loading}
+        loading={loading}
+        size="medium"
+      />
     </form>
   );
 };

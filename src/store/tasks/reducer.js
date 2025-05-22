@@ -1,10 +1,12 @@
 import { getSavedTasks } from '../../services/tasks-service';
-import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, DELETE_TASK, UPDATE_TASK, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE} from './actions';
+import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, DELETE_TASK, UPDATE_TASK, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, SET_SCOPED_LOADING, CLEAR_SCOPED_LOADING} from './actions';
 
 const initialState = {
     tasks: getSavedTasks(),
     loading: false,
     error: null,
+    loadingContext: null,
+    loadingId: null,
 }
 
 const tasksReducer = (state = initialState, action) => {
@@ -53,6 +55,18 @@ const tasksReducer = (state = initialState, action) => {
                         error: action.payload,
                         loading: false,
                     }
+        case SET_SCOPED_LOADING:
+            return {
+                ...state,
+                loadingContext: action.payload.context,
+                loadingId: action.payload.id,
+            }
+            case CLEAR_SCOPED_LOADING:
+                return {
+                    ...state,
+                    loadingContext: null,
+                    loadingId: null,
+                }
       
           default:
             return state;

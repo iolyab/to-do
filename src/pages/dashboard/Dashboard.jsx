@@ -7,11 +7,10 @@ import { Layout } from "../../components/layout/Layout";
 import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
 import { Button } from "../../components/shared/button/Button";
 import { getLabels } from "../../services/labels-service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const [availableLabels, setAvailableLabels] = useState([]);
-  // const { tasks } = useTasks();
   const tasks = useSelector((state) => state.tasks.tasks);
   const [currentIndex, setCurrentIndex] = useState(0);
 
