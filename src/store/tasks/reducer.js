@@ -58,12 +58,14 @@ const tasksReducer = (state = initialState, action) => {
         case SET_SCOPED_LOADING:
             return {
                 ...state,
+                loading: true,
                 loadingContext: action.payload.context,
                 loadingId: action.payload.id,
             }
             case CLEAR_SCOPED_LOADING:
                 return {
                     ...state,
+                    loading: false,
                     loadingContext: null,
                     loadingId: null,
                 }

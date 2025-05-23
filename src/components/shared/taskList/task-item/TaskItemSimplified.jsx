@@ -60,11 +60,8 @@ const TaskItemSimplified = ({
           )}
         </div>
         <div className={classes.taskLabelsSimplified}>
-          {task.deadline && (
-            <p className={classes.taskDeadline}>
-              📅 {""}
-              {calculatedDeadline(task)}
-            </p>
+          {calculatedDeadline() && (
+            <p className={classes.taskDeadline}>📅 {calculatedDeadline()}</p>
           )}
 
           {task.labels && task.labels.length > 0 && (

@@ -8,9 +8,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import classes from "./taskItem.module.scss";
 
 const priorityClassNames = {
-  High: classes.highPriority,
-  Medium: classes.mediumPriority,
-  Low: classes.lowPriority,
+  High: classes.High,
+  Medium: classes.Medium,
+  Low: classes.Low,
 };
 
 const TaskItem = ({
@@ -31,7 +31,8 @@ const TaskItem = ({
   endDate,
   calculatedDeadline,
   id,
-  loading,
+  isUpdatingTask,
+  isUpdatingPriority,
 }) => {
   return (
     <li
@@ -85,8 +86,8 @@ const TaskItem = ({
               icon={"/assets/save.png"}
               variant="save"
               size="small"
-              disabled={loading}
-              loading={loading}
+              disabled={isUpdatingTask}
+              loading={isUpdatingTask}
               className={classes.customButton}
             />
             <Button
@@ -111,6 +112,8 @@ const TaskItem = ({
                   key={task.id}
                   priorityChanged={priorityChanged}
                   currentPriority={task.priority}
+                  disabled={isUpdatingPriority}
+                  isUpdatingPriority={isUpdatingPriority}
                 />
               </div>
 

@@ -3,7 +3,7 @@ import { retrievedPriorityOptions } from "../../../services/priority-service";
 import { Dropdown } from "../dropdown/Dropdown";
 import classes from "./taskPriority.module.scss";
 
-const TaskPriority = ({ priorityChanged }) => {
+const TaskPriority = ({ priorityChanged, isUpdatingPriority, disabled }) => {
   const handleSelect = (selectedName) => {
     priorityChanged(selectedName);
   };
@@ -16,6 +16,8 @@ const TaskPriority = ({ priorityChanged }) => {
             icon={"/assets/priority.png"}
             size="small"
             className={classes.customDropDownButton}
+            disabled={disabled}
+            loading={isUpdatingPriority}
           />
         }
         onSelect={handleSelect}

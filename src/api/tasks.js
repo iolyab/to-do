@@ -21,3 +21,15 @@ export function updateTask(id, text, start, end) {
       }, 2000);
     });
 }
+
+export function updatePriority(id, {priority: newPriority}) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.7) {
+        resolve({id, priority: newPriority});
+      } else {
+        reject('Failed to edit task');
+      }
+    }, 2000);
+  });
+}

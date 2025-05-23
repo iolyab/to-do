@@ -1,4 +1,4 @@
-import { postTask, updateTask } from "../../api/tasks";
+import { postTask, updatePriority, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 
 
@@ -111,13 +111,31 @@ export const editTask = (id, text, start, end) => {
 };
 
 export const updateTaskPriority = (id, newPriority) => {
-    return(dispatch, getState) => {
+    return async(dispatch, getState) => {
+
+        dispatch(setScopedLoading("updateTaskPriority", id));
         dispatch({
-            type: UPDATE_TASK,
-            payload: {id, updatedTaskData: {priority: newPriority}}
+            type: UPDATE_TASK_PENDING,
         })
-        const updatedTasks = getState().tasks.tasks;
-        saveTasks(updatedTasks)
+
+        try {
+            const updatedTask = await updatePriority(id, {priority: newPriority});
+            dispatch({
+                type: UPDATE_TASK_SUCCESS,
+                payload: {id, updatedTaskData: updatedTask}
+            })
+            const updatedTasks = getState().tasks.tasks;
+            console.log(updatedTasks)
+            saveTasks(updatedTasks)
+        }catch (error) {
+            console.error("Error editing task:", error);
+            dispatch({
+                type: UPDATE_TASK_FAILURE,
+                payload: {id, error},
+            })
+        }finally {
+            dispatch(clearScopedLoading())
+        }
     }
 };
 
