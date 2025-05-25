@@ -1,4 +1,4 @@
-import { postTask, removeTask, updatePriority, updateTask } from "../../api/tasks";
+import { complete, postTask, removeTask, updatePriority, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 
 
@@ -82,17 +82,34 @@ export const deleteTask = (id) => {
 };
 
 export const completeTask = (id) => {
-    return (dispatch, getState) => {
+    return async(dispatch, getState) => {
         const currentTasks = getState().tasks.tasks;
 
         const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
         const updatedTask = updatedTasks.find(task => task.id === id);
 
+        dispatch(setScopedLoading("completeTask", id));
         dispatch({
-            type: UPDATE_TASK,
-            payload: {id, updatedTaskData: {completed: updatedTask.completed}},
+            type: UPDATE_TASK_PENDING,
         })
-        saveTasks(updatedTasks)
+
+        try{
+            await complete(id, updatedTask.completed);
+            dispatch({
+                type: UPDATE_TASK_SUCCESS,
+                payload: {id, updatedTaskData: {completed: updatedTask.completed}},
+            })
+            saveTasks(updatedTasks)
+        }catch (error) {
+            console.error("Error completing task:", error);
+            dispatch({
+                type: UPDATE_TASK_FAILURE,
+                payload: {id, error},
+            })
+        }finally {
+            dispatch(clearScopedLoading())
+        }
+
     }
 };
 

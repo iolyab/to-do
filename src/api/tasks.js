@@ -22,6 +22,18 @@ export function removeTask(id) {
   });
 }
 
+export function complete(id, completedStatus) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.7) {
+        resolve({id, completed: completedStatus});
+      } else {
+        reject('Failed to complete task');
+      }
+    }, 2000);
+  });
+}
+
 export function updateTask(id, text, start, end) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

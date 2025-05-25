@@ -34,18 +34,23 @@ const TaskItem = ({
   isUpdatingTask,
   isUpdatingPriority,
   isDeletingTask,
+  isCompletingTask,
 }) => {
   return (
     <li
       className={`${classes.listItem} ${priorityClassNames[task.priority]}  `}
     >
       <div className={classes.taskText}>
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={completed}
-          className={classes.checkbox}
-        />
+        <div className={classes.checkboxWithSpinner}>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={completed}
+            className={classes.checkbox}
+            disabled={isCompletingTask}
+          />
+          {isCompletingTask && <span className={classes.spinner}></span>}
+        </div>
         {isEditing ? (
           <input
             type="text"

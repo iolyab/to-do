@@ -27,6 +27,13 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       state.tasks.loadingId === task.id
   );
 
+  const isCompletingTask = useSelector(
+    (state) =>
+      state.tasks.loading &&
+      state.tasks.loadingContext === "completeTask" &&
+      state.tasks.loadingId === task.id
+  );
+
   const isUpdatingTask = useSelector(
     (state) =>
       state.tasks.loading &&
@@ -115,6 +122,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       isUpdatingTask={isUpdatingTask}
       isUpdatingPriority={isUpdatingPriority}
       isDeletingTask={isDeletingTask}
+      isCompletingTask={isCompletingTask}
     />
   ) : (
     <TaskItemSimplified
@@ -142,6 +150,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       lisUpdatingTask={isUpdatingTask}
       isUpdatingPriority={isUpdatingPriority}
       isDeletingTask={isDeletingTask}
+      isCompletingTask={isCompletingTask}
     />
   );
 };

@@ -8,13 +8,36 @@
 }
 
 .taskText {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   padding-left: 20px;
   font-size: 18px;
 }
 
+.checkboxWithSpinner {
+  display: flex;
+  align-items: center;
+}
+
 .checkbox {
-  margin-right: 20px;
+  margin-right: 5px;
   cursor: pointer;
+}
+
+.spinner {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #48293d;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .completed {
