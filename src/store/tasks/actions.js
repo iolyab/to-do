@@ -1,11 +1,13 @@
-import { postTask, updatePriority, updateTask } from "../../api/tasks";
+import { postTask, removeTask, updatePriority, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 
 
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
 export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
 export const ADD_TASK_PENDING = 'ADD_TASK_PENDING'
-export const DELETE_TASK = 'DELETE_TASK';
+export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
+export const DELETE_TASK_PENDING = 'DELETE_TASK_PENDING';
+export const DELETE_TASK_FAILURE = 'DELETE_TASK_FAILURE';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY';
 export const UPDATE_TASK_LABELS = 'UPDATE_TASK_LABELS';
@@ -50,17 +52,32 @@ export const addTask = (taskText, startDate, endDate) => {
 };
 
 export const deleteTask = (id) => {
-    return (dispatch, getState) => {
+    return async(dispatch, getState) => {
         const currentTasks = getState().tasks.tasks;
 
         const updatedTasks = currentTasks.filter(task => task.id !== id);
 
-        saveTasks(updatedTasks)
-
+        dispatch(setScopedLoading("deleteTask", id));
         dispatch({
-            type: DELETE_TASK,
-            payload: updatedTasks,
+            type: DELETE_TASK_PENDING,
         })
+
+        try{
+            await removeTask(id);
+            dispatch({
+                type: DELETE_TASK_SUCCESS,
+                payload: updatedTasks,
+            })
+            saveTasks(updatedTasks)
+        }catch (error) {
+            console.error("Error deleting task:", error);
+            dispatch({
+                type: DELETE_TASK_FAILURE,
+                payload: {id, error},
+            })
+        }finally {
+            dispatch(clearScopedLoading())
+        }
     }
 };
 
@@ -128,7 +145,7 @@ export const updateTaskPriority = (id, newPriority) => {
             console.log(updatedTasks)
             saveTasks(updatedTasks)
         }catch (error) {
-            console.error("Error editing task:", error);
+            console.error("Error updating priority:", error);
             dispatch({
                 type: UPDATE_TASK_FAILURE,
                 payload: {id, error},

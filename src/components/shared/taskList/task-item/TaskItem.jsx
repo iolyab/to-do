@@ -33,6 +33,7 @@ const TaskItem = ({
   id,
   isUpdatingTask,
   isUpdatingPriority,
+  isDeletingTask,
 }) => {
   return (
     <li
@@ -121,6 +122,8 @@ const TaskItem = ({
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
+                disabled={isDeletingTask}
+                loading={isDeletingTask}
                 className={classes.customButton}
               />
             </div>

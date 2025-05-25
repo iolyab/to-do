@@ -20,6 +20,13 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
+  const isDeletingTask = useSelector(
+    (state) =>
+      state.tasks.loading &&
+      state.tasks.loadingContext === "deleteTask" &&
+      state.tasks.loadingId === task.id
+  );
+
   const isUpdatingTask = useSelector(
     (state) =>
       state.tasks.loading &&
@@ -107,6 +114,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       isSimplified={isSimplified}
       isUpdatingTask={isUpdatingTask}
       isUpdatingPriority={isUpdatingPriority}
+      isDeletingTask={isDeletingTask}
     />
   ) : (
     <TaskItemSimplified
@@ -133,6 +141,7 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       handleOpen={handleOpen}
       lisUpdatingTask={isUpdatingTask}
       isUpdatingPriority={isUpdatingPriority}
+      isDeletingTask={isDeletingTask}
     />
   );
 };

@@ -10,6 +10,18 @@ export function postTask(task) {
     });
 }
 
+export function removeTask(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.7) {
+        resolve(id);
+      } else {
+        reject('Failed to delete task');
+      }
+    }, 2000);
+  });
+}
+
 export function updateTask(id, text, start, end) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -28,8 +40,9 @@ export function updatePriority(id, {priority: newPriority}) {
       if (Math.random() > 0.7) {
         resolve({id, priority: newPriority});
       } else {
-        reject('Failed to edit task');
+        reject('Failed to update priority');
       }
     }, 2000);
   });
 }
+

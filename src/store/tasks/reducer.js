@@ -1,5 +1,5 @@
 import { getSavedTasks } from '../../services/tasks-service';
-import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, DELETE_TASK, UPDATE_TASK, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, SET_SCOPED_LOADING, CLEAR_SCOPED_LOADING} from './actions';
+import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, SET_SCOPED_LOADING, CLEAR_SCOPED_LOADING, DELETE_TASK_SUCCESS, DELETE_TASK_PENDING, DELETE_TASK_FAILURE} from './actions';
 
 const initialState = {
     tasks: getSavedTasks(),
@@ -29,11 +29,23 @@ const tasksReducer = (state = initialState, action) => {
                     error: action.payload,
                     loading: false,
                 }
-        case DELETE_TASK:
+        case DELETE_TASK_SUCCESS:
             return {
                 ...state,
                 tasks: action.payload
             }
+            case DELETE_TASK_PENDING:
+                return {
+                    ...state,
+                    loading: true,
+                    error: null,
+                }
+            case DELETE_TASK_FAILURE: 
+                return {
+                    ...state,
+                    loading: false,
+                    error: null,
+                }
 
         case UPDATE_TASK_SUCCESS: {
             const {id, updatedTaskData} = action.payload;
