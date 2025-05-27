@@ -58,10 +58,6 @@ export const deleteTask = (id) => {
 
         const updatedTasks = currentTasks.filter(task => task.id !== id);
 
-        dispatch(setScopedLoading("deleteTask", id));
-        dispatch({
-            type: DELETE_TASK_PENDING,
-        })
 
         try{
             await removeTask(id);
@@ -76,8 +72,6 @@ export const deleteTask = (id) => {
                 type: DELETE_TASK_FAILURE,
                 payload: {id, error},
             })
-        }finally {
-            dispatch(clearScopedLoading())
         }
     }
 };
@@ -89,10 +83,6 @@ export const completeTask = (id) => {
         const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
         const updatedTask = updatedTasks.find(task => task.id === id);
 
-        dispatch(setScopedLoading("completeTask", id));
-        dispatch({
-            type: UPDATE_TASK_PENDING,
-        })
 
         try{
             await complete(id, updatedTask.completed);
@@ -107,8 +97,6 @@ export const completeTask = (id) => {
                 type: UPDATE_TASK_FAILURE,
                 payload: {id, error},
             })
-        }finally {
-            dispatch(clearScopedLoading())
         }
 
     }
@@ -118,11 +106,6 @@ export const editTask = (id, text, start, end) => {
     return async(dispatch, getState) => {
         if(text.trim().length <= 1) return;
 
-        dispatch(setScopedLoading("editTask", id));
-        dispatch({
-            type: UPDATE_TASK_PENDING,
-        })
-
         try {
             const updatedTask = await updateTask(id, text, start, end);
             dispatch({
@@ -131,14 +114,14 @@ export const editTask = (id, text, start, end) => {
             })
             const updatedTasks = getTasks(getState());
             saveTasks(updatedTasks)
+            return updatedTask;
         }catch (error) {
             console.error("Error editing task:", error);
             dispatch({
                 type: UPDATE_TASK_FAILURE,
                 payload: {id, error},
-            })
-        }finally {
-            dispatch(clearScopedLoading())
+            });
+            throw error;
         }
 
 

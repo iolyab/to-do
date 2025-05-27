@@ -19,27 +19,28 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [pending, setPending] = useState(false);
 
-  const isDeletingTask = useSelector(
-    (state) =>
-      state.tasks.loading &&
-      state.tasks.loadingContext === "deleteTask" &&
-      state.tasks.loadingId === task.id
-  );
+  // const isDeletingTask = useSelector(
+  //   (state) =>
+  //     state.tasks.loading &&
+  //     state.tasks.loadingContext === "deleteTask" &&
+  //     state.tasks.loadingId === task.id
+  // );
 
-  const isCompletingTask = useSelector(
-    (state) =>
-      state.tasks.loading &&
-      state.tasks.loadingContext === "completeTask" &&
-      state.tasks.loadingId === task.id
-  );
+  // const isCompletingTask = useSelector(
+  //   (state) =>
+  //     state.tasks.loading &&
+  //     state.tasks.loadingContext === "completeTask" &&
+  //     state.tasks.loadingId === task.id
+  // );
 
-  const isUpdatingTask = useSelector(
-    (state) =>
-      state.tasks.loading &&
-      state.tasks.loadingContext === "editTask" &&
-      state.tasks.loadingId === task.id
-  );
+  // const isUpdatingTask = useSelector(
+  //   (state) =>
+  //     state.tasks.loading &&
+  //     state.tasks.loadingContext === "editTask" &&
+  //     state.tasks.loadingId === task.id
+  // );
 
   const isUpdatingPriority = useSelector(
     (state) =>
@@ -48,9 +49,19 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       state.tasks.loadingId === task.id
   );
 
-  const deleted = () => dispatch(deleteTask(task.id));
+  const deleted = () => {
+    setPending(true);
+    dispatch(deleteTask(task.id)).finally(() => {
+      setPending(false);
+    });
+  };
 
-  const completed = () => dispatch(completeTask(task.id));
+  const completed = () => {
+    setPending(true);
+    dispatch(completeTask(task.id)).finally(() => {
+      setPending(false);
+    });
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -59,11 +70,15 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
   const handleEditChange = (e) => setEditedText(e.target.value);
 
   const handleSaveEdit = () => {
+    setPending(true);
     dispatch(editTask(task.id, editedText, startDate, endDate))
       .then(() => {
         setIsEditing(false);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        setPending(false);
+      });
   };
 
   const handleCancelEdit = () => {
@@ -119,10 +134,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       id={id}
       classes={classes}
       isSimplified={isSimplified}
-      isUpdatingTask={isUpdatingTask}
-      isUpdatingPriority={isUpdatingPriority}
-      isDeletingTask={isDeletingTask}
-      isCompletingTask={isCompletingTask}
+      isUpdatingTask={pending}
+      isUpdatingPriority={pending}
+      isDeletingTask={pending}
+      isCompletingTask={pending}
     />
   ) : (
     <TaskItemSimplified
@@ -147,10 +162,10 @@ const TaskItemContainer = ({ task, classes, id, isSimplified }) => {
       isSimplified={isSimplified}
       isOpen={isOpen}
       handleOpen={handleOpen}
-      lisUpdatingTask={isUpdatingTask}
-      isUpdatingPriority={isUpdatingPriority}
-      isDeletingTask={isDeletingTask}
-      isCompletingTask={isCompletingTask}
+      isUpdatingTask={pending}
+      isUpdatingPriority={pending}
+      isDeletingTask={pending}
+      isCompletingTask={pending}
     />
   );
 };

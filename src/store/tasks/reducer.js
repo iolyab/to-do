@@ -34,18 +34,18 @@ const tasksReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload
             }
-            case DELETE_TASK_PENDING:
-                return {
-                    ...state,
-                    loading: true,
-                    error: null,
-                }
-            case DELETE_TASK_FAILURE: 
-                return {
-                    ...state,
-                    loading: false,
-                    error: null,
-                }
+            // case DELETE_TASK_PENDING:
+            //     return {
+            //         ...state,
+            //         loading: true,
+            //         error: null,
+            //     }
+            // case DELETE_TASK_FAILURE: 
+            //     return {
+            //         ...state,
+            //         loading: false,
+            //         error: null,
+            //     }
 
         case UPDATE_TASK_SUCCESS: {
             const {id, updatedTaskData} = action.payload;

@@ -8,7 +8,7 @@ const Button = ({
   className = "",
   variant,
   icon,
-  loading = false,
+  pending = false,
   ...props
 }) => {
   const sizeClass = size === "small" ? classes.small : classes.medium;
@@ -38,10 +38,10 @@ const Button = ({
       className={`${
         classes.button
       } ${sizeClass} ${variantClass()} ${className}`}
-      disabled={disabled || loading}
+      disabled={disabled || pending}
       {...props}
     >
-      {loading ? (
+      {pending ? (
         <span className={classes.spinner} />
       ) : icon ? (
         <img src={icon} alt={label || "icon"} className={classes.icon} />

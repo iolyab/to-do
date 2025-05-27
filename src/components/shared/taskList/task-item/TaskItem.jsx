@@ -93,7 +93,7 @@ const TaskItem = ({
               variant="save"
               size="small"
               disabled={isUpdatingTask}
-              loading={isUpdatingTask}
+              pending={isUpdatingTask}
               className={classes.customButton}
             />
             <Button
@@ -128,7 +128,7 @@ const TaskItem = ({
                 size="small"
                 icon={"/assets/delete.png"}
                 disabled={isDeletingTask}
-                loading={isDeletingTask}
+                pending={isDeletingTask}
                 className={classes.customButton}
               />
             </div>
