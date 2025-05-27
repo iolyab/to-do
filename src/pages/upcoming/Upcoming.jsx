@@ -4,11 +4,10 @@ import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
 import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
 import { useSelector } from "react-redux";
-// import { useTasks } from "../../hooks/useTasks";
+import { getTasks } from "../../store/tasks/selectors";
 
 const Upcoming = () => {
-  // const { tasks } = useTasks();
-  const tasks = useSelector((state) => state.tasks.tasks);
+  const tasks = useSelector(getTasks);
 
   return (
     <Layout>

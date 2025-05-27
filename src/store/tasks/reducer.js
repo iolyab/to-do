@@ -2,7 +2,7 @@ import { getSavedTasks } from '../../services/tasks-service';
 import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, SET_SCOPED_LOADING, CLEAR_SCOPED_LOADING, DELETE_TASK_SUCCESS, DELETE_TASK_PENDING, DELETE_TASK_FAILURE} from './actions';
 
 const initialState = {
-    tasks: getSavedTasks(),
+    data: getSavedTasks(),
     loading: false,
     error: null,
     loadingContext: null,
@@ -14,7 +14,7 @@ const tasksReducer = (state = initialState, action) => {
         case ADD_TASK_SUCCESS:
             return {
                 ...state,
-                tasks: [...state.tasks, action.payload],
+                data: [...state.data, action.payload],
                 loading: false,
             }
             case ADD_TASK_PENDING:
@@ -32,7 +32,7 @@ const tasksReducer = (state = initialState, action) => {
         case DELETE_TASK_SUCCESS:
             return {
                 ...state,
-                tasks: action.payload
+                data: action.payload
             }
             case DELETE_TASK_PENDING:
                 return {
@@ -52,7 +52,7 @@ const tasksReducer = (state = initialState, action) => {
 
               return {
                 ...state,
-                tasks: state.tasks.map(task => task.id === id ? {...task, ...updatedTaskData} : task),
+                data: state.data.map(task => task.id === id ? {...task, ...updatedTaskData} : task),
               };
             }
             case UPDATE_TASK_PENDING:

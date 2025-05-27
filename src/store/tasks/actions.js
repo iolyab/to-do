@@ -1,5 +1,6 @@
 import { complete, postTask, removeTask, updatePriority, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
+import { getTasks } from "./selectors";
 
 
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
@@ -23,7 +24,7 @@ export const addTask = (taskText, startDate, endDate) => {
     return async (dispatch, getState) => {
         const task = createTask(taskText, startDate, endDate);
 
-        const currentTasks = getState().tasks.tasks;
+        const currentTasks = getTasks(getState());
 
         const updatedTasks = [...currentTasks, task];
 
@@ -53,7 +54,7 @@ export const addTask = (taskText, startDate, endDate) => {
 
 export const deleteTask = (id) => {
     return async(dispatch, getState) => {
-        const currentTasks = getState().tasks.tasks;
+        const currentTasks = getTasks(getState());
 
         const updatedTasks = currentTasks.filter(task => task.id !== id);
 
@@ -83,7 +84,7 @@ export const deleteTask = (id) => {
 
 export const completeTask = (id) => {
     return async(dispatch, getState) => {
-        const currentTasks = getState().tasks.tasks;
+        const currentTasks = getTasks(getState());
 
         const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
         const updatedTask = updatedTasks.find(task => task.id === id);
@@ -128,7 +129,7 @@ export const editTask = (id, text, start, end) => {
                 type: UPDATE_TASK_SUCCESS,
                 payload: {id, updatedTaskData: updatedTask}
             })
-            const updatedTasks = getState().tasks.tasks;
+            const updatedTasks = getTasks(getState());
             saveTasks(updatedTasks)
         }catch (error) {
             console.error("Error editing task:", error);
@@ -158,7 +159,7 @@ export const updateTaskPriority = (id, newPriority) => {
                 type: UPDATE_TASK_SUCCESS,
                 payload: {id, updatedTaskData: updatedTask}
             })
-            const updatedTasks = getState().tasks.tasks;
+            const updatedTasks = getTasks(getState());
             console.log(updatedTasks)
             saveTasks(updatedTasks)
         }catch (error) {
@@ -175,7 +176,7 @@ export const updateTaskPriority = (id, newPriority) => {
 
 export const updateTaskLabels = (id, newLabel) => {
     return(dispatch, getState) => {
-        const tasks = getState().tasks.tasks;
+        const tasks = getTasks(getState());
         const taskToUpdate = tasks.find(task => task.id === id);
 
         let newLabels = [];

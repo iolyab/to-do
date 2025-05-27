@@ -1,17 +1,16 @@
-import React from "react";
 import classes from "./Dashboard.module.scss";
 import { useState, useEffect } from "react";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
-// import { useTasks } from "../../hooks/useTasks";
 import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
 import { Button } from "../../components/shared/button/Button";
 import { getLabels } from "../../services/labels-service";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { getTasks } from "../../store/tasks/selectors";
 
 const Dashboard = () => {
+  const tasks = useSelector(getTasks);
   const [availableLabels, setAvailableLabels] = useState([]);
-  const tasks = useSelector((state) => state.tasks.tasks);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
