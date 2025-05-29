@@ -17,7 +17,7 @@ const TaskPriority = ({ priorityChanged, isUpdatingPriority, disabled }) => {
             size="small"
             className={classes.customDropDownButton}
             disabled={disabled}
-            loading={isUpdatingPriority}
+            pending={isUpdatingPriority}
           />
         }
         onSelect={handleSelect}

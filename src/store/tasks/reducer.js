@@ -34,18 +34,6 @@ const tasksReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload
             }
-            // case DELETE_TASK_PENDING:
-            //     return {
-            //         ...state,
-            //         loading: true,
-            //         error: null,
-            //     }
-            // case DELETE_TASK_FAILURE: 
-            //     return {
-            //         ...state,
-            //         loading: false,
-            //         error: null,
-            //     }
 
         case UPDATE_TASK_SUCCESS: {
             const {id, updatedTaskData} = action.payload;
@@ -67,20 +55,6 @@ const tasksReducer = (state = initialState, action) => {
                         error: action.payload,
                         loading: false,
                     }
-        case SET_SCOPED_LOADING:
-            return {
-                ...state,
-                loading: true,
-                loadingContext: action.payload.context,
-                loadingId: action.payload.id,
-            }
-            case CLEAR_SCOPED_LOADING:
-                return {
-                    ...state,
-                    loading: false,
-                    loadingContext: null,
-                    loadingId: null,
-                }
       
           default:
             return state;

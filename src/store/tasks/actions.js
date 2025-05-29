@@ -16,8 +16,6 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
 export const UPDATE_TASK_PENDING = 'UPDATE_TASK_PENDING';
 export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
-export const SET_SCOPED_LOADING = 'SET_SCOPED_LOADING';
-export const CLEAR_SCOPED_LOADING = 'CLEAR_SCOPED_LOADING';
 
 
 export const addTask = (taskText, startDate, endDate) => {
@@ -28,11 +26,6 @@ export const addTask = (taskText, startDate, endDate) => {
 
         const updatedTasks = [...currentTasks, task];
 
-
-        dispatch(setScopedLoading("addTask", null));
-        dispatch({
-            type: ADD_TASK_PENDING,
-        })
 
         try {
             const responseTask = await postTask(task);
@@ -46,8 +39,6 @@ export const addTask = (taskText, startDate, endDate) => {
                 type: ADD_TASK_FAILURE,
                 payload: error,
             })
-        }finally {
-            dispatch(clearScopedLoading());
         }
     }
 };
@@ -131,10 +122,6 @@ export const editTask = (id, text, start, end) => {
 export const updateTaskPriority = (id, newPriority) => {
     return async(dispatch, getState) => {
 
-        dispatch(setScopedLoading("updateTaskPriority", id));
-        dispatch({
-            type: UPDATE_TASK_PENDING,
-        })
 
         try {
             const updatedTask = await updatePriority(id, {priority: newPriority});
@@ -151,8 +138,6 @@ export const updateTaskPriority = (id, newPriority) => {
                 type: UPDATE_TASK_FAILURE,
                 payload: {id, error},
             })
-        }finally {
-            dispatch(clearScopedLoading())
         }
     }
 };
@@ -176,13 +161,6 @@ export const updateTaskLabels = (id, newLabel) => {
     }
 };
 
-export const setScopedLoading = (context, id) => ({
-    type: SET_SCOPED_LOADING,
-    payload: {context, id},
-});
 
-export const clearScopedLoading = () => ({
-    type: CLEAR_SCOPED_LOADING,
-});
 
 
