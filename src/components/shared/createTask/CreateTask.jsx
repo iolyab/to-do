@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Input } from "../input/Input";
 import { Button } from "../button/Button";
 import classes from "./createTask.module.scss";
-import { useSelector } from "react-redux";
 
-const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
+const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const loading = useSelector(
-    (state) => state.tasks.loading && state.tasks.loadingContext === "addTask"
-  );
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -49,8 +45,8 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange }) => {
       <Button
         type="submit"
         label="Add"
-        disabled={loading}
-        loading={loading}
+        disabled={isAdding}
+        pending={isAdding}
         size="medium"
       />
     </form>

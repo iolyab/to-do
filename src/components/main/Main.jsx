@@ -6,13 +6,18 @@ import { TaskListContainer } from "../shared/taskList/task-list/TaskListContaine
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../store/tasks/actions";
 import { getTasks } from "../../store/tasks/selectors";
+import { useState } from "react";
 
 const Main = () => {
   const tasks = useSelector(getTasks);
   const dispatch = useDispatch();
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleAddTask = (taskText, startDate, endDate) => {
-    dispatch(addTask(taskText, startDate, endDate));
+    setIsAdding(true);
+    dispatch(addTask(taskText, startDate, endDate)).finally(() => {
+      setIsAdding(false);
+    });
   };
 
   return (
@@ -22,7 +27,7 @@ const Main = () => {
           <Title />
         </div>
         <div className={classes.inputContainer}>
-          <CreateTask onAddTask={handleAddTask} />
+          <CreateTask onAddTask={handleAddTask} isAdding={isAdding} />
         </div>
 
         <div className={classes.tasksContainer}>

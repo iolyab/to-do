@@ -1,12 +1,10 @@
 import { getSavedTasks } from '../../services/tasks-service';
-import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_PENDING, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, SET_SCOPED_LOADING, CLEAR_SCOPED_LOADING, DELETE_TASK_SUCCESS, DELETE_TASK_PENDING, DELETE_TASK_FAILURE} from './actions';
+import { ADD_TASK_SUCCESS, ADD_TASK_FAILURE, UPDATE_TASK_SUCCESS, UPDATE_TASK_PENDING, UPDATE_TASK_FAILURE, DELETE_TASK_SUCCESS, DELETE_TASK_FAILURE} from './actions';
 
 const initialState = {
     data: getSavedTasks(),
     loading: false,
     error: null,
-    loadingContext: null,
-    loadingId: null,
 }
 
 const tasksReducer = (state = initialState, action) => {
@@ -17,12 +15,6 @@ const tasksReducer = (state = initialState, action) => {
                 data: [...state.data, action.payload],
                 loading: false,
             }
-            case ADD_TASK_PENDING:
-                return {
-                    ...state,
-                    loading: true,
-                    error: null,
-                }
             case ADD_TASK_FAILURE:
                 return {
                     ...state,
@@ -34,6 +26,11 @@ const tasksReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload
             }
+            case DELETE_TASK_FAILURE:
+                return {
+                    ...state,
+                    error: action.payload
+                }
 
         case UPDATE_TASK_SUCCESS: {
             const {id, updatedTaskData} = action.payload;
@@ -43,12 +40,6 @@ const tasksReducer = (state = initialState, action) => {
                 data: state.data.map(task => task.id === id ? {...task, ...updatedTaskData} : task),
               };
             }
-            case UPDATE_TASK_PENDING:
-                return {
-                    ...state,
-                    loading: true,
-                    error: null,
-                }
                 case UPDATE_TASK_FAILURE:
                     return {
                         ...state,
