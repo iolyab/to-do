@@ -1,11 +1,18 @@
-const AIRTABLE_BASE_ID = 'your_base_id';
-const AIRTABLE_TABLE_NAME = 'Tasks';
-const AIRTABLE_TOKEN = 'your_token';
+const AIRTABLE_TOKEN = process.env.REACT_APP_AIRTABLE_TOKEN;
+const BASE_ID = process.env.REACT_APP_AIRTABLE_BASE_ID;
+const TABLE_NAME = process.env.REACT_APP_AIRTABLE_TABLE_NAME;
 
-const airtableURL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`
+const airtableURL = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`
 const headers = {
   'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
   'Content-Type': 'application/json'
+}
+
+export async function getTasks() {
+  const response = await fetch(airtableURL, {headers});
+
+  if (!response.ok) throw new Error('Failed to fetch tasks');
+  return await response.json();
 }
 
 export async function postTask(task) {
@@ -14,12 +21,12 @@ export async function postTask(task) {
       headers,
       body: JSON.stringify({
         fields: {
-          'Task Name': task.text,
-          'Completed': task.completed,
-          'Priority': task.priority,
-          'Labels': task.labels,
-          'Start Date': task.start,
-          'End Date': task.end
+          'text': task.text,
+          'completed': task.completed,
+          'priority': task.priority,
+          'labels': task.labels,
+          'start': task.start,
+          'end': task.end
         }
       })
     });
@@ -40,31 +47,20 @@ export async function removeTask(recordId) {
     return await response.json();
 }
 
-async function airtablePatch(recordId, updatedFields) {
+export async function updateTask(recordId, updatedFields) {
   const response = await fetch(`${airtableURL}/${recordId}`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify({fields: updatedFields}),
   })
+
+  const responseData = await response.json();
+
     if(!response.ok) {
-      throw new Error('Failed to update record');
+      throw new Error(`Failed to update task: ${responseData.error?.message || JSON.stringify(responseData)}`);
     }
-    return await response.json();
+    return responseData;
 }
 
-export function complete(id, completedStatus) {
-  return airtablePatch(id, {Completed: completedStatus})
-}
 
-export function updateTask(id, text, start, end) {
-    return airtablePatch(id, {
-      'Task Name': text,
-      'Start Date': start,
-      'End Date': end
-    })
-}
-
-export function updatePriority(id, {priority: newPriority}) {
-  return airtablePatch(id, {Priority: newPriority})
-}
 
