@@ -165,13 +165,19 @@ export const updateTaskLabels = (id, newLabel) => {
         let newLabels = [];
 
         if(taskToUpdate) {
-            newLabels = taskToUpdate.labels.includes(newLabel) ? taskToUpdate.labels : [...taskToUpdate.labels, newLabel];
+            const currentLabels = taskToUpdate.labels || [];
+
+            newLabels = currentLabels.includes(newLabel) ? currentLabels.filter(label => label !== newLabel) : [...currentLabels, newLabel];
+        }else {
+            console.log('Task not found:', id);
+            return
         }
         dispatch({
-            type: UPDATE_TASK,
+            type: UPDATE_TASK_SUCCESS,
             payload: {id, updatedTaskData: {labels: newLabels}},
         })
-        const updatedTasks = tasks.map(task => task.id === id ? {...task, labels: newLabels} : task);
+
+        const updatedTasks = getTasks(getState());
         saveTasks(updatedTasks)
     }
 };
