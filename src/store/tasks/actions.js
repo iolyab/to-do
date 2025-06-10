@@ -22,10 +22,6 @@ export const addTask = (taskText, startDate, endDate) => {
     return async (dispatch, getState) => {
         const task = createTask(taskText, startDate, endDate);
 
-        const currentTasks = getTasks(getState());
-
-        const updatedTasks = [...currentTasks, task];
-
 
         try {
             const responseTask = await postTask(task);
@@ -37,8 +33,10 @@ export const addTask = (taskText, startDate, endDate) => {
                 type: ADD_TASK_SUCCESS,
                 payload: postedTask,
             })
-            const updatedTasks = [...getTasks(getState()), postedTask]
+
+            const updatedTasks = getTasks(getState());
             saveTasks(updatedTasks)
+
         }catch(error) {
             dispatch({
                 type: ADD_TASK_FAILURE,
