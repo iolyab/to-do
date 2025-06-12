@@ -2,6 +2,7 @@ import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
+import { Input } from "../../input/Input";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -52,10 +53,10 @@ const TaskItem = ({
           {isCompletingTask && <span className={classes.spinner}></span>}
         </div>
         {isEditing ? (
-          <input
-            type="text"
+          <Input
             value={editedText}
-            onChange={handleEditChange}
+            handleChange={handleEditChange}
+            variant="edit"
             className={classes.editInput}
           />
         ) : (

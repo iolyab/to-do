@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 import { TaskItemSimplified } from "./TaskItemSimplified";
 import { getChangedDeadline } from "../../../../utils/date";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   deleteTask,
   completeTask,
