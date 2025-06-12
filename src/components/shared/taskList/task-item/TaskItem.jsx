@@ -3,6 +3,7 @@ import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { Input } from "../../input/Input";
+import Checkbox from "@mui/material/Checkbox";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -43,11 +44,11 @@ const TaskItem = ({
     >
       <div className={classes.taskText}>
         <div className={classes.checkboxWithSpinner}>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={task.completed}
             onChange={completed}
             className={classes.checkbox}
+            size="small"
             disabled={isCompletingTask}
           />
           {isCompletingTask && <span className={classes.spinner}></span>}

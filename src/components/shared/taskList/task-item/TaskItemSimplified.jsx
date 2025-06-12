@@ -5,6 +5,7 @@ import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { Input } from "../../input/Input";
+import { Checkbox } from "@mui/material";
 
 const priorityClassNames = {
   High: classes.High,
@@ -31,6 +32,7 @@ const TaskItemSimplified = ({
   isOpen,
   handleOpen,
   loading,
+  isCompletingTask,
 }) => {
   return (
     <li
@@ -40,11 +42,12 @@ const TaskItemSimplified = ({
     >
       <div className={classes.taskTextSimplified}>
         <div className={classes.taskTopRowSimplified}>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={task.completed}
             onChange={completed}
             className={classes.checkbox}
+            size="small"
+            disabled={isCompletingTask}
           />
 
           {isEditing ? (
