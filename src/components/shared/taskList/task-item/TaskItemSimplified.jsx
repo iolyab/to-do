@@ -4,6 +4,7 @@ import { Button } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
+import { Input } from "../../input/Input";
 
 const priorityClassNames = {
   High: classes.High,
@@ -47,10 +48,10 @@ const TaskItemSimplified = ({
           />
 
           {isEditing ? (
-            <input
-              type="text"
+            <Input
               value={editedText}
-              onChange={handleEditChange}
+              handleChange={handleEditChange}
+              variant="edit"
               className={classes.editInput}
             />
           ) : (
