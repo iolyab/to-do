@@ -6,9 +6,9 @@ import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 
 const priorityClassNames = {
-  High: classes.highPriority,
-  Medium: classes.mediumPriority,
-  Low: classes.lowPriority,
+  High: classes.High,
+  Medium: classes.Medium,
+  Low: classes.Low,
 };
 
 const TaskItemSimplified = ({

@@ -38,11 +38,13 @@ const Dashboard = () => {
         acc.completed.push(task);
       }
 
-      if (task.labels.includes("Work")) {
+      const taskLabels = Array.isArray(task.labels) ? task.labels : [];
+
+      if (taskLabels.includes("Work")) {
         acc.work.push(task);
       }
 
-      if (task.labels.includes(availableLabels[currentIndex])) {
+      if (taskLabels.includes(availableLabels[currentIndex])) {
         acc.currLabel.push(task);
       }
 

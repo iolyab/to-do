@@ -24,7 +24,6 @@ export async function postTask(task) {
           'text': task.text,
           'completed': task.completed,
           'priority': task.priority,
-          'labels': task.labels,
           'start': task.start,
           'end': task.end
         }
