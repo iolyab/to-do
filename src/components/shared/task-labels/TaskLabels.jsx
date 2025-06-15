@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "../button/Button";
+import { Btn } from "../button/Button";
 import { addLabel } from "../../../services/labels-service";
 import { getLabels } from "../../../services/labels-service";
 import classes from "./taskLabels.module.scss";
@@ -40,11 +40,12 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
 
   return (
     <div>
-      <Button
+      <Btn
         onClick={handleIsOpen}
         label={currentLabel || "Labels"}
         size="small"
-        className={classes.customDropDownButtonLabels}
+        // className={classes.customDropDownButtonLabels}
+        sx={{ backgroundColor: "white", color: "#45304d", fontSize: "7px" }}
       />
       {isOpen && (
         <ul className={classes.dropDownMenuLabels}>
@@ -61,12 +62,13 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
           ))}
           <li>
             {!isAdding ? (
-              <Button
+              <Btn
                 onClick={handleAddLabelClick}
                 label="Add label"
                 size="small"
                 variant="addLabel"
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
             ) : (
               <div>
@@ -77,15 +79,16 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
                   placeholder="Add label..."
                   className={classes.newLabelInput}
                 />
-                <Button
+                <Btn
                   onClick={handleCreateLabel}
                   icon={"/assets/save.png"}
                   size="small"
                   variant="saveLabel"
                   className={classes.customButton}
+                  sx={{ backgroundColor: "white" }}
                 >
                   Add
-                </Button>
+                </Btn>
               </div>
             )}
           </li>

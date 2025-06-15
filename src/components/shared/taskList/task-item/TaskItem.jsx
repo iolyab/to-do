@@ -1,4 +1,4 @@
-import { Button } from "../../button/Button";
+import { Btn } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
@@ -76,7 +76,7 @@ const TaskItem = ({
                 end={endDate}
                 onStartChange={handleStartChange}
                 onEndChange={handleEndChange}
-                Button={Button}
+                Btn={Btn}
                 classes={classes}
               />
             </div>
@@ -89,7 +89,7 @@ const TaskItem = ({
                 classes={classes}
               />
             </div>
-            <Button
+            <Btn
               onClick={handleSaveEdit}
               icon={"/assets/save.png"}
               variant="save"
@@ -98,7 +98,7 @@ const TaskItem = ({
               pending={isUpdatingTask}
               className={classes.customButton}
             />
-            <Button
+            <Btn
               onClick={handleCancelEdit}
               icon={"/assets/cancel.png"}
               variant="cancel"
@@ -109,11 +109,12 @@ const TaskItem = ({
         ) : (
           <div className={classes.taskItemsContainer}>
             <div className={classes.taskActions}>
-              <Button
+              <Btn
                 onClick={handleEditClick}
                 icon={"/assets/edit.png"}
                 size="small"
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
               <div className={classes.priorityContainer}>
                 <TaskPriority
@@ -125,13 +126,14 @@ const TaskItem = ({
                 />
               </div>
 
-              <Button
+              <Btn
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
                 disabled={isDeletingTask}
                 pending={isDeletingTask}
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
             </div>
             <div className={classes.taskLabels}>

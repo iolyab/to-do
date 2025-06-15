@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Signup.module.scss";
-import { Button } from "../../components/shared/button/Button";
+import { Btn } from "../../components/shared/button/Button";
 
 const Signup = () => {
   return (
@@ -35,7 +35,7 @@ const Signup = () => {
               required
             />
           </label>
-          <Button label="Sign Up" size="medium" className={classes.btn} />
+          <Btn label="Sign Up" size="medium" className={classes.btn} />
         </form>
       </div>
     </div>

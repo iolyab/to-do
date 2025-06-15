@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Title } from "../../components/shared/title/Title";
 import { Layout } from "../../components/layout/Layout";
 import { TaskListContainer } from "../../components/shared/taskList/task-list/TaskListContainer";
-import { Button } from "../../components/shared/button/Button";
+import { Btn } from "../../components/shared/button/Button";
 import { getLabels } from "../../services/labels-service";
 import { useSelector } from "react-redux";
 import { getTasks } from "../../store/tasks/selectors";
@@ -72,7 +72,7 @@ const Dashboard = () => {
           </div>
           <div className={classes.tasks}>
             <div className={classes.switchContainer}>
-              <Button
+              <Btn
                 onClick={handleSwitchContainerBackward}
                 label="&lt;"
                 variant="arrowButton"
@@ -85,7 +85,7 @@ const Dashboard = () => {
               <p className={classes.tasksTitle}>
                 {availableLabels[currentIndex]}
               </p>
-              <Button
+              <Btn
                 onClick={handleSwitchContainerForward}
                 label="&gt;"
                 variant="arrowButton"

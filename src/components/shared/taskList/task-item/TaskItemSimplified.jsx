@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./taskItem.module.scss";
-import { Button } from "../../button/Button";
+import { Btn } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
 import { TaskLabels } from "../../task-labels/TaskLabels";
@@ -82,12 +82,13 @@ const TaskItemSimplified = ({
       </div>
 
       <div className={classes.actionsContainer}>
-        <Button
+        <Btn
           onClick={handleOpen}
           label="&hellip;"
           variant="elseButton"
           size="small"
           className={classes.customButton}
+          sx={{ padding: "10px 10px" }}
         />
       </div>
 
@@ -98,7 +99,7 @@ const TaskItemSimplified = ({
               <TaskDeadline
                 deadline={task.deadline}
                 deadlineSet={deadlineSet}
-                Button={Button}
+                Btn={Btn}
                 classes={classes}
               />
             </div>
@@ -111,7 +112,7 @@ const TaskItemSimplified = ({
                 classes={classes}
               />
             </div>
-            <Button
+            <Btn
               onClick={handleSaveEdit}
               icon={"/assets/save.png"}
               variant="save"
@@ -120,7 +121,7 @@ const TaskItemSimplified = ({
               size="small"
               className={classes.customButton}
             />
-            <Button
+            <Btn
               onClick={handleCancelEdit}
               icon={"/assets/cancel.png"}
               variant="cancel"
@@ -131,11 +132,12 @@ const TaskItemSimplified = ({
         ) : (
           <div className={classes.taskItemsContainerSimplified}>
             <div className={classes.taskActionsSimplified}>
-              <Button
+              <Btn
                 onClick={handleEditClick}
                 icon={"/assets/edit.png"}
                 size="small"
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
 
               <div className={classes.priorityContainer}>
@@ -146,11 +148,12 @@ const TaskItemSimplified = ({
                 />
               </div>
 
-              <Button
+              <Btn
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
             </div>
           </div>

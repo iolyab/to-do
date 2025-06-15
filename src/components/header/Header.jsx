@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Header.module.scss";
-import { Button } from "../shared/button/Button";
+import { Btn } from "../shared/button/Button";
 
 const Header = () => {
   return (
@@ -12,10 +12,10 @@ const Header = () => {
       <div className={classes.authButtons}>
         <img src="/assets/auth.png" alt="favicon" className={classes.favicon} />
         <a href="login">
-          <Button label="Log In" size="small" />
+          <Btn label="Log In" size="small" />
         </a>
         <a href="signup">
-          <Button label="Sign Up" size="small" />
+          <Btn label="Sign Up" size="small" />
         </a>
       </div>
     </header>
