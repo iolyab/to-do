@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Nav.module.scss";
+import { Btn } from "../shared/button/Button";
 
 const Nav = () => {
   return (
@@ -9,50 +10,54 @@ const Nav = () => {
         <ul className={classes.list}>
           <li>
             <NavLink to="/">
-              <button className={classes.btn}>
-                <img
-                  className={classes.icon}
-                  src="/assets/home.png"
-                  alt="Home"
-                />
-                Home
-              </button>
+              <img src="/assets/home.png" alt="Home" className={classes.icon} />
+              <Btn
+                label="Home"
+                className={classes.btn}
+                sx={{ backgroundColor: "none" }}
+              />
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard">
-              <button className={classes.btn}>
-                <img
-                  className={classes.icon}
-                  src="/assets/dashboard.png"
-                  alt="Dashboard"
-                />
-                Dashboard
-              </button>
+              <img
+                src="/assets/dashboard.png"
+                alt="Dashboard"
+                className={classes.icon}
+              />
+              <Btn
+                label="Dashboard"
+                className={classes.btn}
+                sx={{ backgroundColor: "none" }}
+              />
             </NavLink>
           </li>
           <li>
             <NavLink to="/upcoming">
-              <button className={classes.btn}>
-                <img
-                  className={classes.icon}
-                  src="/assets/upcoming.png"
-                  alt="Upcoming"
-                />
-                Upcoming
-              </button>
+              <img
+                src="/assets/upcoming.png"
+                alt="Upcoming"
+                className={classes.icon}
+              />
+              <Btn
+                label="Upcoming"
+                className={classes.btn}
+                sx={{ backgroundColor: "none" }}
+              />
             </NavLink>
           </li>
           <li>
             <NavLink to="/calendar">
-              <button className={classes.btn}>
-                <img
-                  className={classes.icon}
-                  src="/assets/calendar.png"
-                  alt="Calendar"
-                />
-                Calendar
-              </button>
+              <img
+                src="/assets/calendar.png"
+                alt="Calendar"
+                className={classes.icon}
+              />
+              <Btn
+                label="Calendar"
+                className={classes.btn}
+                sx={{ backgroundColor: "none" }}
+              />
             </NavLink>
           </li>
         </ul>
