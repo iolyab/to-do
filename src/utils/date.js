@@ -11,3 +11,9 @@ export const getChangedDeadline = (start) => {
     if (date.isSame(tomorrow, "day")) return "Tomorrow";
     return date.format("MMM D hA");
   };
+
+  export const formatDateForAirtable = (value) => {
+    if (!value) return null;
+    const date = dayjs(value);
+    return date.isValid() ? date.format('YYYY-MM-DD') : null;
+  };

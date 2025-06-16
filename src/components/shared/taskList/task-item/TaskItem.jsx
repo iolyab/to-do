@@ -1,7 +1,9 @@
-import { Button } from "../../button/Button";
+import { Btn } from "../../button/Button";
 import { TaskPriority } from "../../task-priority/TaskPriority";
 import { TaskLabels } from "../../task-labels/TaskLabels";
 import { TaskDeadline } from "../../task-deadline/TaskDeadline";
+import { Input } from "../../input/Input";
+import Checkbox from "@mui/material/Checkbox";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -42,20 +44,20 @@ const TaskItem = ({
     >
       <div className={classes.taskText}>
         <div className={classes.checkboxWithSpinner}>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={task.completed}
             onChange={completed}
             className={classes.checkbox}
+            size="small"
             disabled={isCompletingTask}
           />
           {isCompletingTask && <span className={classes.spinner}></span>}
         </div>
         {isEditing ? (
-          <input
-            type="text"
+          <Input
             value={editedText}
-            onChange={handleEditChange}
+            handleChange={handleEditChange}
+            variant="edit"
             className={classes.editInput}
           />
         ) : (
@@ -74,7 +76,7 @@ const TaskItem = ({
                 end={endDate}
                 onStartChange={handleStartChange}
                 onEndChange={handleEndChange}
-                Button={Button}
+                Btn={Btn}
                 classes={classes}
               />
             </div>
@@ -87,7 +89,7 @@ const TaskItem = ({
                 classes={classes}
               />
             </div>
-            <Button
+            <Btn
               onClick={handleSaveEdit}
               icon={"/assets/save.png"}
               variant="save"
@@ -96,7 +98,7 @@ const TaskItem = ({
               pending={isUpdatingTask}
               className={classes.customButton}
             />
-            <Button
+            <Btn
               onClick={handleCancelEdit}
               icon={"/assets/cancel.png"}
               variant="cancel"
@@ -107,11 +109,12 @@ const TaskItem = ({
         ) : (
           <div className={classes.taskItemsContainer}>
             <div className={classes.taskActions}>
-              <Button
+              <Btn
                 onClick={handleEditClick}
                 icon={"/assets/edit.png"}
                 size="small"
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
               <div className={classes.priorityContainer}>
                 <TaskPriority
@@ -123,13 +126,14 @@ const TaskItem = ({
                 />
               </div>
 
-              <Button
+              <Btn
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
                 disabled={isDeletingTask}
                 pending={isDeletingTask}
                 className={classes.customButton}
+                sx={{ backgroundColor: "white" }}
               />
             </div>
             <div className={classes.taskLabels}>

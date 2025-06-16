@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Input } from "../input/Input";
-import { Button } from "../button/Button";
+import { Btn } from "../button/Button";
 import classes from "./createTask.module.scss";
+// import Btn from "../button/Btn";
 
 const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
   const [inputValue, setInputValue] = useState("");
@@ -42,12 +43,13 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
         error={error}
         handleChange={handleChange}
       />
-      <Button
+      <Btn
         type="submit"
         label="Add"
         disabled={isAdding}
         pending={isAdding}
         size="medium"
+        variant="contained"
       />
     </form>
   );

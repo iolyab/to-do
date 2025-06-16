@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button } from "../button/Button";
+import { Btn } from "../button/Button";
 import "./taskDeadline.module.scss";
 
 const TaskDeadline = ({ start, end, onStartChange, onEndChange, classes }) => {
@@ -9,12 +9,13 @@ const TaskDeadline = ({ start, end, onStartChange, onEndChange, classes }) => {
 
   return (
     <div>
-      <Button
+      <Btn
         onClick={() => setIsOpen(!isOpen)}
         size="small"
         variant="deadlineButton"
         icon={"/assets/deadline-start.png"}
         className={classes.customButton}
+        sx={{ backgroundColor: "white" }}
       />
       {isOpen && (
         <div className={classes.deadlinePicker}>

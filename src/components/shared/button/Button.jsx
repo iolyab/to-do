@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { Button } from "@mui/material";
+// import { StyledButton } from "./StyledButton";
 import classes from "./button.module.scss";
 
-const Button = ({
+const Btn = ({
   label,
   disabled,
   size = "medium",
@@ -9,6 +10,7 @@ const Button = ({
   variant,
   icon,
   pending = false,
+  sx = {},
   ...props
 }) => {
   const sizeClass = size === "small" ? classes.small : classes.medium;
@@ -29,16 +31,28 @@ const Button = ({
     } else if (variant === "elseButton") {
       return classes.elseButton;
     } else {
-      return classes.customButton;
+      return "";
     }
   };
 
   return (
-    <button
+    <Button
+      sx={{
+        backgroundColor: "#48293d",
+        color: "white",
+        "&:hover": {
+          backgroundColor: "#d8c0cb",
+          color: "#45304d",
+        },
+        "&:focus": {
+          border: "1px solid #45304d",
+        },
+        ...sx,
+      }}
+      disabled={disabled || pending}
       className={`${
         classes.button
       } ${sizeClass} ${variantClass()} ${className}`}
-      disabled={disabled || pending}
       {...props}
     >
       {pending ? (
@@ -48,8 +62,8 @@ const Button = ({
       ) : (
         label
       )}
-    </button>
+    </Button>
   );
 };
 
-export { Button };
+export { Btn };

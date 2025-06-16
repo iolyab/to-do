@@ -1,6 +1,7 @@
-import { complete, postTask, removeTask, updatePriority, updateTask } from "../../api/tasks";
+import { postTask, removeTask, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 import { getTasks } from "./selectors";
+import { formatDateForAirtable } from "../../utils/date";
 
 
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
@@ -14,7 +15,6 @@ export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY';
 export const UPDATE_TASK_LABELS = 'UPDATE_TASK_LABELS';
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
-export const UPDATE_TASK_PENDING = 'UPDATE_TASK_PENDING';
 export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
 
 
@@ -22,18 +22,21 @@ export const addTask = (taskText, startDate, endDate) => {
     return async (dispatch, getState) => {
         const task = createTask(taskText, startDate, endDate);
 
-        const currentTasks = getTasks(getState());
-
-        const updatedTasks = [...currentTasks, task];
-
 
         try {
             const responseTask = await postTask(task);
+            const postedTask = {
+                id: responseTask.id,
+                ...responseTask.fields
+            }
             dispatch({
                 type: ADD_TASK_SUCCESS,
-                payload: responseTask,
+                payload: postedTask,
             })
+
+            const updatedTasks = getTasks(getState());
             saveTasks(updatedTasks)
+
         }catch(error) {
             dispatch({
                 type: ADD_TASK_FAILURE,
@@ -76,7 +79,7 @@ export const completeTask = (id) => {
 
 
         try{
-            await complete(id, updatedTask.completed);
+            await updateTask(id, {completed: updatedTask.completed});
             dispatch({
                 type: UPDATE_TASK_SUCCESS,
                 payload: {id, updatedTaskData: {completed: updatedTask.completed}},
@@ -98,14 +101,26 @@ export const editTask = (id, text, start, end) => {
         if(text.trim().length <= 1) return;
 
         try {
-            const updatedTask = await updateTask(id, text, start, end);
+
+            const updatedFields = { text };
+
+            const formattedStart = formatDateForAirtable(start);
+            const formattedEnd = formatDateForAirtable(end);
+
+            if (formattedStart) updatedFields.start = formattedStart;
+            if (formattedEnd) updatedFields.end = formattedEnd;
+
+            const updatedTask = await updateTask(id, updatedFields);
+
             dispatch({
                 type: UPDATE_TASK_SUCCESS,
-                payload: {id, updatedTaskData: updatedTask}
+                payload: {id, updatedTaskData: updatedTask.fields}
             })
+
             const updatedTasks = getTasks(getState());
             saveTasks(updatedTasks)
             return updatedTask;
+
         }catch (error) {
             console.error("Error editing task:", error);
             dispatch({
@@ -124,10 +139,10 @@ export const updateTaskPriority = (id, newPriority) => {
 
 
         try {
-            const updatedTask = await updatePriority(id, {priority: newPriority});
+            const updatedTask = await updateTask(id, {priority: newPriority});
             dispatch({
                 type: UPDATE_TASK_SUCCESS,
-                payload: {id, updatedTaskData: updatedTask}
+                payload: {id, updatedTaskData: updatedTask.fields}
             })
             const updatedTasks = getTasks(getState());
             console.log(updatedTasks)
@@ -150,13 +165,19 @@ export const updateTaskLabels = (id, newLabel) => {
         let newLabels = [];
 
         if(taskToUpdate) {
-            newLabels = taskToUpdate.labels.includes(newLabel) ? taskToUpdate.labels : [...taskToUpdate.labels, newLabel];
+            const currentLabels = taskToUpdate.labels || [];
+
+            newLabels = currentLabels.includes(newLabel) ? currentLabels.filter(label => label !== newLabel) : [...currentLabels, newLabel];
+        }else {
+            console.log('Task not found:', id);
+            return
         }
         dispatch({
-            type: UPDATE_TASK,
+            type: UPDATE_TASK_SUCCESS,
             payload: {id, updatedTaskData: {labels: newLabels}},
         })
-        const updatedTasks = tasks.map(task => task.id === id ? {...task, labels: newLabels} : task);
+
+        const updatedTasks = getTasks(getState());
         saveTasks(updatedTasks)
     }
 };

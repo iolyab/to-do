@@ -1,4 +1,4 @@
-import { Button } from "../button/Button";
+import { Btn } from "../button/Button";
 import { retrievedPriorityOptions } from "../../../services/priority-service";
 import { Dropdown } from "../dropdown/Dropdown";
 import classes from "./taskPriority.module.scss";
@@ -12,12 +12,13 @@ const TaskPriority = ({ priorityChanged, isUpdatingPriority, disabled }) => {
     <div>
       <Dropdown
         trigger={
-          <Button
+          <Btn
             icon={"/assets/priority.png"}
             size="small"
             className={classes.customDropDownButton}
             disabled={disabled}
             pending={isUpdatingPriority}
+            sx={{ backgroundColor: "white" }}
           />
         }
         onSelect={handleSelect}

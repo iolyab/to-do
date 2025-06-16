@@ -26,7 +26,6 @@ export const saveTasks = (tasks) => {
 
 export const createTask = (taskText, startDate, endDate) => {
     return {
-        id: Math.random() + 1,
         text: taskText,
         completed: false,
         priority: null,
