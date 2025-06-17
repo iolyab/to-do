@@ -14,7 +14,7 @@ const Nav = () => {
               <Btn
                 label="Home"
                 className={classes.btn}
-                sx={{ backgroundColor: "none" }}
+                sx={{ backgroundColor: "#45304d" }}
               />
             </NavLink>
           </li>
@@ -28,7 +28,7 @@ const Nav = () => {
               <Btn
                 label="Dashboard"
                 className={classes.btn}
-                sx={{ backgroundColor: "none" }}
+                sx={{ backgroundColor: "#45304d" }}
               />
             </NavLink>
           </li>
@@ -42,7 +42,7 @@ const Nav = () => {
               <Btn
                 label="Upcoming"
                 className={classes.btn}
-                sx={{ backgroundColor: "none" }}
+                sx={{ backgroundColor: "#45304d" }}
               />
             </NavLink>
           </li>
@@ -56,7 +56,7 @@ const Nav = () => {
               <Btn
                 label="Calendar"
                 className={classes.btn}
-                sx={{ backgroundColor: "none" }}
+                sx={{ backgroundColor: "#45304d" }}
               />
             </NavLink>
           </li>

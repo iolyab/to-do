@@ -1,27 +1,44 @@
 import React from "react";
+import { MuiDropdown } from "../dropdown/Dropdown";
 
 const TaskFilter = ({ onFilterChange }) => {
-  const handleFilterChange = (e) => {
+  const options = [
+    "All",
+    "priority-High",
+    "priority-Medium",
+    "priority-Low",
+    "label-Personal",
+    "label-Work",
+    "date-Today",
+    "date-ThisWeek",
+    "date-Overdue",
+  ];
+
+  const handleFilterChange = (selectedValue) => {
     if (typeof onFilterChange === "function") {
-      onFilterChange(e.target.value);
+      onFilterChange(selectedValue);
     }
   };
 
   return (
     <div>
-      <select onChange={handleFilterChange}>
-        <option value="All">All</option>
-        <option value="priority-High">High priority</option>
-        <option value="priority-Medium">Medium priority</option>
-        <option value="priority-Low">Low priority</option>
-
-        <option value="label-Personal">Personal</option>
-        <option value="label-Work">Work</option>
-
-        <option value="date-Today">Today</option>
-        <option value="date-ThisWeek">This week</option>
-        <option value="date-Overdue">Overdue</option>
-      </select>
+      <MuiDropdown
+        placeholder="Filter"
+        value=""
+        onSelect={handleFilterChange}
+        options={options}
+        size="small"
+        renderItem={(option) => {
+          const [type, label] = option.split("-");
+          if (!label) return option;
+          const prefixMap = {
+            priority: "Priority: ",
+            label: "Label: ",
+            date: "Date: ",
+          };
+          return `${prefixMap[type] || ""}${label}`;
+        }}
+      ></MuiDropdown>
     </div>
   );
 };

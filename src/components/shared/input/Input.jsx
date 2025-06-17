@@ -2,7 +2,7 @@ import classes from "./input.module.scss";
 import PropTypes from "prop-types";
 import TextField from "@mui/material/TextField";
 
-const Input = ({ value, error, handleChange, className, variant }) => {
+const Input = ({ label, value, error, handleChange, className, variant }) => {
   const sxPadding =
     variant === "edit"
       ? { "& .MuiOutlinedInput-input": { padding: "4px 40px 4px 5px" } }
@@ -11,7 +11,7 @@ const Input = ({ value, error, handleChange, className, variant }) => {
   return (
     <div className={`${classes.inputContainer} ${className || ""}`}>
       <TextField
-        label="To-do..."
+        label={label}
         variant="outlined"
         value={value}
         onChange={handleChange}

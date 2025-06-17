@@ -38,6 +38,7 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
   return (
     <form className={classes.inputFieldContainer} onSubmit={handleSubmit}>
       <Input
+        label="To do..."
         type="text"
         value={inputValue}
         error={error}
@@ -50,6 +51,8 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
         pending={isAdding}
         size="medium"
         variant="contained"
+        color="primary"
+        sx={{ width: "120px" }}
       />
     </form>
   );

@@ -1,18 +1,27 @@
-.customDropDownButton {
-  border-style: solid;
-  border-color: #48293d;
-  border-width: 1px;
-  background-color: white;
-  color: #48293d;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 75px;
+// .customDropDownButton {
+//   border-style: solid;
+//   border-color: #48293d;
+//   border-width: 1px;
+//   background-color: white;
+//   color: #48293d;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   min-width: 75px;
 
-  &:hover {
-    color: white;
-    background-color: #fbf1ff;
-  }
-}
+//   &:hover {
+//     color: white;
+//     background-color: #fbf1ff;
+//   }
+// }
+
+// .customButton {
+//   background-color: white;
+//   color: #48293d;
+//   &:hover {
+//     color: #48293d;
+//     background-color: rgb(240, 238, 238);
+//   }
+// }
 
 .dropDownMenu {
   position: absolute;

@@ -1,53 +1,61 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
-const Dropdown = ({ classes, trigger, onSelect, options, renderItem }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const MuiDropdown = ({
+  label,
+  size = "small",
+  value = "",
+  placeholder = "",
+  fullWidth = false,
+  variant = "outlined",
+  classes,
+  onSelect,
+  options,
+  renderItem,
+}) => {
+  const [selectedValue, setSelectedValue] = useState(value);
 
-  const dropdownRef = useRef(null);
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    setSelectedValue(newValue);
 
-  const handleClickOutside = (e) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleDropdownClick = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const handleSelect = (option) => {
-    setIsOpen(false);
     if (typeof onSelect === "function") {
-      onSelect(option);
+      onSelect(newValue);
     }
   };
 
   return (
-    <div className={classes.dropdownContainer} ref={dropdownRef}>
-      <div onClick={handleDropdownClick}>{trigger}</div>
-      {isOpen && (
-        <div className={classes.dropDownMenu}>
-          {options.map((option) => (
-            <div
-              key={option}
-              onClick={() => handleSelect(option)}
-              className={classes.dropDownItem}
-            >
-              {typeof renderItem === "function" ? renderItem(option) : option}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <FormControl size={size} fullWidth={fullWidth} variant={variant}>
+      {label && <InputLabel>{label}</InputLabel>}
+      <Select
+        value={selectedValue}
+        onChange={handleChange}
+        displayEmpty={!!placeholder}
+        renderValue={selectedValue !== "" ? undefined : () => placeholder}
+        sx={{
+          fontSize: "12px",
+          ".MuiSelect-select": {
+            padding: "3px 8px",
+          },
+          ".MuiSvgIcon-root": {
+            fontSize: "18px",
+          },
+        }}
+      >
+        {placeholder && (
+          <MenuItem value="" disabled>
+            {placeholder}
+          </MenuItem>
+        )}
+        {options.map((option) => (
+          <MenuItem key={option} value={option}>
+            {typeof renderItem === "function" ? renderItem(option) : option}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
-export { Dropdown };
+export { MuiDropdown };

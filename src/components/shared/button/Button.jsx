@@ -5,15 +5,16 @@ import classes from "./button.module.scss";
 const Btn = ({
   label,
   disabled,
-  size = "medium",
+  size = "small",
   className = "",
   variant,
   icon,
   pending = false,
   sx = {},
+  color = "primary",
   ...props
 }) => {
-  const sizeClass = size === "small" ? classes.small : classes.medium;
+  // const sizeClass = size === "small" ? classes.small : classes.medium;
 
   const variantClass = () => {
     if (variant === "cancel") {
@@ -37,22 +38,12 @@ const Btn = ({
 
   return (
     <Button
-      sx={{
-        backgroundColor: "#48293d",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "#d8c0cb",
-          color: "#45304d",
-        },
-        "&:focus": {
-          border: "1px solid #45304d",
-        },
-        ...sx,
-      }}
+      color={color}
+      size={size}
+      variant="contained"
+      sx={{ ...sx }}
       disabled={disabled || pending}
-      className={`${
-        classes.button
-      } ${sizeClass} ${variantClass()} ${className}`}
+      className={`${classes.button}  ${variantClass()} ${className}`}
       {...props}
     >
       {pending ? (

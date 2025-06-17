@@ -1,37 +1,42 @@
 import React from "react";
 import { getSortParams } from "../../../utils/sort";
-import classes from "./sortTasks.module.scss";
+import { MuiDropdown } from "../dropdown/Dropdown";
 
 const TasksSort = ({ sortParams, onSortChange, sortFields }) => {
-  const handleSortChange = (e) => {
+  const handleSortChange = (selectedValue) => {
     if (typeof onSortChange === "function") {
-      onSortChange(getSortParams(e.target.value));
+      onSortChange(getSortParams(selectedValue));
     }
   };
 
-  const sortOptions = sortFields.map((field) => {
-    return (
-      <>
-        <option value={`${field}-asc`}>⬆️{field}</option>
-        <option value={`${field}-desc`}>⬇️{field}</option>
-      </>
-    );
-  });
+  const sortOptions = sortFields.flatMap((field) => [
+    `${field}-asc`,
+    `${field}-desc`,
+  ]);
 
   return (
     <div>
-      <select
-        onChange={handleSortChange}
+      <MuiDropdown
         value={
           sortParams.field === "none"
-            ? "default"
+            ? ""
             : `${sortParams.field}-${sortParams.order}`
         }
-        className={classes.sortDropdown}
-      >
-        <option value="default">Sort</option>
-        {sortOptions}
-      </select>
+        onSelect={handleSortChange}
+        options={sortOptions}
+        placeholder="Sort"
+        size="small"
+        renderItem={(option) => {
+          const [field, order] = option.split("-");
+          return (
+            <span>
+              {order === "asc" ? "⬆️" : "⬇️"}
+              {field}
+            </span>
+          );
+        }}
+        fullWidth={false}
+      ></MuiDropdown>
     </div>
   );
 };

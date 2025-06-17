@@ -88,7 +88,6 @@ const TaskItemSimplified = ({
           variant="elseButton"
           size="small"
           className={classes.customButton}
-          sx={{ padding: "10px 10px" }}
         />
       </div>
 
@@ -132,28 +131,18 @@ const TaskItemSimplified = ({
         ) : (
           <div className={classes.taskItemsContainerSimplified}>
             <div className={classes.taskActionsSimplified}>
+              <TaskPriority key={task.id} priorityChanged={priorityChanged} />
               <Btn
                 onClick={handleEditClick}
                 icon={"/assets/edit.png"}
                 size="small"
-                className={classes.customButton}
-                sx={{ backgroundColor: "white" }}
+                color="secondary"
               />
-
-              <div className={classes.priorityContainer}>
-                <TaskPriority
-                  key={task.id}
-                  priorityChanged={priorityChanged}
-                  icon={"/assets/priority.png"}
-                />
-              </div>
-
               <Btn
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
-                className={classes.customButton}
-                sx={{ backgroundColor: "white" }}
+                color="secondary"
               />
             </div>
           </div>

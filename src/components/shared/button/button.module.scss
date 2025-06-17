@@ -1,13 +1,10 @@
 .button {
   padding: 10px 30px 10px 30px;
-  background-color: #48293d;
-  color: white;
-  font-weight: bold;
   border-style: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #d8c0cb;
+    background-color: #fbf1ff;
     color: #45304d;
   }
 
@@ -20,7 +17,6 @@
 
 .small {
   padding: 5px 10px 5px 10px;
-  color: white;
   font-size: 14px;
   font-weight: bold;
   border-style: none;

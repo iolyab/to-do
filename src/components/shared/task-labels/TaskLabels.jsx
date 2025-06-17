@@ -3,6 +3,7 @@ import { Btn } from "../button/Button";
 import { addLabel } from "../../../services/labels-service";
 import { getLabels } from "../../../services/labels-service";
 import classes from "./taskLabels.module.scss";
+import { Input } from "../input/Input";
 
 const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,8 +45,8 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
         onClick={handleIsOpen}
         label={currentLabel || "Labels"}
         size="small"
-        // className={classes.customDropDownButtonLabels}
-        sx={{ backgroundColor: "white", color: "#45304d", fontSize: "7px" }}
+        color="secondary"
+        sx={{ fontSize: "7px" }}
       />
       {isOpen && (
         <ul className={classes.dropDownMenuLabels}>
@@ -68,7 +69,7 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
                 size="small"
                 variant="addLabel"
                 className={classes.customButton}
-                sx={{ backgroundColor: "white" }}
+                color="primary"
               />
             ) : (
               <div>
@@ -79,13 +80,13 @@ const TaskLabels = ({ labelsSet, currentLabel, labels }) => {
                   placeholder="Add label..."
                   className={classes.newLabelInput}
                 />
+
                 <Btn
                   onClick={handleCreateLabel}
                   icon={"/assets/save.png"}
                   size="small"
                   variant="saveLabel"
                   className={classes.customButton}
-                  sx={{ backgroundColor: "white" }}
                 >
                   Add
                 </Btn>

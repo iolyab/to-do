@@ -35,7 +35,7 @@ const Signup = () => {
               required
             />
           </label>
-          <Btn label="Sign Up" size="medium" className={classes.btn} />
+          <Btn label="Sign Up" size="small" className={classes.btn} />
         </form>
       </div>
     </div>

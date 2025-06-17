@@ -109,13 +109,6 @@ const TaskItem = ({
         ) : (
           <div className={classes.taskItemsContainer}>
             <div className={classes.taskActions}>
-              <Btn
-                onClick={handleEditClick}
-                icon={"/assets/edit.png"}
-                size="small"
-                className={classes.customButton}
-                sx={{ backgroundColor: "white" }}
-              />
               <div className={classes.priorityContainer}>
                 <TaskPriority
                   key={task.id}
@@ -125,15 +118,21 @@ const TaskItem = ({
                   isUpdatingPriority={isUpdatingPriority}
                 />
               </div>
-
+              <Btn
+                onClick={handleEditClick}
+                icon={"/assets/edit.png"}
+                size="small"
+                color="secondary"
+                className={classes.customButton}
+              />
               <Btn
                 onClick={deleted}
                 size="small"
                 icon={"/assets/delete.png"}
                 disabled={isDeletingTask}
                 pending={isDeletingTask}
+                color="secondary"
                 className={classes.customButton}
-                sx={{ backgroundColor: "white" }}
               />
             </div>
             <div className={classes.taskLabels}>

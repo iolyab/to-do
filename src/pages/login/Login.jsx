@@ -26,7 +26,7 @@ const Login = () => {
               required
             />
           </label>
-          <Btn label="Log In" size="medium" className={classes.btn} />
+          <Btn label="Log In" size="small" className={classes.btn} />
         </form>
       </div>
     </div>
