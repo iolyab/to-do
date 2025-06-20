@@ -4,6 +4,7 @@ import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
+import classes from "./calendar.module.scss";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useState } from "react";
@@ -32,7 +33,7 @@ const BigCalendar = () => {
     const startDate = task.start ? dayjs(task.start).toDate() : null;
     const endDate = task.end ? dayjs(task.end).toDate() : null;
 
-    const isAllDay = !startDate || !endDate;
+    const isAllDay = !startDate;
 
     return {
       title: task.text,
@@ -44,7 +45,7 @@ const BigCalendar = () => {
 
   return (
     <Layout>
-      <div>
+      <div className={classes.customCalendar}>
         <Calendar
           localizer={localizer}
           events={events}

@@ -47,7 +47,7 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
       <Btn
         type="submit"
         label="Add"
-        disabled={isAdding}
+        disabled={isAdding || !!error || inputValue.trim() === ""}
         pending={isAdding}
         size="medium"
         variant="contained"

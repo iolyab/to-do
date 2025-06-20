@@ -22,7 +22,7 @@ const Input = ({ label, value, error, handleChange, className, variant }) => {
         sx={{
           ...sxPadding,
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ccc",
+            borderColor: "#45304d",
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: "#48293d",

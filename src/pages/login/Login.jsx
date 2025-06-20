@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./Login.module.scss";
 import { Btn } from "../../components/shared/button/Button";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const isEmailValid = email.trim() !== "";
+  const isPasswordValid = password.trim() !== "";
+
+  const isFormValid = isEmailValid && isPasswordValid;
+
   return (
     <div className={classes.body}>
       <div className={classes.container}>
@@ -13,6 +21,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Enter your email..."
+              onChange={(e) => setEmail(e.target.value)}
               className={classes.input}
               required
             />
@@ -22,11 +31,17 @@ const Login = () => {
             <input
               type="password"
               placeholder="Enter your password..."
+              onChange={(e) => setPassword(e.target.value)}
               className={classes.input}
               required
             />
           </label>
-          <Btn label="Log In" size="small" className={classes.btn} />
+          <Btn
+            label="Log In"
+            size="small"
+            className={classes.btn}
+            disabled={!isFormValid}
+          />
         </form>
       </div>
     </div>

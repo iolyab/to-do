@@ -2,6 +2,7 @@ import { postTask, removeTask, updateTask } from "../../api/tasks";
 import { createTask, saveTasks } from "../../services/tasks-service";
 import { getTasks } from "./selectors";
 import { formatDateForAirtable } from "../../utils/date";
+import { addLabel } from "../../services/labels-service";
 
 
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
@@ -179,6 +180,10 @@ export const updateTaskLabels = (id, newLabel) => {
 
         const updatedTasks = getTasks(getState());
         saveTasks(updatedTasks)
+
+        if (newLabels.includes(newLabel)) {
+            addLabel(newLabel);
+          }
     }
 };
 
