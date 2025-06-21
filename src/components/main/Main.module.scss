@@ -27,6 +27,8 @@
   background-color: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   width: 695px;
+  max-height: 500px;
   grid-column: 2;
   grid-row: 3;
+  overflow-y: auto;
 }

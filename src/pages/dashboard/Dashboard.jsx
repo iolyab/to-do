@@ -17,6 +17,7 @@ const Dashboard = () => {
     const labels = getLabels();
     const filtered = labels.filter((label) => label !== "Work");
     setAvailableLabels(filtered);
+    console.log(filtered);
   }, []);
 
   const handleSwitchContainerForward = () => {
@@ -59,24 +60,30 @@ const Dashboard = () => {
         <Title />
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>In progress</p>
-          <TaskListContainer tasks={filteredTasks.inProgress} isSimplified />
+          <div className={classes.taskList}>
+            <TaskListContainer tasks={filteredTasks.inProgress} isSimplified />
+          </div>
         </div>
         <div className={classes.tasks}>
           <p className={classes.tasksTitle}>Completed</p>
-          <TaskListContainer tasks={filteredTasks.completed} isSimplified />
+          <div className={classes.taskList}>
+            <TaskListContainer tasks={filteredTasks.completed} isSimplified />
+          </div>
         </div>
         <div className={classes.workPersonalContainer}>
-          <div className={classes.tasks}>
+          <div className={classes.tasksLabels}>
             <p className={classes.tasksTitle}>Work</p>
-            <TaskListContainer tasks={filteredTasks.work} isSimplified />
+            <div className={classes.taskList}>
+              <TaskListContainer tasks={filteredTasks.work} isSimplified />
+            </div>
           </div>
-          <div className={classes.tasks}>
+          <div className={classes.tasksLabels}>
             <div className={classes.switchContainer}>
               <Btn
                 onClick={handleSwitchContainerBackward}
                 label="&lt;"
                 variant="arrowButton"
-                size="small"
+                size="extraSmall"
                 className={`${classes.customButton} ${
                   currentIndex === 0 ? classes.disabled : ""
                 }`}
@@ -98,7 +105,9 @@ const Dashboard = () => {
                 disabled={currentIndex === availableLabels.length - 1}
               />
             </div>
-            <TaskListContainer tasks={filteredTasks.currLabel} isSimplified />
+            <div className={classes.taskList}>
+              <TaskListContainer tasks={filteredTasks.currLabel} isSimplified />
+            </div>
           </div>
         </div>
       </div>

@@ -14,7 +14,9 @@ const Upcoming = () => {
       <div className={classes.container}>
         <Title />
         <div className={classes.priority}>
-          <p className={classes.priorityTitle}>High priority</p>
+          <div className={classes.titleContainer}>
+            <p className={classes.priorityTitle}>High priority</p>
+          </div>
           <div className={classes.tasksContainer}>
             <TaskListContainer
               tasks={tasks.filter((task) => task.priority === "High")}
