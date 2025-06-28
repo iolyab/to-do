@@ -61,9 +61,21 @@ const TaskItem = ({
             className={classes.editInput}
           />
         ) : (
-          <span className={task.completed ? classes.completed : ""}>
-            {task.text}
-          </span>
+          <div>
+            <span className={task.completed ? classes.completed : ""}>
+              {task.text}
+            </span>
+            {task.labels && task.labels.length > 0 && (
+              <div className={classes.labelList}>
+                {task.labels.map((label, index) => (
+                  <span key={index} className={classes.labelTag}>
+                    #{label}
+                    {index < task.labels.length}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
         )}
       </div>
 
@@ -109,6 +121,24 @@ const TaskItem = ({
         ) : (
           <div className={classes.taskItemsContainer}>
             <div className={classes.taskActions}>
+              <div className={classes.hoveredTaskActions}>
+                <Btn
+                  onClick={handleEditClick}
+                  icon={"/assets/edit.png"}
+                  size="small"
+                  color="secondary"
+                  className={classes.customButton}
+                />
+                <Btn
+                  onClick={deleted}
+                  size="small"
+                  icon={"/assets/delete.png"}
+                  disabled={isDeletingTask}
+                  pending={isDeletingTask}
+                  color="secondary"
+                  className={classes.customButton}
+                />
+              </div>
               <div className={classes.priorityContainer}>
                 <TaskPriority
                   key={task.id}
@@ -118,39 +148,12 @@ const TaskItem = ({
                   isUpdatingPriority={isUpdatingPriority}
                 />
               </div>
-              <Btn
-                onClick={handleEditClick}
-                icon={"/assets/edit.png"}
-                size="small"
-                color="secondary"
-                className={classes.customButton}
-              />
-              <Btn
-                onClick={deleted}
-                size="small"
-                icon={"/assets/delete.png"}
-                disabled={isDeletingTask}
-                pending={isDeletingTask}
-                color="secondary"
-                className={classes.customButton}
-              />
             </div>
             <div className={classes.taskLabels}>
               {calculatedDeadline() && (
                 <p className={classes.taskDeadline}>
                   📅 {calculatedDeadline()}
                 </p>
-              )}
-
-              {task.labels && task.labels.length > 0 && (
-                <div className={classes.labelList}>
-                  {task.labels.map((label, index) => (
-                    <span key={index} className={classes.labelTag}>
-                      {label}
-                      {index < task.labels.length}
-                    </span>
-                  ))}
-                </div>
               )}
             </div>
           </div>

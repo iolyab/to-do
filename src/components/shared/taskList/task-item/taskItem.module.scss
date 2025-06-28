@@ -5,6 +5,22 @@
   align-items: center;
   column-gap: 20px;
   background-color: #fafafa;
+  border-radius: 6px;
+
+  &:hover {
+    .hoveredTaskActions {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.hoveredTaskActions {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .taskText {
@@ -113,15 +129,15 @@
 }
 
 .High {
-  background-color: lightpink;
+  background-color: #f2d9f8;
 }
 
 .Medium {
-  background-color: thistle;
+  background-color: #dfbfe6;
 }
 
 .Low {
-  background-color: lavenderblush;
+  background-color: #cfa9d6;
 }
 
 .taskLabels {
@@ -139,7 +155,7 @@
 }
 
 .labelTag {
-  background-color: rgb(233, 231, 231);
+  background-color: rgba(255, 255, 255, 0.2);
   color: #48293d;
   font-size: 12px;
   border-style: solid;

@@ -72,7 +72,7 @@ const TaskItemSimplified = ({
             <div className={classes.labelList}>
               {task.labels.map((label, index) => (
                 <span key={index} className={classes.labelTag}>
-                  {label}
+                  #{label}
                   {index < task.labels.length}
                 </span>
               ))}

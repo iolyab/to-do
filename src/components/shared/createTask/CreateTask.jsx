@@ -38,7 +38,7 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
   return (
     <form className={classes.inputFieldContainer} onSubmit={handleSubmit}>
       <Input
-        label="To do..."
+        label="Call John tomorrow at 2 pm #work..."
         type="text"
         value={inputValue}
         error={error}
@@ -47,7 +47,7 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
       <Btn
         type="submit"
         label="Add"
-        disabled={isAdding || !!error || inputValue.trim() === ""}
+        disabled={isAdding || !!error}
         pending={isAdding}
         size="medium"
         variant="contained"

@@ -12,6 +12,7 @@
   padding: 10px 10px 30px 15px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   font-weight: bold;
+  border-radius: 6px;
 }
 
 .form {
@@ -28,6 +29,7 @@
 
 .input {
   border-style: solid;
+  border-radius: 8px;
   border-width: 2px;
   border-color: #d8d8d8;
   padding: 10px 100px 10px 20px;
@@ -36,6 +38,10 @@
   &:focus {
     border-color: #48293d;
   }
+}
+
+label {
+  border-radius: 6px;
 }
 
 .password {

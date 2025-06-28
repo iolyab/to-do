@@ -13,8 +13,9 @@
   background-color: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   place-items: center;
-  max-height: 600px;
+  min-height: 620px;
   overflow-y: auto;
+  border-radius: 6px;
 }
 
 .priorityTitle {

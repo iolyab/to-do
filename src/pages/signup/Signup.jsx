@@ -6,6 +6,12 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [hasTyped, setHasTyped] = useState(false);
+
+  const handleChange = (setter) => (e) => {
+    setter(e.target.value);
+    setHasTyped(true);
+  };
 
   const isEmailValid = email.trim() !== "";
   const isPasswordValid = password.trim() !== "";
@@ -28,7 +34,7 @@ const Signup = () => {
             <input
               type="email"
               placeholder="Enter email..."
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange(setEmail)}
               className={classes.input}
               required
             />
@@ -38,7 +44,7 @@ const Signup = () => {
             <input
               type="password"
               placeholder="Create password..."
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange(setPassword)}
               className={classes.input}
               required
             />
@@ -48,7 +54,7 @@ const Signup = () => {
             <input
               type="password"
               placeholder="Confirm password..."
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={handleChange(setConfirmPassword)}
               className={classes.input}
               required
             />
@@ -57,7 +63,7 @@ const Signup = () => {
             label="Sign Up"
             size="small"
             className={classes.btn}
-            disabled={!isFormValid}
+            disabled={hasTyped && !isFormValid}
           />
           {!doPasswordsMatch && confirmPassword && (
             <p style={{ color: "red" }}>Passwords do not match.</p>
