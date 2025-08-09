@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Input } from "../input/Input";
 import { Btn } from "../button/Button";
 import classes from "./createTask.module.scss";
-// import Btn from "../button/Btn";
 
-const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { processUserInput } from "../../../store/tasks/actions";
+
+const CreateTask = ({ onChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
+  const isAdding = useSelector((state) => state.tasks.loading);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -27,11 +32,9 @@ const CreateTask = ({ startDate, endDate, onAddTask, onChange, isAdding }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!error && inputValue) {
-      if (onAddTask && typeof onAddTask === "function") {
-        onAddTask(inputValue, startDate, endDate);
-        setInputValue("");
-      }
+    if (!error && inputValue.trim()) {
+      dispatch(processUserInput(inputValue.trim()));
+      setInputValue("");
     }
   };
 

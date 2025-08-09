@@ -4,7 +4,7 @@ import { Title } from "../shared/title/Title";
 import { CreateTask } from "../shared/createTask/CreateTask";
 import { TaskListContainer } from "../shared/taskList/task-list/TaskListContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../store/tasks/actions";
+import { addTask, processUserInput } from "../../store/tasks/actions";
 import { getTasks } from "../../store/tasks/selectors";
 import { useState } from "react";
 
@@ -13,11 +13,15 @@ const Main = () => {
   const dispatch = useDispatch();
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddTask = (taskText, startDate, endDate) => {
+  const handleAddTask = async (userInput) => {
     setIsAdding(true);
-    dispatch(addTask(taskText, startDate, endDate)).finally(() => {
+    try {
+      await dispatch(processUserInput(userInput));
+    } catch (error) {
+      console.error("AI Task creation failed:", error);
+    } finally {
       setIsAdding(false);
-    });
+    }
   };
 
   return (

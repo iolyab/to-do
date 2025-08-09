@@ -6,7 +6,11 @@ const Input = ({ label, value, error, handleChange, className, variant }) => {
   const sxPadding =
     variant === "edit"
       ? { "& .MuiOutlinedInput-input": { padding: "4px 40px 4px 5px" } }
-      : { "& .MuiOutlinedInput-input": { padding: "10px 390px 10px 10px" } };
+      : {
+          "& .MuiOutlinedInput-input": {
+            padding: "10px 390px 10px 10px",
+          },
+        };
 
   return (
     <div className={`${classes.inputContainer} ${className || ""}`}>

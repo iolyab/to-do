@@ -3,190 +3,187 @@ import { createTask, saveTasks } from "../../services/tasks-service";
 import { getTasks } from "./selectors";
 import { formatDateForAirtable } from "../../utils/date";
 import { addLabel } from "../../services/labels-service";
+import { parseTaskWithAI } from "../../api/aiTaskParser";
+export const apiKey = process.env.REACT_APP_OPENAI_KEY;
 
+export const ADD_TASK_REQUEST = "ADD_TASK_REQUEST";
+export const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS";
+export const ADD_TASK_FAILURE = "ADD_TASK_FAILURE";
+export const ADD_TASK_PENDING = "ADD_TASK_PENDING";
+export const DELETE_TASK_SUCCESS = "DELETE_TASK_SUCCESS";
+export const DELETE_TASK_PENDING = "DELETE_TASK_PENDING";
+export const DELETE_TASK_FAILURE = "DELETE_TASK_FAILURE";
+export const COMPLETE_TASK = "COMPLETE_TASK";
+export const UPDATE_TASK_PRIORITY = "UPDATE_TASK_PRIORITY";
+export const UPDATE_TASK_LABELS = "UPDATE_TASK_LABELS";
+export const UPDATE_TASK = "UPDATE_TASK";
+export const UPDATE_TASK_SUCCESS = "UPDATE_TASK_SUCCESS";
+export const UPDATE_TASK_FAILURE = "UPDATE_TASK_FAILURE";
 
-export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
-export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
-export const ADD_TASK_PENDING = 'ADD_TASK_PENDING'
-export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
-export const DELETE_TASK_PENDING = 'DELETE_TASK_PENDING';
-export const DELETE_TASK_FAILURE = 'DELETE_TASK_FAILURE';
-export const COMPLETE_TASK = 'COMPLETE_TASK';
-export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY';
-export const UPDATE_TASK_LABELS = 'UPDATE_TASK_LABELS';
-export const UPDATE_TASK = 'UPDATE_TASK';
-export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
-export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
+export const processUserInput = (userInput) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: ADD_TASK_REQUEST });
 
+    try {
+      const parsedTask = await parseTaskWithAI(userInput, apiKey);
 
-export const addTask = (taskText, startDate, endDate) => {
-    return async (dispatch, getState) => {
-        const task = createTask(taskText, startDate, endDate);
+      const airtableTask = {
+        text: parsedTask.text,
+        completed: false,
+        priority: null,
+        labels: parsedTask.labels,
+        start: parsedTask.dateTime,
+        end: null,
+      };
 
+      const responseTask = await postTask(airtableTask);
 
-        try {
-            const responseTask = await postTask(task);
-            const postedTask = {
-                id: responseTask.id,
-                ...responseTask.fields
-            }
-            dispatch({
-                type: ADD_TASK_SUCCESS,
-                payload: postedTask,
-            })
+      const postedTask = {
+        id: responseTask.id,
+        ...responseTask.fields,
+      };
 
-            const updatedTasks = getTasks(getState());
-            saveTasks(updatedTasks)
-
-        }catch(error) {
-            dispatch({
-                type: ADD_TASK_FAILURE,
-                payload: error,
-            })
-        }
+      dispatch({
+        type: ADD_TASK_SUCCESS,
+        payload: postedTask,
+      });
+    } catch (error) {
+      dispatch({ type: ADD_TASK_FAILURE, payload: error.message });
     }
+  };
 };
 
 export const deleteTask = (id) => {
-    return async(dispatch, getState) => {
-        const currentTasks = getTasks(getState());
+  return async (dispatch, getState) => {
+    const currentTasks = getTasks(getState());
 
-        const updatedTasks = currentTasks.filter(task => task.id !== id);
+    const updatedTasks = currentTasks.filter((task) => task.id !== id);
 
-
-        try{
-            await removeTask(id);
-            dispatch({
-                type: DELETE_TASK_SUCCESS,
-                payload: updatedTasks,
-            })
-            saveTasks(updatedTasks)
-        }catch (error) {
-            console.error("Error deleting task:", error);
-            dispatch({
-                type: DELETE_TASK_FAILURE,
-                payload: {id, error},
-            })
-        }
+    try {
+      await removeTask(id);
+      dispatch({
+        type: DELETE_TASK_SUCCESS,
+        payload: updatedTasks,
+      });
+      saveTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      dispatch({
+        type: DELETE_TASK_FAILURE,
+        payload: { id, error },
+      });
     }
+  };
 };
 
 export const completeTask = (id) => {
-    return async(dispatch, getState) => {
-        const currentTasks = getTasks(getState());
+  return async (dispatch, getState) => {
+    const currentTasks = getTasks(getState());
 
-        const updatedTasks = currentTasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task)
-        const updatedTask = updatedTasks.find(task => task.id === id);
+    const updatedTasks = currentTasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    const updatedTask = updatedTasks.find((task) => task.id === id);
 
-
-        try{
-            await updateTask(id, {completed: updatedTask.completed});
-            dispatch({
-                type: UPDATE_TASK_SUCCESS,
-                payload: {id, updatedTaskData: {completed: updatedTask.completed}},
-            })
-            saveTasks(updatedTasks)
-        }catch (error) {
-            console.error("Error completing task:", error);
-            dispatch({
-                type: UPDATE_TASK_FAILURE,
-                payload: {id, error},
-            })
-        }
-
+    try {
+      await updateTask(id, { completed: updatedTask.completed });
+      dispatch({
+        type: UPDATE_TASK_SUCCESS,
+        payload: { id, updatedTaskData: { completed: updatedTask.completed } },
+      });
+      saveTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error completing task:", error);
+      dispatch({
+        type: UPDATE_TASK_FAILURE,
+        payload: { id, error },
+      });
     }
+  };
 };
 
 export const editTask = (id, text, start, end) => {
-    return async(dispatch, getState) => {
-        if(text.trim().length <= 1) return;
+  return async (dispatch, getState) => {
+    if (text.trim().length <= 1) return;
 
-        try {
+    try {
+      const updatedFields = { text };
 
-            const updatedFields = { text };
+      const formattedStart = formatDateForAirtable(start);
+      const formattedEnd = formatDateForAirtable(end);
 
-            const formattedStart = formatDateForAirtable(start);
-            const formattedEnd = formatDateForAirtable(end);
+      if (formattedStart) updatedFields.start = formattedStart;
+      if (formattedEnd) updatedFields.end = formattedEnd;
 
-            if (formattedStart) updatedFields.start = formattedStart;
-            if (formattedEnd) updatedFields.end = formattedEnd;
+      const updatedTask = await updateTask(id, updatedFields);
 
-            const updatedTask = await updateTask(id, updatedFields);
+      dispatch({
+        type: UPDATE_TASK_SUCCESS,
+        payload: { id, updatedTaskData: updatedTask.fields },
+      });
 
-            dispatch({
-                type: UPDATE_TASK_SUCCESS,
-                payload: {id, updatedTaskData: updatedTask.fields}
-            })
-
-            const updatedTasks = getTasks(getState());
-            saveTasks(updatedTasks)
-            return updatedTask;
-
-        }catch (error) {
-            console.error("Error editing task:", error);
-            dispatch({
-                type: UPDATE_TASK_FAILURE,
-                payload: {id, error},
-            });
-            throw error;
-        }
-
-
+      const updatedTasks = getTasks(getState());
+      saveTasks(updatedTasks);
+      return updatedTask;
+    } catch (error) {
+      console.error("Error editing task:", error);
+      dispatch({
+        type: UPDATE_TASK_FAILURE,
+        payload: { id, error },
+      });
+      throw error;
     }
+  };
 };
 
 export const updateTaskPriority = (id, newPriority) => {
-    return async(dispatch, getState) => {
-
-
-        try {
-            const updatedTask = await updateTask(id, {priority: newPriority});
-            dispatch({
-                type: UPDATE_TASK_SUCCESS,
-                payload: {id, updatedTaskData: updatedTask.fields}
-            })
-            const updatedTasks = getTasks(getState());
-            console.log(updatedTasks)
-            saveTasks(updatedTasks)
-        }catch (error) {
-            console.error("Error updating priority:", error);
-            dispatch({
-                type: UPDATE_TASK_FAILURE,
-                payload: {id, error},
-            })
-        }
+  return async (dispatch, getState) => {
+    try {
+      const updatedTask = await updateTask(id, { priority: newPriority });
+      dispatch({
+        type: UPDATE_TASK_SUCCESS,
+        payload: { id, updatedTaskData: updatedTask.fields },
+      });
+      const updatedTasks = getTasks(getState());
+      console.log(updatedTasks);
+      saveTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error updating priority:", error);
+      dispatch({
+        type: UPDATE_TASK_FAILURE,
+        payload: { id, error },
+      });
     }
+  };
 };
 
 export const updateTaskLabels = (id, newLabel) => {
-    return(dispatch, getState) => {
-        const tasks = getTasks(getState());
-        const taskToUpdate = tasks.find(task => task.id === id);
+  return (dispatch, getState) => {
+    const tasks = getTasks(getState());
+    const taskToUpdate = tasks.find((task) => task.id === id);
 
-        let newLabels = [];
+    let newLabels = [];
 
-        if(taskToUpdate) {
-            const currentLabels = taskToUpdate.labels || [];
+    if (taskToUpdate) {
+      const currentLabels = taskToUpdate.labels || [];
 
-            newLabels = currentLabels.includes(newLabel) ? currentLabels.filter(label => label !== newLabel) : [...currentLabels, newLabel];
-        }else {
-            console.log('Task not found:', id);
-            return
-        }
-        dispatch({
-            type: UPDATE_TASK_SUCCESS,
-            payload: {id, updatedTaskData: {labels: newLabels}},
-        })
-
-        const updatedTasks = getTasks(getState());
-        saveTasks(updatedTasks)
-
-        if (newLabels.includes(newLabel)) {
-            addLabel(newLabel);
-          }
+      newLabels = currentLabels.includes(newLabel)
+        ? currentLabels.filter((label) => label !== newLabel)
+        : [...currentLabels, newLabel];
+    } else {
+      console.log("Task not found:", id);
+      return;
     }
+    dispatch({
+      type: UPDATE_TASK_SUCCESS,
+      payload: { id, updatedTaskData: { labels: newLabels } },
+    });
+
+    const updatedTasks = getTasks(getState());
+    saveTasks(updatedTasks);
+
+    if (newLabels.includes(newLabel)) {
+      addLabel(newLabel);
+    }
+  };
 };
-
-
-
-
